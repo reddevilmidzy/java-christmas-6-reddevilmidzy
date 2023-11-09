@@ -2,11 +2,16 @@ package christmas.model;
 
 public class VisitDate {
 
+    public static final Integer CHRISTMAS_DAY = 25;
     private final Integer date;
 
     public VisitDate(Integer date) {
         validate(date);
         this.date = date;
+    }
+
+    public Integer leftUntilChristmas() {
+        return CHRISTMAS_DAY - date;
     }
 
     private void validate(Integer value) {
