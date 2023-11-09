@@ -1,7 +1,10 @@
 package christmas.controller;
 
+import christmas.model.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+
+import java.util.List;
 
 public class ChristmasPromotionController {
 
@@ -15,11 +18,18 @@ public class ChristmasPromotionController {
 
     public void run() {
         outputView.printWelcomeMessage();
-        Integer date = readDate();
+        VisitDate date = readDate();
+        List<String> order = readOrder();
     }
 
-    private Integer readDate() {
+    private VisitDate readDate() {
         String value = inputView.readDate();
-        return Integer.valueOf(value);
+        Integer date = Integer.valueOf(value);
+        return new VisitDate(date);
+    }
+
+    private List<String> readOrder() {
+        String value = inputView.readOrder();
+        return List.of(value.split(","));
     }
 }
