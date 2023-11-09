@@ -42,4 +42,9 @@ public class VisitDate {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
+
+    //TODO: 출력때문에 쓰고 있는데 제거 하기
+    public Integer getDate() {
+        return date;
+    }
 }

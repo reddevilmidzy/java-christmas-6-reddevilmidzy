@@ -23,6 +23,7 @@ public class ChristmasPromotionController {
         VisitDate date = readDate();
         List<String> order = readOrder();
         int christmasDDayDiscount = discountPolicy.ChristmasDDAYDiscount(date);
+        outputView.printPreviewEventBenefits(date);
     }
 
     private VisitDate readDate() {
