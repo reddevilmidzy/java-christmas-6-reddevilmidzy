@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.model.Menu;
 import christmas.model.VisitDate;
 
 public class DiscountPolicy {
@@ -15,6 +16,13 @@ public class DiscountPolicy {
     public Integer HolidayDiscount(VisitDate date) {
         if (date.isHoliday()) {
             return 1000;
+        }
+        return 0;
+    }
+
+    public Integer giveawayEventDiscount(Integer totalAmount) { //TODO: 이것도 나만의 객체로 감싸보자
+        if (totalAmount >= 120_000) {
+            return Menu.CHAMPAGNE.getPrice();
         }
         return 0;
     }
