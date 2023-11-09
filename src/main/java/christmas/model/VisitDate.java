@@ -1,5 +1,8 @@
 package christmas.model;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+
 public class VisitDate {
 
     public static final Integer CHRISTMAS_DAY = 25;
@@ -12,6 +15,12 @@ public class VisitDate {
 
     public Integer leftUntilChristmas() {
         return CHRISTMAS_DAY - date;
+    }
+
+    public Boolean isWeekend() {
+        LocalDate localDate = LocalDate.of(2023, 12, date);
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        return (dayOfWeek.equals(DayOfWeek.FRIDAY) || dayOfWeek.equals(DayOfWeek.SATURDAY));
     }
 
     private void validate(Integer value) {
