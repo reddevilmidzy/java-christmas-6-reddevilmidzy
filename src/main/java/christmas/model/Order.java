@@ -3,6 +3,7 @@ package christmas.model;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 public class Order {
 
@@ -41,6 +42,10 @@ public class Order {
 
     private Integer calculatePrice(Menu menu) {
         return menu.getPrice() * orderHistory.get(menu);
+    }
+
+    public void forEach(BiConsumer<? super Menu, ? super Integer> action) {
+        orderHistory.forEach(action);
     }
 
     @Override

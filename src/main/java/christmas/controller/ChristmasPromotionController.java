@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.model.Order;
 import christmas.model.VisitDate;
 import christmas.service.DiscountPolicy;
 import christmas.view.InputView;
@@ -21,9 +22,10 @@ public class ChristmasPromotionController {
     public void run() {
         outputView.printWelcomeMessage();
         VisitDate date = readDate();
-        List<String> order = readOrder();
+        Order order = readOrder();
         int christmasDDayDiscount = discountPolicy.ChristmasDDAYDiscount(date);
         outputView.printPreviewEventBenefits(date);
+        outputView.printOrderMenu(order);
     }
 
     private VisitDate readDate() {
@@ -32,8 +34,8 @@ public class ChristmasPromotionController {
         return new VisitDate(date);
     }
 
-    private List<String> readOrder() {
-        String value = inputView.readOrder();
-        return List.of(value.split(","));
+    private Order readOrder() {
+        List<String> values = List.of(inputView.readOrder().split(","));
+        return Order.from(values);
     }
 }

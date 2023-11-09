@@ -37,6 +37,10 @@ public enum Menu {
         return category.equals(menu.category);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public Integer getPrice() {
         return price;
     }
