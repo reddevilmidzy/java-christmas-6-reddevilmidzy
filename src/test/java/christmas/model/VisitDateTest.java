@@ -1,9 +1,12 @@
 package christmas.model;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -26,5 +29,17 @@ class VisitDateTest {
         VisitDate visitDate = new VisitDate(date);
         assertThat(visitDate.isWeekend())
                 .isEqualTo(expected);
+    }
+
+    @DisplayName("별(공휴일)인지 확인한다.")
+    @Test
+    //TODO: 실패시 어떤 데이터가 틀렸는지 확인 번거로움, 다른 방식 고민
+    void checkHoliday() {
+        List<Integer> holidays = List.of(3, 10, 17, 24, 25, 31);
+        for (int date = 1; date <= 31; date++) {
+            VisitDate visitDate = new VisitDate(date);
+            assertThat(visitDate.isHoliday())
+                    .isEqualTo(holidays.contains(date));
+        }
     }
 }

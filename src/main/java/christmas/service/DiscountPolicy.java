@@ -11,4 +11,11 @@ public class DiscountPolicy {
         }
         return 1000 + ((VisitDate.CHRISTMAS_DAY - leftDays - 1) * 100);
     }
+
+    public Integer HolidayDiscount(VisitDate date) {
+        if (date.isHoliday()) {
+            return 1000;
+        }
+        return 0;
+    }
 }

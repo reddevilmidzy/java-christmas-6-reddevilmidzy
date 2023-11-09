@@ -17,4 +17,13 @@ class DiscountPolicyTest {
         assertThat(policy.ChristmasDDAYDiscount(new VisitDate(date)))
                 .isEqualTo(discount);
     }
+
+    @DisplayName("특별 할인 확인")
+    @ParameterizedTest(name = "{displayName}: {0}")
+    @CsvSource(value = {"1|0", "3|1000", "6|0", "24|1000", "25|1000", "30|0"}, delimiter = '|')
+    void createHolidayDiscount(Integer date, Integer discount) {
+        DiscountPolicy policy = new DiscountPolicy();
+        assertThat(policy.HolidayDiscount(new VisitDate(date)))
+                .isEqualTo(discount);
+    }
 }

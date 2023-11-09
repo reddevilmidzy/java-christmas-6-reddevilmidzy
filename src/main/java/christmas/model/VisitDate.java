@@ -20,7 +20,15 @@ public class VisitDate {
     public Boolean isWeekend() {
         LocalDate localDate = LocalDate.of(2023, 12, date);
         DayOfWeek dayOfWeek = localDate.getDayOfWeek();
-        return (dayOfWeek.equals(DayOfWeek.FRIDAY) || dayOfWeek.equals(DayOfWeek.SATURDAY));
+        return dayOfWeek.equals(DayOfWeek.FRIDAY) || dayOfWeek.equals(DayOfWeek.SATURDAY);
+    }
+
+    //TODO: 위의 메서드랑 중복 해결 필요
+    // 아예 이 필드를 LocalDate로 가져가는 것도 고려해보기
+    public Boolean isHoliday() {
+        LocalDate localDate = LocalDate.of(2023, 12, date);
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        return dayOfWeek.equals(DayOfWeek.SUNDAY) || date.equals(CHRISTMAS_DAY);
     }
 
     private void validate(Integer value) {
