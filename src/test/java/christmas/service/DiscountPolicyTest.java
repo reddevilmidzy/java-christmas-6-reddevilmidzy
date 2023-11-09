@@ -1,9 +1,14 @@
 package christmas.service;
 
+import christmas.model.Category;
+import christmas.model.Order;
 import christmas.model.VisitDate;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,5 +39,25 @@ class DiscountPolicyTest {
         DiscountPolicy policy = new DiscountPolicy();
         assertThat(policy.giveawayEventDiscount(totalAmount))
                 .isEqualTo(expected);
+    }
+
+    @DisplayName("평일 할인 확인")
+    @Test
+    void createWeekday() {
+        DiscountPolicy policy = new DiscountPolicy();
+        Order order = Order.from(List.of("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1".split(",")));
+        Integer dessertCount = policy.weekDiscount(order, Category.DESSERT);
+        assertThat(dessertCount)
+                .isEqualTo(2);
+    }
+
+    @DisplayName("주말 할인 확인")
+    @Test
+    void createWeekend() {
+        DiscountPolicy policy = new DiscountPolicy();
+        Order order = Order.from(List.of("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1".split(",")));
+        Integer dessertCount = policy.weekDiscount(order, Category.DESSERT);
+        assertThat(dessertCount)
+                .isEqualTo(2);
     }
 }

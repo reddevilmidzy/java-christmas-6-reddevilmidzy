@@ -25,8 +25,17 @@ public class Order {
     }
 
     public Integer getTotalAmount() {
-        return orderHistory.keySet().stream()
+        return orderHistory.keySet()
+                .stream()
                 .mapToInt(this::calculatePrice)
+                .sum();
+    }
+
+    public Integer countCategory(Category category) {
+        return orderHistory.keySet()
+                .stream()
+                .filter(menu -> menu.isCategory(menu, category))
+                .mapToInt(orderHistory::get)
                 .sum();
     }
 

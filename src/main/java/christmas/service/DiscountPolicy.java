@@ -1,6 +1,8 @@
 package christmas.service;
 
+import christmas.model.Category;
 import christmas.model.Menu;
+import christmas.model.Order;
 import christmas.model.VisitDate;
 
 public class DiscountPolicy {
@@ -11,6 +13,11 @@ public class DiscountPolicy {
             return 0;
         }
         return 1000 + ((VisitDate.CHRISTMAS_DAY - leftDays - 1) * 100);
+    }
+
+    //TODO: 메서드 명 애매함.. 수정하기
+    public Integer weekDiscount(Order order, Category category) {
+        return order.countCategory(category);
     }
 
     public Integer HolidayDiscount(VisitDate date) {
