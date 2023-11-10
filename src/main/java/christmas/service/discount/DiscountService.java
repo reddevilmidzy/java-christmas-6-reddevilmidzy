@@ -31,4 +31,11 @@ public class DiscountService {
     public void forEach(BiConsumer<? super DiscountPolicy, ? super Integer> action) {
         discounts.forEach(action);
     }
+
+    public Integer getBenefit() {
+        return discounts.values()
+                .stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
 }

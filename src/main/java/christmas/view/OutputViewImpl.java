@@ -39,9 +39,16 @@ public class OutputViewImpl implements OutputView {
     }
 
     @Override
-    public void printTotalBenefit(DiscountService discountService) {
+    public void printBenefitDetails(DiscountService discountService) {
         System.out.println("<혜택 내역>");
         discountService.forEach((discountPolicy, integer) -> System.out.printf(BENEFIT_FORMAT,
                 discountPolicy.getName(), NUMBER_FORMAT.format(integer)));
+        System.out.println();
+    }
+
+    @Override
+    public void printTotalBenefit(DiscountService discountService) {
+        System.out.println("<총혜택 금액>");
+        System.out.printf("%s원%n", NUMBER_FORMAT.format(discountService.getBenefit()));
     }
 }

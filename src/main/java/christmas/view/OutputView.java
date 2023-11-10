@@ -13,5 +13,7 @@ public interface OutputView {
 
     void printTotalOrderAmount(Order order);
 
+    void printBenefitDetails(DiscountService discountService);
+
     void printTotalBenefit(DiscountService discountService);
 }
