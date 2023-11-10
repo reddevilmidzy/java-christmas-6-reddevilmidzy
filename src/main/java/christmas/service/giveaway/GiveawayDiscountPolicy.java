@@ -5,6 +5,7 @@ import christmas.model.Order;
 import christmas.model.VisitDate;
 import christmas.service.discount.DiscountPolicy;
 
+//TODO: 얘 성격이 조금 달라달라 수정필요
 public class GiveawayDiscountPolicy implements DiscountPolicy, GiveawayPolicy {
 
     private static final String name = "증정 이벤트";
