@@ -16,4 +16,6 @@ public interface OutputView {
     void printBenefitDetails(DiscountService discountService);
 
     void printTotalBenefit(DiscountService discountService);
+
+    void printDiscountedAmount(Integer amount);
 }

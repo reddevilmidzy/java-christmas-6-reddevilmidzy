@@ -35,6 +35,12 @@ public class ChristmasPromotionController {
         DiscountService discountService = DiscountService.of(discountPolicies, date, order);
         outputView.printBenefitDetails(discountService);
         outputView.printTotalBenefit(discountService);
+        //TODO: 메서드 분리하기
+        outputView.printDiscountedAmount(getDiscountedAmount(order, discountService));
+    }
+
+    private int getDiscountedAmount(Order order, DiscountService discountService) {
+        return order.getTotalAmount() + discountService.getBenefit() - discountService.getEventBenefit();
     }
 
     private VisitDate readDate() {

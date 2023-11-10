@@ -50,5 +50,12 @@ public class OutputViewImpl implements OutputView {
     public void printTotalBenefit(DiscountService discountService) {
         System.out.println("<총혜택 금액>");
         System.out.printf("%s원%n", NUMBER_FORMAT.format(discountService.getBenefit()));
+        System.out.println();
+    }
+
+    @Override
+    public void printDiscountedAmount(Integer amount) {
+        System.out.println("<할인 후 예상 결제 금액>");
+        System.out.printf("%s원%n", NUMBER_FORMAT.format(amount));
     }
 }
