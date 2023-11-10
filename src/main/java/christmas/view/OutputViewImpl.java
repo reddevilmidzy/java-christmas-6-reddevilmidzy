@@ -2,6 +2,7 @@ package christmas.view;
 
 import christmas.model.Order;
 import christmas.model.VisitDate;
+import christmas.service.discount.DiscountService;
 
 import java.text.DecimalFormat;
 
@@ -9,6 +10,7 @@ public class OutputViewImpl implements OutputView {
 
     public static final DecimalFormat NUMBER_FORMAT = new DecimalFormat("###,###");
     public static final String ORDER_MENU_FORMAT = "%s %d개%n";
+    public static final String BENEFIT_FORMAT = "%s: %s원%n";
 
     @Override
     public void printWelcomeMessage() {
@@ -32,6 +34,14 @@ public class OutputViewImpl implements OutputView {
     @Override
     public void printTotalOrderAmount(Order order) {
         System.out.println("<할인 전 총주문 금액>");
-        System.out.printf("%s원", NUMBER_FORMAT.format(order.getTotalAmount()));
+        System.out.printf("%s원%n", NUMBER_FORMAT.format(order.getTotalAmount()));
+        System.out.println();
+    }
+
+    @Override
+    public void printTotalBenefit(DiscountService discountService) {
+        System.out.println("<혜택 내역>");
+        discountService.forEach((discountPolicy, integer) -> System.out.printf(BENEFIT_FORMAT,
+                discountPolicy.getName(), NUMBER_FORMAT.format(integer)));
     }
 }

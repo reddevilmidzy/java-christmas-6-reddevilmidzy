@@ -33,6 +33,7 @@ public class ChristmasPromotionController {
         outputView.printTotalOrderAmount(order);
         List<DiscountPolicy> discountPolicies = getDiscountPolicy();
         DiscountService discountService = DiscountService.of(discountPolicies, date, order);
+        outputView.printTotalBenefit(discountService);
     }
 
     private VisitDate readDate() {
