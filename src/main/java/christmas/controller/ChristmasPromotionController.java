@@ -2,7 +2,13 @@ package christmas.controller;
 
 import christmas.model.Order;
 import christmas.model.VisitDate;
-import christmas.service.DiscountPolicy;
+import christmas.service.discount.ChristmasDDayDiscountPolicy;
+import christmas.service.discount.DiscountPolicy;
+import christmas.service.discount.DiscountService;
+import christmas.service.discount.GiveawayDiscountPolicy;
+import christmas.service.discount.SpecialDiscountPolicy;
+import christmas.service.discount.WeekDayDiscountPolicy;
+import christmas.service.discount.WeekendDiscountPolicy;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -12,7 +18,6 @@ public class ChristmasPromotionController {
 
     private final InputView inputView;
     private final OutputView outputView;
-    private final DiscountPolicy discountPolicy = new DiscountPolicy(); //TODO: 다른 방법 사용하기
 
     public ChristmasPromotionController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
@@ -23,10 +28,11 @@ public class ChristmasPromotionController {
         outputView.printWelcomeMessage();
         VisitDate date = readDate();
         Order order = readOrder();
-        int christmasDDayDiscount = discountPolicy.ChristmasDDAYDiscount(date);
         outputView.printPreviewEventBenefits(date);
         outputView.printOrderMenu(order);
         outputView.printTotalOrderAmount(order);
+        List<DiscountPolicy> discountPolicies = getDiscountPolicy();
+        DiscountService discountService = DiscountService.of(discountPolicies, date, order);
     }
 
     private VisitDate readDate() {
@@ -38,5 +44,15 @@ public class ChristmasPromotionController {
     private Order readOrder() {
         List<String> values = List.of(inputView.readOrder().split(","));
         return Order.from(values);
+    }
+
+    private List<DiscountPolicy> getDiscountPolicy() {
+        return List.of(
+                new ChristmasDDayDiscountPolicy(),
+                new WeekDayDiscountPolicy(),
+                new WeekendDiscountPolicy(),
+                new SpecialDiscountPolicy(),
+                new GiveawayDiscountPolicy()
+        );
     }
 }
