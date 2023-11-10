@@ -6,7 +6,7 @@ import christmas.model.VisitDate;
 import christmas.service.discount.ChristmasDDayDiscountPolicy;
 import christmas.service.discount.DiscountPolicy;
 import christmas.service.discount.DiscountService;
-import christmas.service.discount.GiveawayDiscountPolicy;
+import christmas.service.giveaway.GiveawayDiscountPolicy;
 import christmas.service.discount.SpecialDiscountPolicy;
 import christmas.service.discount.WeekDayDiscountPolicy;
 import christmas.service.discount.WeekendDiscountPolicy;
@@ -32,6 +32,8 @@ public class ChristmasPromotionController {
         outputView.printPreviewEventBenefits(date);
         outputView.printOrderMenu(order);
         outputView.printTotalOrderAmount(order);
+        //TODO: 이 메서드 수정
+        outputView.printGiveawayMenu(new GiveawayDiscountPolicy());
         List<DiscountPolicy> discountPolicies = getDiscountPolicy();
         DiscountService discountService = DiscountService.of(discountPolicies, date, order);
         outputView.printBenefitDetails(discountService);

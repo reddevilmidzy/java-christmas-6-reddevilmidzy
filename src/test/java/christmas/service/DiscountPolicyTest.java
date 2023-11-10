@@ -4,7 +4,7 @@ import christmas.model.Order;
 import christmas.model.VisitDate;
 import christmas.service.discount.ChristmasDDayDiscountPolicy;
 import christmas.service.discount.DiscountPolicy;
-import christmas.service.discount.GiveawayDiscountPolicy;
+import christmas.service.giveaway.GiveawayDiscountPolicy;
 import christmas.service.discount.SpecialDiscountPolicy;
 import christmas.service.discount.WeekDayDiscountPolicy;
 import christmas.service.discount.WeekendDiscountPolicy;

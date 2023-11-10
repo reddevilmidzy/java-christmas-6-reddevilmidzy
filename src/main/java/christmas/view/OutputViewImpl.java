@@ -4,6 +4,7 @@ import christmas.model.Badge;
 import christmas.model.Order;
 import christmas.model.VisitDate;
 import christmas.service.discount.DiscountService;
+import christmas.service.giveaway.GiveawayPolicy;
 
 import java.text.DecimalFormat;
 
@@ -36,6 +37,14 @@ public class OutputViewImpl implements OutputView {
     public void printTotalOrderAmount(Order order) {
         System.out.println("<할인 전 총주문 금액>");
         System.out.printf("%s원%n", NUMBER_FORMAT.format(order.getTotalAmount()));
+        System.out.println();
+    }
+
+    @Override
+    public void printGiveawayMenu(GiveawayPolicy giveawayPolicy) {
+        System.out.println("<증정 메뉴>");
+        //TODO: 고치기
+        System.out.println(giveawayPolicy.getGiveaway().getName() + " 1개");
         System.out.println();
     }
 

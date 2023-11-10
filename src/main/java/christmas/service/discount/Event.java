@@ -1,5 +1,7 @@
 package christmas.service.discount;
 
+import christmas.service.giveaway.GiveawayDiscountPolicy;
+
 import java.util.Arrays;
 
 //TODO: 수정 필요

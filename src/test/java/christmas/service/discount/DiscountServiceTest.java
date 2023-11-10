@@ -2,6 +2,7 @@ package christmas.service.discount;
 
 import christmas.model.Order;
 import christmas.model.VisitDate;
+import christmas.service.giveaway.GiveawayDiscountPolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

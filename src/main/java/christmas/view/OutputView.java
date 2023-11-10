@@ -4,6 +4,7 @@ import christmas.model.Badge;
 import christmas.model.Order;
 import christmas.model.VisitDate;
 import christmas.service.discount.DiscountService;
+import christmas.service.giveaway.GiveawayPolicy;
 
 public interface OutputView {
     void printWelcomeMessage();
@@ -13,6 +14,8 @@ public interface OutputView {
     void printOrderMenu(Order order);
 
     void printTotalOrderAmount(Order order);
+
+    void printGiveawayMenu(GiveawayPolicy giveawayPolicy);
 
     void printBenefitDetails(DiscountService discountService);
 
