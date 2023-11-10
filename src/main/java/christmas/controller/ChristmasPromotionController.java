@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.model.Badge;
 import christmas.model.Order;
 import christmas.model.VisitDate;
 import christmas.service.discount.ChristmasDDayDiscountPolicy;
@@ -37,6 +38,11 @@ public class ChristmasPromotionController {
         outputView.printTotalBenefit(discountService);
         //TODO: 메서드 분리하기
         outputView.printDiscountedAmount(getDiscountedAmount(order, discountService));
+        outputView.printBadge(getBadge(-discountService.getBenefit()));
+    }
+
+    private Badge getBadge(Integer amount) {
+        return Badge.from(amount);
     }
 
     private int getDiscountedAmount(Order order, DiscountService discountService) {

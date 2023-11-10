@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.model.Badge;
 import christmas.model.Order;
 import christmas.model.VisitDate;
 import christmas.service.discount.DiscountService;
@@ -18,4 +19,6 @@ public interface OutputView {
     void printTotalBenefit(DiscountService discountService);
 
     void printDiscountedAmount(Integer amount);
+
+    void printBadge(Badge badge);
 }

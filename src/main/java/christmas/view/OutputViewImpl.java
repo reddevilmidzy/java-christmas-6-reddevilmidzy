@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.model.Badge;
 import christmas.model.Order;
 import christmas.model.VisitDate;
 import christmas.service.discount.DiscountService;
@@ -57,5 +58,12 @@ public class OutputViewImpl implements OutputView {
     public void printDiscountedAmount(Integer amount) {
         System.out.println("<할인 후 예상 결제 금액>");
         System.out.printf("%s원%n", NUMBER_FORMAT.format(amount));
+        System.out.println();
+    }
+
+    @Override
+    public void printBadge(Badge badge) {
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(badge.getName());
     }
 }
