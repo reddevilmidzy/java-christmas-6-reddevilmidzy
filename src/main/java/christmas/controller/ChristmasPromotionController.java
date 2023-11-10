@@ -26,6 +26,7 @@ public class ChristmasPromotionController {
         int christmasDDayDiscount = discountPolicy.ChristmasDDAYDiscount(date);
         outputView.printPreviewEventBenefits(date);
         outputView.printOrderMenu(order);
+        outputView.printTotalOrderAmount(order);
     }
 
     private VisitDate readDate() {

@@ -9,4 +9,6 @@ public interface OutputView {
     void printPreviewEventBenefits(VisitDate date);
 
     void printOrderMenu(Order order);
+
+    void printTotalOrderAmount(Order order);
 }

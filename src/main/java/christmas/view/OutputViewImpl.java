@@ -3,8 +3,11 @@ package christmas.view;
 import christmas.model.Order;
 import christmas.model.VisitDate;
 
+import java.text.DecimalFormat;
+
 public class OutputViewImpl implements OutputView {
 
+    public static final DecimalFormat NUMBER_FORMAT = new DecimalFormat("###,###");
     public static final String ORDER_MENU_FORMAT = "%s %d개%n";
 
     @Override
@@ -23,5 +26,12 @@ public class OutputViewImpl implements OutputView {
         System.out.println("<주문 메뉴>");
         order.forEach((menu, count) ->
                 System.out.printf(ORDER_MENU_FORMAT, menu.getName(), count));
+        System.out.println();
+    }
+
+    @Override
+    public void printTotalOrderAmount(Order order) {
+        System.out.println("<할인 전 총주문 금액>");
+        System.out.printf("%s원", NUMBER_FORMAT.format(order.getTotalAmount()));
     }
 }
