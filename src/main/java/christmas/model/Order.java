@@ -21,6 +21,10 @@ public class Order {
         validate(source);
         Menu menu = Menu.from(source.substring(0, source.indexOf('-')));
         Integer quantity = converter.convert(source.substring(source.indexOf('-') + 1));
+        //TODO: 예외 처리 분리
+        if (quantity < 1) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
         return new Order(menu, quantity);
     }
 
