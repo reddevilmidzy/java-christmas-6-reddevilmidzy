@@ -36,4 +36,12 @@ class OrderTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다.");
     }
+
+    @DisplayName("수량이 유효한 범위의 숫자가 아니면 예외")
+    @Test
+    void createOverflow() {
+        assertThatThrownBy(() -> Order.from(String.valueOf(Long.MAX_VALUE)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다.");
+    }
 }
