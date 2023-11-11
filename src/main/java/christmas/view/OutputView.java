@@ -4,7 +4,6 @@ import christmas.model.Badge;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.discount.DiscountService;
-import christmas.service.giveaway.GiveawayMenu;
 import christmas.service.giveaway.GiveawayService;
 
 public interface OutputView {
@@ -16,7 +15,7 @@ public interface OutputView {
 
     void printTotalOrderAmount(OrderHistory orderHistory);
 
-    void printGiveawayMenu(GiveawayMenu giveawayMenu);
+    void printGiveawayMenu(GiveawayService giveawayService);
 
     void printBenefitDetails(DiscountService discountService, GiveawayService giveawayService);
 

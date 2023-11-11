@@ -1,5 +1,6 @@
 package christmas.service.giveaway;
 
+import christmas.model.Menu;
 import christmas.model.OrderHistory;
 
 import java.util.ArrayList;
@@ -27,8 +28,13 @@ public class GiveawayService {
 
     public Integer calculateGiveawayBenefit() {
         return giveaway.stream()
-                .mapToInt(giveawayPolicy -> giveawayPolicy.getMenu().getPrice()) //TODO: 분리
+                .mapToInt(this::getPrice)
                 .sum();
+    }
+
+    private int getPrice(GiveawayPolicy giveawayPolicy) {
+        Menu menu = giveawayPolicy.getMenu();
+        return menu.getPrice();
     }
 
     public void forEach(Consumer<? super GiveawayPolicy> action) {

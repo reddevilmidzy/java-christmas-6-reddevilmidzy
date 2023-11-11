@@ -4,7 +4,6 @@ import christmas.model.Badge;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.discount.DiscountService;
-import christmas.service.giveaway.GiveawayMenu;
 import christmas.service.giveaway.GiveawayService;
 
 import java.text.DecimalFormat;
@@ -42,10 +41,10 @@ public class OutputViewImpl implements OutputView {
     }
 
     @Override
-    public void printGiveawayMenu(GiveawayMenu giveawayMenu) {
+    public void printGiveawayMenu(GiveawayService giveawayService) {
         System.out.println("<증정 메뉴>");
-        giveawayMenu.forEach((menu, count) ->
-                System.out.printf(ORDER_MENU_FORMAT, menu.getName(), count));
+        giveawayService.forEach(giveawayPolicy ->
+                System.out.printf(ORDER_MENU_FORMAT, giveawayPolicy.getMenu().getName(), 1)); //TODO: 이거 그냥 1 주는거 맞을까
         System.out.println();
     }
 
