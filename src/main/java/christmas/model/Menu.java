@@ -34,8 +34,8 @@ public enum Menu {
         throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 
-    public Boolean isCategory(Menu menu, Category category) {
-        return category.equals(menu.category);
+    public Boolean isCategory(Category category) {
+        return this.category.equals(category);
     }
 
     public String getName() {

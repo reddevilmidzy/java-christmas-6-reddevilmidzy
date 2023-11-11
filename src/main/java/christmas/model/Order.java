@@ -5,6 +5,7 @@ import christmas.converter.StringToInteger;
 
 public class Order {
 
+    //TODO: 이거 형태 고민하기
     private final static Converter<String, Integer> converter = new StringToInteger();
     private final Menu menu;
     private final Integer quantity;
@@ -28,6 +29,27 @@ public class Order {
         if (separatorCount != 1) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
+    }
+
+    public String getMenuName() {
+        return menu.getName();
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public Integer calculatePrice() {
+        return menu.getPrice() * quantity;
+    }
+
+    public Boolean isCategory(Category category) {
+        return menu.isCategory(category);
+    }
+
+    @Override
+    public int hashCode() {
+        return menu.hashCode();
     }
 
     @Override

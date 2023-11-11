@@ -28,8 +28,8 @@ public class OutputViewImpl implements OutputView {
     @Override
     public void printOrderMenu(OrderHistory orderHistory) {
         System.out.println("<주문 메뉴>");
-        orderHistory.forEach((menu, count) ->
-                System.out.printf(ORDER_MENU_FORMAT, menu.getName(), count));
+        orderHistory.forEach(order ->
+                System.out.printf(ORDER_MENU_FORMAT, order.getMenuName(), order.getQuantity()));
         System.out.println();
     }
 
