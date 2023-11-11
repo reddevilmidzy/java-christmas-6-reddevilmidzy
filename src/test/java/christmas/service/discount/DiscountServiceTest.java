@@ -2,6 +2,9 @@ package christmas.service.discount;
 
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
+import christmas.service.giveaway.GiveawayPolicy;
+import christmas.service.giveaway.GiveawayService;
+import christmas.service.giveaway.MenuGiveawayPolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DiscountServiceTest {
 
     List<DiscountPolicy> discountPolicies;
+    List<GiveawayPolicy> giveawayPolicies;
 
     @BeforeEach
     void beforeEach() {
@@ -25,8 +29,8 @@ class DiscountServiceTest {
                 new WeekDayDiscountPolicy(),
                 new WeekendDiscountPolicy(),
                 new SpecialDiscountPolicy()
-//                new GiveawayDiscountPolicy()
         );
+        giveawayPolicies = List.of(new MenuGiveawayPolicy());
     }
 
     @DisplayName("총혜택 금액 확인")
@@ -34,9 +38,11 @@ class DiscountServiceTest {
     @MethodSource("totalBenefitParametersProvider")
     void createTotalBenefit(Integer date, String menus, Integer expected) {
         VisitDate visitDate = VisitDate.visitOfDecember(String.valueOf(date));
+        OrderHistory orderHistory = OrderHistory.from(menus);
         DiscountService discountService = DiscountService.of(discountPolicies, visitDate,
-                OrderHistory.from(menus));
-        assertThat(discountService.getBenefit())
+                orderHistory);
+        GiveawayService giveawayService = GiveawayService.of(giveawayPolicies, orderHistory);
+        assertThat(discountService.getBenefit() - giveawayService.calculateGiveawayBenefit())
                 .isEqualTo(expected);
     }
 
@@ -52,9 +58,11 @@ class DiscountServiceTest {
     @CsvSource(value = {"1|시저샐러드-1", "24|아이스크림-1,제로콜라-1", "30|양송이수프-1,제로콜라-1"}, delimiter = '|')
     void createLess10_000Amount(Integer date, String menus) {
         VisitDate visitDate = VisitDate.visitOfDecember(String.valueOf(date));
+        OrderHistory orderHistory = OrderHistory.from(menus);
         DiscountService discountService = DiscountService.of(discountPolicies, visitDate,
-                OrderHistory.from(menus));
-        assertThat(discountService.getBenefit())
+                orderHistory);
+        GiveawayService giveawayService = GiveawayService.of(giveawayPolicies, orderHistory);
+        assertThat(discountService.getBenefit() + giveawayService.calculateGiveawayBenefit())
                 .isEqualTo(0);
     }
 }
