@@ -25,11 +25,11 @@ public class GiveawayService {
         return new GiveawayService(giveaway);
     }
 
-//    public Integer calculateGiveawayBenefit() {
-//        return giveaway.stream()
-//                .mapToInt(Menu::getPrice)
-//                .sum();
-//    }
+    public Integer calculateGiveawayBenefit() {
+        return giveaway.stream()
+                .mapToInt(giveawayPolicy -> giveawayPolicy.getMenu().getPrice()) //TODO: 분리
+                .sum();
+    }
 
     public void forEach(Consumer<? super GiveawayPolicy> action) {
         if (giveaway.isEmpty()) {

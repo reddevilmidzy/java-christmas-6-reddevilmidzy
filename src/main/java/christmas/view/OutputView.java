@@ -20,7 +20,7 @@ public interface OutputView {
 
     void printBenefitDetails(DiscountService discountService, GiveawayService giveawayService);
 
-    void printTotalBenefit(DiscountService discountService);
+    void printTotalBenefit(DiscountService discountService, GiveawayService giveawayService);
 
     void printDiscountedAmount(Integer amount);
 
