@@ -3,7 +3,6 @@ package christmas.service.giveaway;
 import christmas.model.Menu;
 import christmas.model.OrderHistory;
 
-//TODO: 얘 성격이 조금 달라달라 수정필요
 public class MenuGiveawayPolicy implements GiveawayPolicy {
 
     private static final String name = "증정 이벤트";

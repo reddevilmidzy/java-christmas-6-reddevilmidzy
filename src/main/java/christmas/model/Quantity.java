@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class Quantity {
 
-    //TODO: 이 정규식 컨버터랑 중복 해결하기
+    //TODO: visitDate 중복 해결하기
     public static final Pattern NUMERIC_PATTERN = Pattern.compile("^[0-9]+$");
     private final int quantity;
 

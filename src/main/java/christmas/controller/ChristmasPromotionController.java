@@ -33,7 +33,6 @@ public class ChristmasPromotionController {
         outputView.printPreviewEventBenefits(date);
         outputView.printOrderMenu(orderHistory);
         outputView.printTotalOrderAmount(orderHistory);
-        //TODO: 이 메서드 수정
         List<GiveawayPolicy> giveawayPolicies = getGiveawayPolicy();
         GiveawayService giveawayService = GiveawayService.of(giveawayPolicies, orderHistory);
         int giveawayAmount = giveawayService.calculateGiveawayBenefit();
