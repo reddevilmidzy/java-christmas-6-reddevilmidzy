@@ -1,7 +1,5 @@
 package christmas.controller;
 
-import christmas.converter.Converter;
-import christmas.converter.StringToInteger;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.view.InputView;
@@ -28,9 +26,8 @@ public class InputController {
     }
 
     private VisitDate readVisitDate() {
-        Converter<String, Integer> converter = new StringToInteger();
-        Integer number = converter.convert(inputView.readDate());
-        return VisitDate.visitOfDecember(number);
+        String value = inputView.readDate();
+        return VisitDate.visitOfDecember(value);
     }
 
     public OrderHistory getOrderHistory() {

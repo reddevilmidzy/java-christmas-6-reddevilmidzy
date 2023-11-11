@@ -34,7 +34,7 @@ class DiscountServiceTest {
     @ParameterizedTest(name = "{displayName}: {0}, {1}")
     @MethodSource("totalBenefitParametersProvider")
     void createTotalBenefit(Integer date, String menus, Integer expected) {
-        VisitDate visitDate = VisitDate.visitOfDecember(date);
+        VisitDate visitDate = VisitDate.visitOfDecember(String.valueOf(date));
         DiscountService discountService = DiscountService.of(discountPolicies, visitDate,
                 OrderHistory.from(menus));
         assertThat(discountService.getBenefit())
@@ -52,7 +52,7 @@ class DiscountServiceTest {
     @ParameterizedTest(name = "{displayName}: {0}")
     @CsvSource(value = {"1|시저샐러드-1", "24|아이스크림-1,제로콜라-1", "30|양송이수프-1,제로콜라-1"}, delimiter = '|')
     void createLess10_000Amount(Integer date, String menus) {
-        VisitDate visitDate = VisitDate.visitOfDecember(date);
+        VisitDate visitDate = VisitDate.visitOfDecember(String.valueOf(date));
         DiscountService discountService = DiscountService.of(discountPolicies, visitDate,
                 OrderHistory.from(menus));
         assertThat(discountService.getBenefit())

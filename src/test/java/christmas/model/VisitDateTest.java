@@ -15,8 +15,8 @@ class VisitDateTest {
 
     @DisplayName("1이상 31이하의 숫자가 아닌 경우 예외를 던진다.")
     @ParameterizedTest(name = "{displayName}: {0}")
-    @ValueSource(ints = {-100, 0, 32, 1000})
-    void createInvalidRange(Integer value) {
+    @ValueSource(strings = {"-100", "0", "32", "1000"})
+    void createInvalidRange(String  value) {
         assertThatThrownBy(() -> VisitDate.visitOfDecember(value))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
@@ -25,7 +25,7 @@ class VisitDateTest {
     @DisplayName("주말(금,토), 평일(일~목)을 확인한다.")
     @ParameterizedTest(name = "{displayName}: {0}")
     @CsvSource(value = {"1|true", "2|true", "3|false", "4|false", "13|false", "23|true"}, delimiter = '|')
-    void check(Integer date, Boolean expected) {
+    void check(String date, Boolean expected) {
         VisitDate visitDate = VisitDate.visitOfDecember(date);
         assertThat(visitDate.isWeekend())
                 .isEqualTo(expected);
@@ -37,7 +37,7 @@ class VisitDateTest {
     void checkHoliday() {
         List<Integer> holidays = List.of(3, 10, 17, 24, 25, 31);
         for (int date = 1; date <= 31; date++) {
-            VisitDate visitDate = VisitDate.visitOfDecember(date);
+            VisitDate visitDate = VisitDate.visitOfDecember(String.valueOf(date));
             assertThat(visitDate.isHoliday())
                     .isEqualTo(holidays.contains(date));
         }

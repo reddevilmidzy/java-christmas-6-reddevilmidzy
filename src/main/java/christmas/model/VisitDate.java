@@ -3,6 +3,8 @@ package christmas.model;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
+import static christmas.model.Quantity.NUMERIC_PATTERN;
+
 public class VisitDate {
 
     public static final Integer CHRISTMAS_DAY = 25;
@@ -12,8 +14,9 @@ public class VisitDate {
         this.date = date;
     }
 
-    public static VisitDate visitOfDecember(Integer day) {
-        validate(day);
+    public static VisitDate visitOfDecember(String value) {
+        validate(value);
+        int day = Integer.parseInt(value);
         LocalDate localDate = LocalDate.of(2023, 12, day);
         return new VisitDate(localDate);
     }
@@ -36,9 +39,24 @@ public class VisitDate {
         return dayOfWeek.equals(DayOfWeek.SUNDAY) || day == CHRISTMAS_DAY;
     }
 
-    private static void validate(Integer value) {
-        if (value < 1 || 31 < value) {
-            //TODO: 다시 입력해주세요 메시지는 분리 하기
+    private static void validate(String value) {
+        validateType(value);
+        validateRange(value);
+    }
+
+    private static void validateType(String value) {
+        if (value == null || !NUMERIC_PATTERN.matcher(value.trim()).matches()) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+        }
+    }
+
+    private static void validateRange(String value) {
+        try {
+            int day = Integer.parseInt(value);
+            if (day < 1 || 31 < day) {
+                throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            }
+        } catch (NumberFormatException exception) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
