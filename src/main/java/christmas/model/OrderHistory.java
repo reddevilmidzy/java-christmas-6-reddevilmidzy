@@ -15,6 +15,13 @@ public class OrderHistory {
 
     private void validate(List<Order> target) {
         validateTotalQuantity(target);
+        validateOnlyBeverage(target);
+    }
+
+    private void validateOnlyBeverage(List<Order> target) {
+        if (target.stream().allMatch(order -> order.isCategory(Category.BEVERAGE))) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
     }
 
     private void validateTotalQuantity(List<Order> target) {
@@ -22,6 +29,7 @@ public class OrderHistory {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
+
 
     public static OrderHistory from(List<String> values) {
         List<Order> orderHistory = new ArrayList<>();

@@ -55,4 +55,21 @@ class OrderHistoryTest {
                 Arguments.of(List.of("아이스크림-1", "양송이수프-2", "바비큐립-1", "아이스크림-1"))
         );
     }
+
+    @DisplayName("음료만 주문 시 예외 발생")
+    @ParameterizedTest(name = "{displayName}: {0}")
+    @MethodSource("onlyBeverageOrderParametersProvider")
+    void createOnlyBeverageOrder(List<String> values) {
+        assertThatThrownBy(() ->
+                OrderHistory.from(values))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    static Stream<Arguments> onlyBeverageOrderParametersProvider() {
+        return Stream.of(
+                Arguments.of(List.of("제로콜라-1", "레드와인-1")),
+                Arguments.of(List.of("샴페인-3")),
+                Arguments.of(List.of("제로콜라-10", "레드와인-2", "샴페인-4"))
+        );
+    }
 }
