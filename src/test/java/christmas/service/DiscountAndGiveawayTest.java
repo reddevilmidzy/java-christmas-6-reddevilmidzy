@@ -1,7 +1,13 @@
-package christmas.service.discount;
+package christmas.service;
 
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
+import christmas.service.discount.ChristmasDDayDiscountPolicy;
+import christmas.service.discount.DiscountPolicy;
+import christmas.service.discount.DiscountService;
+import christmas.service.discount.SpecialDiscountPolicy;
+import christmas.service.discount.WeekDayDiscountPolicy;
+import christmas.service.discount.WeekendDiscountPolicy;
 import christmas.service.giveaway.GiveawayPolicy;
 import christmas.service.giveaway.GiveawayService;
 import christmas.service.giveaway.MenuGiveawayPolicy;
@@ -17,7 +23,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DiscountServiceTest {
+class DiscountAndGiveawayTest {
 
     List<DiscountPolicy> discountPolicies;
     List<GiveawayPolicy> giveawayPolicies;
