@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
@@ -17,6 +18,16 @@ class VisitDateTest {
     @ParameterizedTest(name = "{displayName}: {0}")
     @ValueSource(strings = {"-100", "0", "32", "1000"})
     void createInvalidRange(String  value) {
+        assertThatThrownBy(() -> VisitDate.visitOfDecember(value))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+    }
+
+    @DisplayName("숫자가 아닌 경우 예외를 던진다.")
+    @ParameterizedTest(name = "{displayName}: {0}")
+    @NullSource
+    @ValueSource(strings = {"a", "devil", "christmas", "1000a"})
+    void createInvalidType(String  value) {
         assertThatThrownBy(() -> VisitDate.visitOfDecember(value))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
