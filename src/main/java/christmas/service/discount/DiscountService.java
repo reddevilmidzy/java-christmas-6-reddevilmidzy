@@ -19,6 +19,9 @@ public class DiscountService {
 
     public static DiscountService of(List<DiscountPolicy> discountPolicies, VisitDate date, OrderHistory orderHistory) {
         Map<DiscountPolicy, Integer> discounts = new LinkedHashMap<>();
+        if (orderHistory.getTotalAmount() < 10_000) {
+            return new DiscountService(discounts);
+        }
         for (DiscountPolicy discountPolicy : discountPolicies) {
             int discountValue = discountPolicy.discount(date, orderHistory);
             if (discountValue > 0) {
