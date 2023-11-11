@@ -1,7 +1,7 @@
 package christmas.view;
 
 import christmas.model.Badge;
-import christmas.model.Order;
+import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.discount.DiscountService;
 import christmas.service.giveaway.GiveawayMenu;
@@ -26,17 +26,17 @@ public class OutputViewImpl implements OutputView {
     }
 
     @Override
-    public void printOrderMenu(Order order) {
+    public void printOrderMenu(OrderHistory orderHistory) {
         System.out.println("<주문 메뉴>");
-        order.forEach((menu, count) ->
+        orderHistory.forEach((menu, count) ->
                 System.out.printf(ORDER_MENU_FORMAT, menu.getName(), count));
         System.out.println();
     }
 
     @Override
-    public void printTotalOrderAmount(Order order) {
+    public void printTotalOrderAmount(OrderHistory orderHistory) {
         System.out.println("<할인 전 총주문 금액>");
-        System.out.printf("%s원%n", NUMBER_FORMAT.format(order.getTotalAmount()));
+        System.out.printf("%s원%n", NUMBER_FORMAT.format(orderHistory.getTotalAmount()));
         System.out.println();
     }
 

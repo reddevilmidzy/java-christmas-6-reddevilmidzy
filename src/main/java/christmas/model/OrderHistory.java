@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class Order {
+public class OrderHistory {
 
     private final Map<Menu, Integer> orderHistory;
 
-    private Order(Map<Menu, Integer> orderHistory) {
+    private OrderHistory(Map<Menu, Integer> orderHistory) {
         this.orderHistory = orderHistory;
     }
 
-    public static Order from(List<String> values) {
+    public static OrderHistory from(List<String> values) {
         Map<Menu, Integer> result = new EnumMap<>(Menu.class);
         int menuCount = 0;
         for (String value : values) {
@@ -27,7 +27,7 @@ public class Order {
         if (menuCount > 20) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해주세요.");
         }
-        return new Order(result);
+        return new OrderHistory(result);
     }
 
     public Integer getTotalAmount() {

@@ -2,7 +2,7 @@ package christmas.controller;
 
 import christmas.model.Badge;
 import christmas.model.Menu;
-import christmas.model.Order;
+import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.discount.ChristmasDDayDiscountPolicy;
 import christmas.service.discount.DiscountPolicy;
@@ -30,23 +30,23 @@ public class ChristmasPromotionController {
     public void run() {
         outputView.printWelcomeMessage();
         VisitDate date = readDate();
-        Order order = readOrder();
+        OrderHistory orderHistory = readOrder();
         outputView.printPreviewEventBenefits(date);
-        outputView.printOrderMenu(order);
-        outputView.printTotalOrderAmount(order);
+        outputView.printOrderMenu(orderHistory);
+        outputView.printTotalOrderAmount(orderHistory);
         //TODO: 이 메서드 수정
-        outputView.printGiveawayMenu(getGiveawayMenu(order));
+        outputView.printGiveawayMenu(getGiveawayMenu(orderHistory));
         List<DiscountPolicy> discountPolicies = getDiscountPolicy();
-        DiscountService discountService = DiscountService.of(discountPolicies, date, order);
+        DiscountService discountService = DiscountService.of(discountPolicies, date, orderHistory);
         outputView.printBenefitDetails(discountService);
         outputView.printTotalBenefit(discountService);
         //TODO: 메서드 분리하기
-        outputView.printDiscountedAmount(getDiscountedAmount(order, discountService));
+        outputView.printDiscountedAmount(getDiscountedAmount(orderHistory, discountService));
         outputView.printBadge(getBadge(-discountService.getBenefit()));
     }
 
-    private GiveawayMenu getGiveawayMenu(Order order) {
-        if (order.getTotalAmount() >= 120_000) {
+    private GiveawayMenu getGiveawayMenu(OrderHistory orderHistory) {
+        if (orderHistory.getTotalAmount() >= 120_000) {
             return GiveawayMenu.from(List.of(Menu.CHAMPAGNE));
         }
         return GiveawayMenu.emptyGiveaway();
@@ -56,8 +56,8 @@ public class ChristmasPromotionController {
         return Badge.from(amount);
     }
 
-    private int getDiscountedAmount(Order order, DiscountService discountService) {
-        return order.getTotalAmount() + discountService.getBenefit() - discountService.getEventBenefit();
+    private int getDiscountedAmount(OrderHistory orderHistory, DiscountService discountService) {
+        return orderHistory.getTotalAmount() + discountService.getBenefit() - discountService.getEventBenefit();
     }
 
     private VisitDate readDate() {
@@ -66,9 +66,9 @@ public class ChristmasPromotionController {
         return new VisitDate(date);
     }
 
-    private Order readOrder() {
+    private OrderHistory readOrder() {
         List<String> values = List.of(inputView.readOrder().split(","));
-        return Order.from(values);
+        return OrderHistory.from(values);
     }
 
     private List<DiscountPolicy> getDiscountPolicy() {

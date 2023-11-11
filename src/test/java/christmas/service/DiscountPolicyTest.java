@@ -1,6 +1,6 @@
 package christmas.service;
 
-import christmas.model.Order;
+import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.discount.ChristmasDDayDiscountPolicy;
 import christmas.service.discount.DiscountPolicy;
@@ -27,9 +27,9 @@ class DiscountPolicyTest {
     @MethodSource("DDayParametersProvider")
     void createChristmasDiscount(Integer date, String menus, Integer expected) {
         VisitDate visitDate = new VisitDate(date);
-        Order order = Order.from(List.of(menus.split(",")));
+        OrderHistory orderHistory = OrderHistory.from(List.of(menus.split(",")));
         DiscountPolicy discountPolicy = new ChristmasDDayDiscountPolicy();
-        assertThat(discountPolicy.discount(visitDate, order))
+        assertThat(discountPolicy.discount(visitDate, orderHistory))
                 .isEqualTo(expected);
     }
 
@@ -50,9 +50,9 @@ class DiscountPolicyTest {
     @MethodSource("specialParametersProvider")
     void createHolidayDiscount(Integer date, String menus, Integer expected) {
         VisitDate visitDate = new VisitDate(date);
-        Order order = Order.from(List.of(menus.split(",")));
+        OrderHistory orderHistory = OrderHistory.from(List.of(menus.split(",")));
         DiscountPolicy discountPolicy = new SpecialDiscountPolicy();
-        assertThat(discountPolicy.discount(visitDate, order))
+        assertThat(discountPolicy.discount(visitDate, orderHistory))
                 .isEqualTo(expected);
     }
 
@@ -73,9 +73,9 @@ class DiscountPolicyTest {
     @MethodSource("giveawayParametersProvider")
     void createGiveawayEvent(Integer date, String menus, Integer expected) {
         VisitDate visitDate = new VisitDate(date);
-        Order order = Order.from(List.of(menus.split(",")));
+        OrderHistory orderHistory = OrderHistory.from(List.of(menus.split(",")));
         DiscountPolicy discountPolicy = new GiveawayDiscountPolicy();
-        assertThat(discountPolicy.discount(visitDate, order))
+        assertThat(discountPolicy.discount(visitDate, orderHistory))
                 .isEqualTo(expected);
     }
 
@@ -108,9 +108,9 @@ class DiscountPolicyTest {
     @MethodSource("weekdayParametersProvider")
     void createWeekday(Integer date, String menus, Integer expected) {
         VisitDate visitDate = new VisitDate(date);
-        Order order = Order.from(List.of(menus.split(",")));
+        OrderHistory orderHistory = OrderHistory.from(List.of(menus.split(",")));
         DiscountPolicy discountPolicy = new WeekDayDiscountPolicy();
-        assertThat(discountPolicy.discount(visitDate, order))
+        assertThat(discountPolicy.discount(visitDate, orderHistory))
                 .isEqualTo(expected);
     }
 
@@ -119,9 +119,9 @@ class DiscountPolicyTest {
     @MethodSource("weekendParametersProvider")
     void createWeekend(Integer date, String menus, Integer expected) {
         VisitDate visitDate = new VisitDate(date);
-        Order order = Order.from(List.of(menus.split(",")));
+        OrderHistory orderHistory = OrderHistory.from(List.of(menus.split(",")));
         DiscountPolicy discountPolicy = new WeekendDiscountPolicy();
-        assertThat(discountPolicy.discount(visitDate, order))
+        assertThat(discountPolicy.discount(visitDate, orderHistory))
                 .isEqualTo(expected);
     }
 

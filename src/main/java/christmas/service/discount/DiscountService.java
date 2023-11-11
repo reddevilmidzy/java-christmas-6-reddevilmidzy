@@ -1,6 +1,6 @@
 package christmas.service.discount;
 
-import christmas.model.Order;
+import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 
 import java.util.LinkedHashMap;
@@ -17,12 +17,12 @@ public class DiscountService {
         this.discounts = discounts;
     }
 
-    public static DiscountService of(List<DiscountPolicy> discountPolicies, VisitDate date, Order order) {
+    public static DiscountService of(List<DiscountPolicy> discountPolicies, VisitDate date, OrderHistory orderHistory) {
         Map<DiscountPolicy, Integer> discounts = new LinkedHashMap<>();
         for (DiscountPolicy discountPolicy : discountPolicies) {
-            int discountValue = discountPolicy.discount(date, order);
+            int discountValue = discountPolicy.discount(date, orderHistory);
             if (discountValue > 0) {
-                discounts.put(discountPolicy, -discountPolicy.discount(date, order));
+                discounts.put(discountPolicy, -discountPolicy.discount(date, orderHistory));
             }
         }
         return new DiscountService(discounts);

@@ -1,7 +1,7 @@
 package christmas.service.giveaway;
 
 import christmas.model.Menu;
-import christmas.model.Order;
+import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.discount.DiscountPolicy;
 
@@ -11,8 +11,8 @@ public class GiveawayDiscountPolicy implements DiscountPolicy, GiveawayPolicy {
     private static final String name = "증정 이벤트";
 
     @Override
-    public int discount(VisitDate visitDate, Order order) {
-        if (order.getTotalAmount() >= 120_000) {
+    public int discount(VisitDate visitDate, OrderHistory orderHistory) {
+        if (orderHistory.getTotalAmount() >= 120_000) {
             return Menu.CHAMPAGNE.getPrice();
         }
         return 0;

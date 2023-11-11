@@ -1,6 +1,6 @@
 package christmas.service.discount;
 
-import christmas.model.Order;
+import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.giveaway.GiveawayDiscountPolicy;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +35,7 @@ class DiscountServiceTest {
     void createTotalBenefit(Integer date, String menus, Integer expected) {
         VisitDate visitDate = new VisitDate(date);
         DiscountService discountService = DiscountService.of(discountPolicies, visitDate,
-                Order.from(List.of(menus.split(","))));
+                OrderHistory.from(List.of(menus.split(","))));
         assertThat(discountService.getBenefit())
                 .isEqualTo(expected);
     }

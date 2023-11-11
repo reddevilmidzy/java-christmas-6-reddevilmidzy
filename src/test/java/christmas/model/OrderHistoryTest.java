@@ -12,15 +12,15 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class OrderTest {
+class OrderHistoryTest {
 
     //TODO: 테스트 빈약함
     @DisplayName("할인 전 총주문 금액 확인")
     @Test
     void checkTotalAmount() {
         List<String> value = List.of("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1".split(","));
-        Order order = Order.from(value);
-        assertThat(order.getTotalAmount())
+        OrderHistory orderHistory = OrderHistory.from(value);
+        assertThat(orderHistory.getTotalAmount())
                 .isEqualTo(142000);
     }
 
@@ -29,7 +29,7 @@ class OrderTest {
     @MethodSource("parametersProvider")
     void createOverMenuCount(List<String> value) {
         assertThatThrownBy(() ->
-                Order.from(value)).isInstanceOf(IllegalArgumentException.class);
+                OrderHistory.from(value)).isInstanceOf(IllegalArgumentException.class);
     }
 
     static Stream<Arguments> parametersProvider() {
