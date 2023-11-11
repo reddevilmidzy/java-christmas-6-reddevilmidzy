@@ -2,7 +2,6 @@ package christmas.service.discount;
 
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
-import christmas.service.giveaway.GiveawayDiscountPolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,8 +24,8 @@ class DiscountServiceTest {
                 new ChristmasDDayDiscountPolicy(),
                 new WeekDayDiscountPolicy(),
                 new WeekendDiscountPolicy(),
-                new SpecialDiscountPolicy(),
-                new GiveawayDiscountPolicy()
+                new SpecialDiscountPolicy()
+//                new GiveawayDiscountPolicy()
         );
     }
 

@@ -5,6 +5,7 @@ import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.discount.DiscountService;
 import christmas.service.giveaway.GiveawayMenu;
+import christmas.service.giveaway.GiveawayService;
 
 import java.text.DecimalFormat;
 
@@ -49,10 +50,13 @@ public class OutputViewImpl implements OutputView {
     }
 
     @Override
-    public void printBenefitDetails(DiscountService discountService) {
+    public void printBenefitDetails(DiscountService discountService, GiveawayService giveawayService) {
         System.out.println("<혜택 내역>");
-        discountService.forEach((discountPolicy, integer) -> System.out.printf(BENEFIT_FORMAT,
-                discountPolicy.getName(), NUMBER_FORMAT.format(integer)));
+        discountService.forEach((discountPolicy, integer) ->
+                System.out.printf(BENEFIT_FORMAT, discountPolicy.getName(), NUMBER_FORMAT.format(integer)));
+        giveawayService.forEach(giveawayPolicy ->
+                System.out.printf(BENEFIT_FORMAT, giveawayPolicy.getName(),
+                        NUMBER_FORMAT.format(-giveawayPolicy.getMenu().getPrice()))); //TODO: 수정 필요
         System.out.println();
     }
 

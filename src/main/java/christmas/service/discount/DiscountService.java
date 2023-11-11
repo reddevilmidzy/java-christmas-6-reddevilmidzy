@@ -25,7 +25,7 @@ public class DiscountService {
         for (DiscountPolicy discountPolicy : discountPolicies) {
             int discountValue = discountPolicy.discount(date, orderHistory);
             if (discountValue > 0) {
-                discounts.put(discountPolicy, -discountPolicy.discount(date, orderHistory));
+                discounts.put(discountPolicy, -discountValue);
             }
         }
         return new DiscountService(discounts);
@@ -44,16 +44,5 @@ public class DiscountService {
                 .stream()
                 .mapToInt(Integer::intValue)
                 .sum();
-    }
-
-    //TODO: 이부분 그지 같아요 수정 필요
-    public Integer getEventBenefit() {
-        int result = 0;
-        for (DiscountPolicy discountPolicy : discounts.keySet()) {
-            if (Event.isEvent(discountPolicy.getClass())) {
-                result += discounts.get(discountPolicy);
-            }
-        }
-        return result;
     }
 }

@@ -1,8 +1,12 @@
 package christmas.service.giveaway;
 
 import christmas.model.Menu;
+import christmas.model.OrderHistory;
 
 public interface GiveawayPolicy {
+    boolean hasGiveaway(OrderHistory orderHistory);
 
-    Menu getGiveaway();
+    Menu getMenu();
+
+    String getName();
 }

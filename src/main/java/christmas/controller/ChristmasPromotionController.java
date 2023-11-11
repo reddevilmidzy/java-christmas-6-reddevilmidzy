@@ -10,8 +10,10 @@ import christmas.service.discount.DiscountService;
 import christmas.service.discount.SpecialDiscountPolicy;
 import christmas.service.discount.WeekDayDiscountPolicy;
 import christmas.service.discount.WeekendDiscountPolicy;
-import christmas.service.giveaway.GiveawayDiscountPolicy;
+import christmas.service.giveaway.MenuGiveawayPolicy;
 import christmas.service.giveaway.GiveawayMenu;
+import christmas.service.giveaway.GiveawayPolicy;
+import christmas.service.giveaway.GiveawayService;
 import christmas.view.OutputView;
 
 import java.util.List;
@@ -34,13 +36,19 @@ public class ChristmasPromotionController {
         outputView.printOrderMenu(orderHistory);
         outputView.printTotalOrderAmount(orderHistory);
         //TODO: 이 메서드 수정
+        List<GiveawayPolicy> giveawayPolicies = getGiveawayPolicy();
+        GiveawayService giveawayService = GiveawayService.of(giveawayPolicies, orderHistory);
+
         outputView.printGiveawayMenu(getGiveawayMenu(orderHistory));
+
         List<DiscountPolicy> discountPolicies = getDiscountPolicy();
         DiscountService discountService = DiscountService.of(discountPolicies, date, orderHistory);
-        outputView.printBenefitDetails(discountService);
+        outputView.printBenefitDetails(discountService, giveawayService);
         outputView.printTotalBenefit(discountService);
         //TODO: 메서드 분리하기
-        outputView.printDiscountedAmount(getDiscountedAmount(orderHistory, discountService));
+        int discount = getDiscountedAmount(orderHistory, discountService);
+        int giveawayAmount = 0;
+        outputView.printDiscountedAmount(discount + giveawayAmount);
         outputView.printBadge(getBadge(-discountService.getBenefit()));
     }
 
@@ -56,7 +64,7 @@ public class ChristmasPromotionController {
     }
 
     private int getDiscountedAmount(OrderHistory orderHistory, DiscountService discountService) {
-        return orderHistory.getTotalAmount() + discountService.getBenefit() - discountService.getEventBenefit();
+        return orderHistory.getTotalAmount() + discountService.getBenefit();
     }
 
     private List<DiscountPolicy> getDiscountPolicy() {
@@ -64,8 +72,12 @@ public class ChristmasPromotionController {
                 new ChristmasDDayDiscountPolicy(),
                 new WeekDayDiscountPolicy(),
                 new WeekendDiscountPolicy(),
-                new SpecialDiscountPolicy(),
-                new GiveawayDiscountPolicy()
+                new SpecialDiscountPolicy()
+//                new GiveawayDiscountPolicy()
         );
+    }
+
+    private List<GiveawayPolicy> getGiveawayPolicy() {
+        return List.of(new MenuGiveawayPolicy());
     }
 }

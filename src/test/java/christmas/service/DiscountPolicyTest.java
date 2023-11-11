@@ -7,7 +7,8 @@ import christmas.service.discount.DiscountPolicy;
 import christmas.service.discount.SpecialDiscountPolicy;
 import christmas.service.discount.WeekDayDiscountPolicy;
 import christmas.service.discount.WeekendDiscountPolicy;
-import christmas.service.giveaway.GiveawayDiscountPolicy;
+import christmas.service.giveaway.MenuGiveawayPolicy;
+import christmas.service.giveaway.GiveawayPolicy;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -70,25 +71,24 @@ class DiscountPolicyTest {
     @DisplayName("증정 이벤트 확인")
     @ParameterizedTest(name = "{displayName}: {0}, {1}")
     @MethodSource("giveawayParametersProvider")
-    void createGiveawayEvent(Integer date, String menus, Integer expected) {
-        VisitDate visitDate = VisitDate.visitOfDecember(String.valueOf(date));
+    void createGiveawayEvent(String menus, boolean expected) {
         OrderHistory orderHistory = OrderHistory.from(menus);
-        DiscountPolicy discountPolicy = new GiveawayDiscountPolicy();
-        assertThat(discountPolicy.discount(visitDate, orderHistory))
-                .isEqualTo(expected);
+        GiveawayPolicy giveawayPolicy = new MenuGiveawayPolicy();
+        assertThat(giveawayPolicy.hasGiveaway(orderHistory)).isEqualTo(expected);
     }
 
     static Stream<Arguments> giveawayParametersProvider() {
         return Stream.of(
-                Arguments.of(1, "티본스테이크-1", 0),
-                Arguments.of(3, "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1", 25000),
-                Arguments.of(10, "양송이수프-2,해산물파스타-1,레드와인-1", 0),
-                Arguments.of(24, "타파스-3,시저샐러드-2,티본스테이크-2,크리스마스파스타-2,초코케이크-1,아이스크림-4,레드와인-2,제로콜라-4", 25000),
-                Arguments.of(25, "크리스마스파스타-1,초코케이크-1,아이스크림-1", 0),
-                Arguments.of(26, "티본스테이크-1,바비큐립-1,제로콜라-1", 0),
-                Arguments.of(31, "시저샐러드-1,티본스테이크-1,샴페인-1", 0)
+                Arguments.of("티본스테이크-1", false),
+                Arguments.of("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1", true),
+                Arguments.of("양송이수프-2,해산물파스타-1,레드와인-1", false),
+                Arguments.of("타파스-3,시저샐러드-2,티본스테이크-2,크리스마스파스타-2,초코케이크-1,아이스크림-4,레드와인-2,제로콜라-4", true),
+                Arguments.of("크리스마스파스타-1,초코케이크-1,아이스크림-1", false),
+                Arguments.of("티본스테이크-1,바비큐립-1,제로콜라-1", false),
+                Arguments.of("시저샐러드-1,티본스테이크-1,샴페인-1", false)
         );
     }
+
     @DisplayName("평일 할인 확인")
     @ParameterizedTest(name = "{displayName}: {0}, {1}")
     @MethodSource("weekdayParametersProvider")
