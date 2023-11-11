@@ -2,7 +2,6 @@ package christmas.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Consumer;
 
 public class OrderHistory {
@@ -16,11 +15,6 @@ public class OrderHistory {
 
     private void validate(List<Order> target) {
         validateTotalQuantity(target);
-        validateDuplicate(target);
-    }
-
-    private void validateDuplicate(List<Order> target) {
-        System.out.println(Set.of(target));
     }
 
     private void validateTotalQuantity(List<Order> target) {
