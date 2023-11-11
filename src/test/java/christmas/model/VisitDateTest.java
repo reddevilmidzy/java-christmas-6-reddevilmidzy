@@ -17,7 +17,7 @@ class VisitDateTest {
     @ParameterizedTest(name = "{displayName}: {0}")
     @ValueSource(ints = {-100, 0, 32, 1000})
     void createInvalidRange(Integer value) {
-        assertThatThrownBy(() -> new VisitDate(value))
+        assertThatThrownBy(() -> VisitDate.visitOfDecember(value))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
@@ -26,18 +26,18 @@ class VisitDateTest {
     @ParameterizedTest(name = "{displayName}: {0}")
     @CsvSource(value = {"1|true", "2|true", "3|false", "4|false", "13|false", "23|true"}, delimiter = '|')
     void check(Integer date, Boolean expected) {
-        VisitDate visitDate = new VisitDate(date);
+        VisitDate visitDate = VisitDate.visitOfDecember(date);
         assertThat(visitDate.isWeekend())
                 .isEqualTo(expected);
     }
 
     @DisplayName("별(공휴일)인지 확인한다.")
     @Test
-    //TODO: 실패시 어떤 데이터가 틀렸는지 확인 번거로움, 다른 방식 고민
+        //TODO: 실패시 어떤 데이터가 틀렸는지 확인 번거로움, 다른 방식 고민
     void checkHoliday() {
         List<Integer> holidays = List.of(3, 10, 17, 24, 25, 31);
         for (int date = 1; date <= 31; date++) {
-            VisitDate visitDate = new VisitDate(date);
+            VisitDate visitDate = VisitDate.visitOfDecember(date);
             assertThat(visitDate.isHoliday())
                     .isEqualTo(holidays.contains(date));
         }

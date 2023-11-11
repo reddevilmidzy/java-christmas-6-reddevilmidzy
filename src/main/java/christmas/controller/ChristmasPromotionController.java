@@ -1,5 +1,7 @@
 package christmas.controller;
 
+import christmas.converter.Converter;
+import christmas.converter.StringToInteger;
 import christmas.model.Badge;
 import christmas.model.Menu;
 import christmas.model.OrderHistory;
@@ -62,8 +64,9 @@ public class ChristmasPromotionController {
 
     private VisitDate readDate() {
         String value = inputView.readDate();
-        Integer date = Integer.valueOf(value);
-        return new VisitDate(date);
+        Converter<String, Integer> converter = new StringToInteger();
+        Integer day = converter.convert(value);
+        return VisitDate.visitOfDecember(day);
     }
 
     private OrderHistory readOrder() {

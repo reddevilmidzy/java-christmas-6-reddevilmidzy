@@ -26,7 +26,7 @@ class DiscountPolicyTest {
     @ParameterizedTest(name = "{displayName}: {0}, {1}")
     @MethodSource("DDayParametersProvider")
     void createChristmasDiscount(Integer date, String menus, Integer expected) {
-        VisitDate visitDate = new VisitDate(date);
+        VisitDate visitDate = VisitDate.visitOfDecember(date);
         OrderHistory orderHistory = OrderHistory.from(List.of(menus.split(",")));
         DiscountPolicy discountPolicy = new ChristmasDDayDiscountPolicy();
         assertThat(discountPolicy.discount(visitDate, orderHistory))
@@ -49,7 +49,7 @@ class DiscountPolicyTest {
     @ParameterizedTest(name = "{displayName}: {0}, {1}")
     @MethodSource("specialParametersProvider")
     void createHolidayDiscount(Integer date, String menus, Integer expected) {
-        VisitDate visitDate = new VisitDate(date);
+        VisitDate visitDate = VisitDate.visitOfDecember(date);
         OrderHistory orderHistory = OrderHistory.from(List.of(menus.split(",")));
         DiscountPolicy discountPolicy = new SpecialDiscountPolicy();
         assertThat(discountPolicy.discount(visitDate, orderHistory))
@@ -72,7 +72,7 @@ class DiscountPolicyTest {
     @ParameterizedTest(name = "{displayName}: {0}, {1}")
     @MethodSource("giveawayParametersProvider")
     void createGiveawayEvent(Integer date, String menus, Integer expected) {
-        VisitDate visitDate = new VisitDate(date);
+        VisitDate visitDate = VisitDate.visitOfDecember(date);
         OrderHistory orderHistory = OrderHistory.from(List.of(menus.split(",")));
         DiscountPolicy discountPolicy = new GiveawayDiscountPolicy();
         assertThat(discountPolicy.discount(visitDate, orderHistory))
@@ -107,7 +107,7 @@ class DiscountPolicyTest {
     @ParameterizedTest(name = "{displayName}: {0}, {1}")
     @MethodSource("weekdayParametersProvider")
     void createWeekday(Integer date, String menus, Integer expected) {
-        VisitDate visitDate = new VisitDate(date);
+        VisitDate visitDate = VisitDate.visitOfDecember(date);
         OrderHistory orderHistory = OrderHistory.from(List.of(menus.split(",")));
         DiscountPolicy discountPolicy = new WeekDayDiscountPolicy();
         assertThat(discountPolicy.discount(visitDate, orderHistory))
@@ -118,7 +118,7 @@ class DiscountPolicyTest {
     @ParameterizedTest(name = "{displayName}: {0}, {1}")
     @MethodSource("weekendParametersProvider")
     void createWeekend(Integer date, String menus, Integer expected) {
-        VisitDate visitDate = new VisitDate(date);
+        VisitDate visitDate = VisitDate.visitOfDecember(date);
         OrderHistory orderHistory = OrderHistory.from(List.of(menus.split(",")));
         DiscountPolicy discountPolicy = new WeekendDiscountPolicy();
         assertThat(discountPolicy.discount(visitDate, orderHistory))

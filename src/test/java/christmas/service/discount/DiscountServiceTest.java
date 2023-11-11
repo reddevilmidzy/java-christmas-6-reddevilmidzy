@@ -33,7 +33,7 @@ class DiscountServiceTest {
     @ParameterizedTest(name = "{displayName}: {0}, {1}")
     @MethodSource("totalBenefitParametersProvider")
     void createTotalBenefit(Integer date, String menus, Integer expected) {
-        VisitDate visitDate = new VisitDate(date);
+        VisitDate visitDate = VisitDate.visitOfDecember(date);
         DiscountService discountService = DiscountService.of(discountPolicies, visitDate,
                 OrderHistory.from(List.of(menus.split(","))));
         assertThat(discountService.getBenefit())
