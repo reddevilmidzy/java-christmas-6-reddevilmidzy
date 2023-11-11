@@ -24,4 +24,6 @@ public interface OutputView {
     void printDiscountedAmount(Integer amount);
 
     void printBadge(Badge badge);
+
+    void printExceptionMessage(String message);
 }

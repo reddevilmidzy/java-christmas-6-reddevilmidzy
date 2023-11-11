@@ -1,7 +1,5 @@
 package christmas.controller;
 
-import christmas.converter.Converter;
-import christmas.converter.StringToInteger;
 import christmas.model.Badge;
 import christmas.model.Menu;
 import christmas.model.OrderHistory;
@@ -14,25 +12,24 @@ import christmas.service.discount.WeekDayDiscountPolicy;
 import christmas.service.discount.WeekendDiscountPolicy;
 import christmas.service.giveaway.GiveawayDiscountPolicy;
 import christmas.service.giveaway.GiveawayMenu;
-import christmas.view.InputView;
 import christmas.view.OutputView;
 
 import java.util.List;
 
 public class ChristmasPromotionController {
 
-    private final InputView inputView;
+    private final InputController inputController;
     private final OutputView outputView;
 
-    public ChristmasPromotionController(InputView inputView, OutputView outputView) {
-        this.inputView = inputView;
+    public ChristmasPromotionController(InputController inputController, OutputView outputView) {
+        this.inputController = inputController;
         this.outputView = outputView;
     }
 
     public void run() {
         outputView.printWelcomeMessage();
-        VisitDate date = readDate();
-        OrderHistory orderHistory = readOrder();
+        VisitDate date = inputController.getVisitDate();
+        OrderHistory orderHistory = inputController.getOrderHistory();
         outputView.printPreviewEventBenefits(date);
         outputView.printOrderMenu(orderHistory);
         outputView.printTotalOrderAmount(orderHistory);
@@ -60,18 +57,6 @@ public class ChristmasPromotionController {
 
     private int getDiscountedAmount(OrderHistory orderHistory, DiscountService discountService) {
         return orderHistory.getTotalAmount() + discountService.getBenefit() - discountService.getEventBenefit();
-    }
-
-    private VisitDate readDate() {
-        String value = inputView.readDate();
-        Converter<String, Integer> converter = new StringToInteger();
-        Integer day = converter.convert(value);
-        return VisitDate.visitOfDecember(day);
-    }
-
-    private OrderHistory readOrder() {
-        List<String> values = List.of(inputView.readOrder().split(","));
-        return OrderHistory.from(values);
     }
 
     private List<DiscountPolicy> getDiscountPolicy() {

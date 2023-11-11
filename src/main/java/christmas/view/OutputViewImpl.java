@@ -75,4 +75,9 @@ public class OutputViewImpl implements OutputView {
         System.out.println("<12월 이벤트 배지>");
         System.out.println(badge.getName());
     }
+
+    @Override
+    public void printExceptionMessage(String message) {
+        System.out.println(message);
+    }
 }
