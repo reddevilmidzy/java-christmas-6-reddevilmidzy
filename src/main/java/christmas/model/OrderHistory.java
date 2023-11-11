@@ -2,6 +2,7 @@ package christmas.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class OrderHistory {
@@ -15,6 +16,11 @@ public class OrderHistory {
 
     private void validate(List<Order> target) {
         validateTotalQuantity(target);
+        validateDuplicate(target);
+    }
+
+    private void validateDuplicate(List<Order> target) {
+        System.out.println(Set.of(target));
     }
 
     private void validateTotalQuantity(List<Order> target) {
@@ -24,12 +30,16 @@ public class OrderHistory {
     }
 
     public static OrderHistory from(List<String> values) {
-        List<Order> orderList = new ArrayList<>();
+        List<Order> orderHistory = new ArrayList<>();
         for (String value : values) {
             Order order = Order.from(value);
-            orderList.add(order);
+            //TODO: 검증로직 분리
+            if (orderHistory.contains(order)) {
+                throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            }
+            orderHistory.add(order);
         }
-        return new OrderHistory(orderList);
+        return new OrderHistory(orderHistory);
     }
 
     public Integer getTotalAmount() {

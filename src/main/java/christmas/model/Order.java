@@ -3,6 +3,8 @@ package christmas.model;
 import christmas.converter.Converter;
 import christmas.converter.StringToInteger;
 
+import java.util.Objects;
+
 public class Order {
 
     //TODO: 이거 형태 고민하기
@@ -48,8 +50,19 @@ public class Order {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Order order)) {
+            return false;
+        }
+        return Objects.equals(menu, order.menu);
+    }
+
+    @Override
     public int hashCode() {
-        return menu.hashCode();
+        return Objects.hash(menu);
     }
 
     @Override

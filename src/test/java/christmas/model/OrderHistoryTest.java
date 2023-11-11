@@ -40,4 +40,19 @@ class OrderHistoryTest {
                 Arguments.of(List.of("시저샐러드-21".split(",")))
         );
     }
+
+    @DisplayName("중복된 메뉴 입력시 예외 발생")
+    @ParameterizedTest(name = "{displayName}: {0}")
+    @MethodSource("duplicateParametersProvider")
+    void createDuplicateMenu(List<String> values) {
+        assertThatThrownBy(() ->
+                OrderHistory.from(values)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    static Stream<Arguments> duplicateParametersProvider() {
+        return Stream.of(
+                Arguments.of(List.of("해산물파스타-1", "해산물파스타-3")),
+                Arguments.of(List.of("아이스크림-1", "양송이수프-2", "바비큐립-1", "아이스크림-1"))
+        );
+    }
 }
