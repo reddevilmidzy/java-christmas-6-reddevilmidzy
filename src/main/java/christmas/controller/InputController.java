@@ -1,21 +1,18 @@
 package christmas.controller;
 
 import christmas.converter.Converter;
+import christmas.converter.StringToInteger;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
-import java.util.List;
-
 public class InputController {
 
-    private final Converter<String, Integer> converter;
     private final InputView inputView;
     private final OutputView outputView;
 
-    public InputController(Converter<String, Integer> converter, InputView inputView, OutputView outputView) {
-        this.converter = converter;
+    public InputController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
     }
@@ -31,6 +28,7 @@ public class InputController {
     }
 
     private VisitDate readVisitDate() {
+        Converter<String, Integer> converter = new StringToInteger();
         Integer number = converter.convert(inputView.readDate());
         return VisitDate.visitOfDecember(number);
     }
@@ -46,7 +44,7 @@ public class InputController {
     }
 
     private OrderHistory readOrderHistory() {
-        List<String> values = List.of(inputView.readOrder().split(","));
+        String values = inputView.readOrder();
         return OrderHistory.from(values);
     }
 

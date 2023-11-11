@@ -36,7 +36,7 @@ class DiscountServiceTest {
     void createTotalBenefit(Integer date, String menus, Integer expected) {
         VisitDate visitDate = VisitDate.visitOfDecember(date);
         DiscountService discountService = DiscountService.of(discountPolicies, visitDate,
-                OrderHistory.from(List.of(menus.split(","))));
+                OrderHistory.from(menus));
         assertThat(discountService.getBenefit())
                 .isEqualTo(expected);
     }
@@ -54,7 +54,7 @@ class DiscountServiceTest {
     void createLess10_000Amount(Integer date, String menus) {
         VisitDate visitDate = VisitDate.visitOfDecember(date);
         DiscountService discountService = DiscountService.of(discountPolicies, visitDate,
-                OrderHistory.from(List.of(menus.split(","))));
+                OrderHistory.from(menus));
         assertThat(discountService.getBenefit())
                 .isEqualTo(0);
     }

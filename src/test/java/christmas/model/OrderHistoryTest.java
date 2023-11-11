@@ -6,7 +6,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +17,7 @@ class OrderHistoryTest {
     @DisplayName("할인 전 총주문 금액 확인")
     @Test
     void checkTotalAmount() {
-        List<String> value = List.of("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1".split(","));
+        String value = "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1";
         OrderHistory orderHistory = OrderHistory.from(value);
         assertThat(orderHistory.getTotalAmount())
                 .isEqualTo(142000);
@@ -27,39 +26,39 @@ class OrderHistoryTest {
     @DisplayName("메뉴 개수가 20개를 초과하면 예외 발생")
     @ParameterizedTest(name = "{displayName}: {0}")
     @MethodSource("parametersProvider")
-    void createOverMenuCount(List<String> value) {
+    void createOverMenuCount(String value) {
         assertThatThrownBy(() ->
                 OrderHistory.from(value)).isInstanceOf(IllegalArgumentException.class);
     }
 
     static Stream<Arguments> parametersProvider() {
         return Stream.of(
-                Arguments.of(List.of(("양송이수프-2,타파스-2,시저샐러드-2,티본스테이크-2,바비큐립-2,해산물파스타-2,크리스마스파스타-2,초코케이크-1,아이스크림-1," +
-                        "제로콜라-1,레드와인-2,샴페인-2").split(","))),
-                Arguments.of(List.of("시저샐러드-10,티본스테이크-10,레드와인-1".split(","))),
-                Arguments.of(List.of("시저샐러드-21".split(",")))
+                Arguments.of("양송이수프-2,타파스-2,시저샐러드-2,티본스테이크-2,바비큐립-2,해산물파스타-2,크리스마스파스타-2,초코케이크-1,아이스크림-1," +
+                        "제로콜라-1,레드와인-2,샴페인-2"),
+                Arguments.of("시저샐러드-10,티본스테이크-10,레드와인-1"),
+                Arguments.of("시저샐러드-21")
         );
     }
 
     @DisplayName("중복된 메뉴 입력시 예외 발생")
     @ParameterizedTest(name = "{displayName}: {0}")
     @MethodSource("duplicateParametersProvider")
-    void createDuplicateMenu(List<String> values) {
+    void createDuplicateMenu(String values) {
         assertThatThrownBy(() ->
                 OrderHistory.from(values)).isInstanceOf(IllegalArgumentException.class);
     }
 
     static Stream<Arguments> duplicateParametersProvider() {
         return Stream.of(
-                Arguments.of(List.of("해산물파스타-1", "해산물파스타-3")),
-                Arguments.of(List.of("아이스크림-1", "양송이수프-2", "바비큐립-1", "아이스크림-1"))
+                Arguments.of("해산물파스타-1,해산물파스타-3"),
+                Arguments.of("아이스크림-1,양송이수프-2,바비큐립-1,아이스크림-1")
         );
     }
 
     @DisplayName("음료만 주문 시 예외 발생")
     @ParameterizedTest(name = "{displayName}: {0}")
     @MethodSource("onlyBeverageOrderParametersProvider")
-    void createOnlyBeverageOrder(List<String> values) {
+    void createOnlyBeverageOrder(String values) {
         assertThatThrownBy(() ->
                 OrderHistory.from(values))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -67,9 +66,9 @@ class OrderHistoryTest {
 
     static Stream<Arguments> onlyBeverageOrderParametersProvider() {
         return Stream.of(
-                Arguments.of(List.of("제로콜라-1", "레드와인-1")),
-                Arguments.of(List.of("샴페인-3")),
-                Arguments.of(List.of("제로콜라-10", "레드와인-2", "샴페인-4"))
+                Arguments.of("제로콜라-1", "레드와인-1"),
+                Arguments.of("샴페인-3"),
+                Arguments.of("제로콜라-10", "레드와인-2", "샴페인-4")
         );
     }
 }

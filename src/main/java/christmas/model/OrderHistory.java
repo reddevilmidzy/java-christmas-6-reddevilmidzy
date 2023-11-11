@@ -30,10 +30,11 @@ public class OrderHistory {
         }
     }
 
-
-    public static OrderHistory from(List<String> values) {
+    public static OrderHistory from(String values) {
+        //TODO: 여기 너무 두꺼워
+        validate(values);
         List<Order> orderHistory = new ArrayList<>();
-        for (String value : values) {
+        for (String value : values.split(",")) {
             Order order = Order.from(value);
             //TODO: 검증로직 분리
             if (orderHistory.contains(order)) {
@@ -42,6 +43,18 @@ public class OrderHistory {
             orderHistory.add(order);
         }
         return new OrderHistory(orderHistory);
+    }
+
+    private static void validate(String values) {
+        if (values == null || values.isEmpty()) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+        if (values.startsWith(",")) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+        if (values.contains(",,")) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
     }
 
     public Integer getTotalAmount() {
