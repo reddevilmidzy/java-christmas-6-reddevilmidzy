@@ -20,7 +20,7 @@ public class InputController {
             try {
                 return readVisitDate();
             } catch (IllegalArgumentException exception) {
-                printExceptionMessage(exception, VisitDate.class);
+                outputView.printExceptionMessage(exception);
             }
         }
     }
@@ -35,7 +35,7 @@ public class InputController {
             try {
                 return readOrderHistory();
             } catch (IllegalArgumentException exception) {
-                printExceptionMessage(exception, OrderHistory.class);
+                outputView.printExceptionMessage(exception);
             }
         }
     }
@@ -43,18 +43,5 @@ public class InputController {
     private OrderHistory readOrderHistory() {
         String values = inputView.readOrder();
         return OrderHistory.from(values);
-    }
-
-    private void printExceptionMessage(Exception exception, Class<?> clazz) {
-        if (exception.getMessage() == null) {
-            if (VisitDate.class.equals(clazz)) {
-                outputView.printExceptionMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-            }
-            if (OrderHistory.class.equals(clazz)) {
-                outputView.printExceptionMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-            }
-            return;
-        }
-        outputView.printExceptionMessage(exception.getMessage());
     }
 }

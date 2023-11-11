@@ -77,7 +77,7 @@ public class OutputViewImpl implements OutputView {
     }
 
     @Override
-    public void printExceptionMessage(String message) {
-        System.out.println(message);
+    public void printExceptionMessage(Exception exception) {
+        System.out.println(exception.getMessage());
     }
 }
