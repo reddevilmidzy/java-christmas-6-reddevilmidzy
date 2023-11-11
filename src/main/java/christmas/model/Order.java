@@ -15,12 +15,17 @@ public class Order {
 
     public static Order from(List<String> values) {
         Map<Menu, Integer> result = new EnumMap<>(Menu.class);
+        int menuCount = 0;
         for (String value : values) {
             //TODO: -가 두개 이상 포함되어 있는 경우 예외
             String[] split = value.split("-");
             Menu name = Menu.from(split[0]);
-            Integer count = Integer.valueOf(split[1]);
+            int count = Integer.parseInt(split[1]);
             result.put(name, count);
+            menuCount += count;
+        }
+        if (menuCount > 20) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해주세요.");
         }
         return new Order(result);
     }
