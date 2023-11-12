@@ -1,5 +1,7 @@
 package christmas.model;
 
+import java.util.Arrays;
+
 public enum Menu {
     BUTTON_MUSHROOM_SOUP("양송이수프", Category.APPETIZER, 6_000),
     TAPAS("타파스", Category.APPETIZER, 5_500),
@@ -26,12 +28,10 @@ public enum Menu {
     }
 
     public static Menu from(String name) {
-        for (Menu menu : Menu.values()) {
-            if (menu.name.equals(name)) {
-                return menu;
-            }
-        }
-        throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.name.equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."));
     }
 
     public Boolean isCategory(Category category) {

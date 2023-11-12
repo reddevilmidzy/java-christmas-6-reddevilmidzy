@@ -1,6 +1,6 @@
 package christmas.model;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -39,11 +39,9 @@ public class OrderHistory {
 
     public static OrderHistory from(String values) {
         validate(values);
-        List<Order> orderHistory = new ArrayList<>();
-        for (String value : values.trim().split(",")) {
-            Order order = Order.from(value.trim());
-            orderHistory.add(order);
-        }
+        List<Order> orderHistory = Arrays.stream(values.trim().split(","))
+                .map(order -> Order.from(order.trim()))
+                .toList();
         return new OrderHistory(orderHistory);
     }
 

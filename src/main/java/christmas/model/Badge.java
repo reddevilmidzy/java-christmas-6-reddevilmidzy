@@ -1,5 +1,7 @@
 package christmas.model;
 
+import java.util.Arrays;
+
 public enum Badge {
     VIP("산타", 20_000),
     GOLD("트리", 10_000),
@@ -16,12 +18,10 @@ public enum Badge {
     }
 
     public static Badge from(Integer amount) {
-        for (Badge badge : Badge.values()) {
-            if (badge.minimumAmount <= amount) {
-                return badge;
-            }
-        }
-        return Badge.NEW;
+        return Arrays.stream(Badge.values())
+                .filter(badge -> badge.minimumAmount <= amount)
+                .findFirst()
+                .orElse(Badge.NEW);
     }
 
     public String getName() {

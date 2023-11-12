@@ -3,7 +3,6 @@ package christmas.service.giveaway;
 import christmas.model.Menu;
 import christmas.model.OrderHistory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -17,12 +16,9 @@ public class GiveawayService {
     }
 
     public static GiveawayService of(List<GiveawayPolicy> giveawayPolicies, OrderHistory orderHistory) {
-        List<GiveawayPolicy> giveaway = new ArrayList<>();
-        for (GiveawayPolicy giveawayPolicy : giveawayPolicies) {
-            if (giveawayPolicy.hasGiveaway(orderHistory)) {
-                giveaway.add(giveawayPolicy);
-            }
-        }
+        List<GiveawayPolicy> giveaway = giveawayPolicies.stream()
+                .filter(giveawayPolicy -> giveawayPolicy.hasGiveaway(orderHistory))
+                .toList();
         return new GiveawayService(giveaway);
     }
 
