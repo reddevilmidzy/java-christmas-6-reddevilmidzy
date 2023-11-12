@@ -17,17 +17,26 @@ class VisitDateTest {
     @DisplayName("1이상 31이하의 숫자가 아닌 경우 예외를 던진다.")
     @ParameterizedTest(name = "{displayName}: {0}")
     @ValueSource(strings = {"-100", "0", "32", "1000"})
-    void createInvalidRange(String  value) {
+    void createInvalidRange(String value) {
         assertThatThrownBy(() -> VisitDate.visitOfDecember(value))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+    }
+
+    @DisplayName("공백이 있다면 제거후 정상동작한다.")
+    @ParameterizedTest(name = "{displayName}: {0}")
+    @ValueSource(strings = {" 1", "2 ", " 3 ", "  4"})
+    void createWhiteSpace(String value) {
+        VisitDate visitDate = VisitDate.visitOfDecember(value);
+        assertThat(visitDate.getDay())
+                .isEqualTo(Integer.parseInt(value.trim()));
     }
 
     @DisplayName("숫자가 아닌 경우 예외를 던진다.")
     @ParameterizedTest(name = "{displayName}: {0}")
     @NullSource
     @ValueSource(strings = {"a", "devil", "christmas", "1000a"})
-    void createInvalidType(String  value) {
+    void createInvalidType(String value) {
         assertThatThrownBy(() -> VisitDate.visitOfDecember(value))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");

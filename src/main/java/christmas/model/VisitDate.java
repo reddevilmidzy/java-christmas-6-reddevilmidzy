@@ -16,7 +16,7 @@ public class VisitDate {
 
     public static VisitDate visitOfDecember(String value) {
         validate(value);
-        int day = Integer.parseInt(value);
+        int day = Integer.parseInt(value.trim());
         LocalDate localDate = LocalDate.of(2023, 12, day);
         return new VisitDate(localDate);
     }
@@ -52,7 +52,7 @@ public class VisitDate {
 
     private static void validateRange(String value) {
         try {
-            int day = Integer.parseInt(value);
+            int day = Integer.parseInt(value.trim());
             if (day < 1 || 31 < day) {
                 throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
             }
