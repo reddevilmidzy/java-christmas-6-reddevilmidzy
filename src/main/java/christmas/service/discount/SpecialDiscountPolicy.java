@@ -1,5 +1,6 @@
 package christmas.service.discount;
 
+import christmas.constant.Rule;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 
@@ -10,7 +11,7 @@ public class SpecialDiscountPolicy implements DiscountPolicy {
     @Override
     public int discount(VisitDate visitDate, OrderHistory orderHistory) {
         if (visitDate.isHoliday()) {
-            return 1000;
+            return Rule.SPECIAL_DISCOUNT_AMOUNT;
         }
         return 0;
     }

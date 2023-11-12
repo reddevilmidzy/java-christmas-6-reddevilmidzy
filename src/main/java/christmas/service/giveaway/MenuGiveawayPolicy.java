@@ -1,5 +1,6 @@
 package christmas.service.giveaway;
 
+import christmas.constant.Rule;
 import christmas.model.Menu;
 import christmas.model.OrderHistory;
 
@@ -24,6 +25,6 @@ public class MenuGiveawayPolicy implements GiveawayPolicy {
 
     @Override
     public boolean hasGiveaway(OrderHistory orderHistory) {
-        return orderHistory.getTotalAmount() >= 120_000;
+        return orderHistory.getTotalAmount() >= Rule.MIN_GIVEAWAY_EVENT_AMOUNT;
     }
 }

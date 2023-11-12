@@ -1,5 +1,6 @@
 package christmas.service.discount;
 
+import christmas.constant.Rule;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 
@@ -13,7 +14,7 @@ public class ChristmasDDayDiscountPolicy implements DiscountPolicy {
         if (leftDays < 0) {
             return 0;
         }
-        return 1000 + ((VisitDate.CHRISTMAS_DAY - leftDays - 1) * 100);
+        return Rule.DISCOUNT_STARTING_AMOUNT + ((VisitDate.CHRISTMAS_DAY - leftDays - 1) * Rule.AMOUNT_INCREASED);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package christmas.service.discount;
 
+import christmas.constant.Rule;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 
@@ -19,7 +20,7 @@ public class DiscountService {
 
     public static DiscountService of(List<DiscountPolicy> discountPolicies, VisitDate date, OrderHistory orderHistory) {
         Map<DiscountPolicy, Integer> discounts = new LinkedHashMap<>();
-        if (orderHistory.getTotalAmount() < 10_000) {
+        if (orderHistory.getTotalAmount() < Rule.MIN_AMOUNT_CONDITION) {
             return new DiscountService(discounts);
         }
         for (DiscountPolicy discountPolicy : discountPolicies) {

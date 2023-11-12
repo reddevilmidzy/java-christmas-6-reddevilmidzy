@@ -1,5 +1,6 @@
 package christmas.service.discount;
 
+import christmas.constant.Rule;
 import christmas.model.Category;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
@@ -13,7 +14,7 @@ public class WeekDayDiscountPolicy implements DiscountPolicy {
         if (visitDate.isWeekend()) {
             return 0;
         }
-        return orderHistory.countCategory(Category.DESSERT) * 2023;
+        return orderHistory.countCategory(Category.DESSERT) * Rule.DAY_DISCOUNT_AMOUNT;
     }
 
     @Override

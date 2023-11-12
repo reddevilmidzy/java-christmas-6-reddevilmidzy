@@ -1,5 +1,7 @@
 package christmas.model;
 
+import christmas.constant.Rule;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -26,7 +28,7 @@ public class OrderHistory {
     }
 
     private void validateTotalQuantity(List<Order> target) {
-        if (target.stream().mapToInt(Order::getQuantity).sum() > 20) {
+        if (target.stream().mapToInt(Order::getQuantity).sum() > Rule.MAX_ORDER_COUNT) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
