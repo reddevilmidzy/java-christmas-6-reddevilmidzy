@@ -58,7 +58,7 @@ public class OutputViewImpl implements OutputView {
                 System.out.printf(BENEFIT_FORMAT, discountPolicy.getName(), NUMBER_FORMAT.format(integer)));
         giveawayService.forEach(giveawayPolicy ->
                 System.out.printf(BENEFIT_FORMAT, giveawayPolicy.getName(),
-                        NUMBER_FORMAT.format(-giveawayPolicy.getMenu().getPrice()))); //TODO: 수정 필요
+                        NUMBER_FORMAT.format(-giveawayPolicy.getPrice())));
         if (discountService.isEmpty() && giveawayService.isEmpty()) {
             System.out.println("없음");
         }

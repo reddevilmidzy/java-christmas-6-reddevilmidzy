@@ -9,4 +9,6 @@ public interface GiveawayPolicy {
     Menu getMenu();
 
     String getName();
+
+    int getPrice();
 }

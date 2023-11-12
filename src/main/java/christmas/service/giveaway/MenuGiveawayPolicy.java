@@ -18,6 +18,11 @@ public class MenuGiveawayPolicy implements GiveawayPolicy {
     }
 
     @Override
+    public int getPrice() {
+        return Menu.CHAMPAGNE.getPrice();
+    }
+
+    @Override
     public boolean hasGiveaway(OrderHistory orderHistory) {
         return orderHistory.getTotalAmount() >= 120_000;
     }

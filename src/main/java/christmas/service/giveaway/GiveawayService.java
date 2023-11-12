@@ -1,6 +1,5 @@
 package christmas.service.giveaway;
 
-import christmas.model.Menu;
 import christmas.model.OrderHistory;
 
 import java.util.List;
@@ -29,8 +28,7 @@ public class GiveawayService {
     }
 
     private int getPrice(GiveawayPolicy giveawayPolicy) {
-        Menu menu = giveawayPolicy.getMenu();
-        return menu.getPrice();
+        return giveawayPolicy.getPrice();
     }
 
     public boolean isEmpty() {
