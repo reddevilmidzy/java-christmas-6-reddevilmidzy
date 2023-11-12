@@ -32,11 +32,11 @@ public class DiscountService {
     }
 
     public void forEach(BiConsumer<? super DiscountPolicy, ? super Integer> action) {
-        if (discounts.isEmpty()) {
-            System.out.println("없음");
-            return;
-        }
         discounts.forEach(action);
+    }
+
+    public boolean isEmpty() {
+        return discounts.isEmpty();
     }
 
     public Integer getBenefit() {

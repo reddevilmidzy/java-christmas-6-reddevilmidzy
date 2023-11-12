@@ -45,6 +45,9 @@ public class OutputViewImpl implements OutputView {
         System.out.println("<증정 메뉴>");
         giveawayService.forEach(giveawayPolicy ->
                 System.out.printf(ORDER_MENU_FORMAT, giveawayPolicy.getMenu().getName(), 1)); //TODO: 이거 그냥 1 주는거 맞을까
+        if (giveawayService.isEmpty()) {
+            System.out.println("없음");
+        }
         System.out.println();
     }
 
@@ -56,6 +59,9 @@ public class OutputViewImpl implements OutputView {
         giveawayService.forEach(giveawayPolicy ->
                 System.out.printf(BENEFIT_FORMAT, giveawayPolicy.getName(),
                         NUMBER_FORMAT.format(-giveawayPolicy.getMenu().getPrice()))); //TODO: 수정 필요
+        if (discountService.isEmpty() && giveawayService.isEmpty()) {
+            System.out.println("없음");
+        }
         System.out.println();
     }
 

@@ -30,25 +30,29 @@ public class ChristmasPromotionController {
         outputView.printWelcomeMessage();
         VisitDate date = inputController.getVisitDate();
         OrderHistory orderHistory = inputController.getOrderHistory();
+        List<GiveawayPolicy> giveawayPolicies = getGiveawayPolicy();
+        GiveawayService giveawayService = GiveawayService.of(giveawayPolicies, orderHistory);
+        List<DiscountPolicy> discountPolicies = getDiscountPolicy();
+        DiscountService discountService = DiscountService.of(discountPolicies, date, orderHistory);
+        int discount = getDiscountedAmount(orderHistory, discountService);
+        printResult(date, orderHistory, giveawayService, discountService, discount);
+    }
+
+    private void printResult(VisitDate date, OrderHistory orderHistory, GiveawayService giveawayService,
+                             DiscountService discountService, int discount) {
+        //TODO: 메서드 나누기
         outputView.printPreviewEventBenefits(date);
         outputView.printOrderMenu(orderHistory);
         outputView.printTotalOrderAmount(orderHistory);
-        List<GiveawayPolicy> giveawayPolicies = getGiveawayPolicy();
-        GiveawayService giveawayService = GiveawayService.of(giveawayPolicies, orderHistory);
-        int giveawayAmount = giveawayService.calculateGiveawayBenefit();
-
         outputView.printGiveawayMenu(giveawayService);
-        List<DiscountPolicy> discountPolicies = getDiscountPolicy();
-        DiscountService discountService = DiscountService.of(discountPolicies, date, orderHistory);
         outputView.printBenefitDetails(discountService, giveawayService);
         outputView.printTotalBenefit(discountService, giveawayService);
-        //TODO: 메서드 분리하기
-        int discount = getDiscountedAmount(orderHistory, discountService);
         outputView.printDiscountedAmount(discount);
-        outputView.printBadge(getBadge(-discountService.getBenefit() + giveawayAmount));
+        outputView.printBadge(getBadge(discountService, giveawayService));
     }
 
-    private Badge getBadge(Integer amount) {
+    private Badge getBadge(DiscountService discountService, GiveawayService giveawayService) {
+        int amount = -discountService.getBenefit() + giveawayService.calculateGiveawayBenefit();
         return Badge.from(amount);
     }
 

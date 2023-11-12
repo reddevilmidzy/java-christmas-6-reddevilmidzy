@@ -37,11 +37,11 @@ public class GiveawayService {
         return menu.getPrice();
     }
 
+    public boolean isEmpty() {
+        return giveaway.isEmpty();
+    }
+
     public void forEach(Consumer<? super GiveawayPolicy> action) {
-        if (giveaway.isEmpty()) {
-            System.out.println("없음"); //TODO: 여기서 출력이 맞을까
-            return;
-        }
         giveaway.forEach(action);
     }
 }
