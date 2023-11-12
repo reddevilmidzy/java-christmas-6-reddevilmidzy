@@ -20,10 +20,7 @@ public class Order {
     }
 
     private static void validate(String source) {
-        long separatorCount = source.chars()
-                .filter(ch -> ch == '-')
-                .count();
-        if (separatorCount != 1) {
+        if (!source.contains("-")) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }

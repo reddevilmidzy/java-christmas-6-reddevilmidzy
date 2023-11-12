@@ -28,6 +28,14 @@ class OrderTest {
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다.");
     }
 
+    @DisplayName("메뉴,수량 구분자가 한개가 아니면 예외")
+    @ParameterizedTest(name = "{displayName}: {0}")
+    @ValueSource(strings = {"아이스크림--2", "양송이수프----1", "타파스1"})
+    void createInvalidSeparator(String value) {
+        assertThatThrownBy(() -> Order.from(value))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
     @DisplayName("수량이 유효한 숫자가 아니면 예외")
     @ParameterizedTest
     @ValueSource(strings = {"크리스마스파스타-a", "크리스마스파스타-크리스마스파스타", "크리스마스파스타-."})
