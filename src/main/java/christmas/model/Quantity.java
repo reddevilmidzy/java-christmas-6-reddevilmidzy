@@ -14,7 +14,7 @@ public class Quantity {
 
     public static Quantity from(String value) {
         validate(value);
-        return new Quantity(Integer.parseInt(value));
+        return new Quantity(Integer.parseInt(value.trim()));
     }
 
     private static void validate(String value) {

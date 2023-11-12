@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
@@ -21,6 +22,15 @@ class OrderHistoryTest {
         OrderHistory orderHistory = OrderHistory.from(value);
         assertThat(orderHistory.getTotalAmount())
                 .isEqualTo(142000);
+    }
+
+    @DisplayName("메뉴 사이에 공백 포함시 정상 수행")
+    @ParameterizedTest(name = "{displayName}: {0}")
+    @ValueSource(strings = {"티본스테이크-1 , 바비큐립-1 ", " 티본스테이크-1 ,바비큐립-1", "티본스테이크-1 , 바비큐립-1 "})
+    void createWhiteSpace(String value) {
+        OrderHistory orderHistory = OrderHistory.from(value);
+        assertThat(orderHistory.getTotalAmount())
+                .isEqualTo(109000);
     }
 
     @DisplayName("메뉴 개수가 20개를 초과하면 예외 발생")

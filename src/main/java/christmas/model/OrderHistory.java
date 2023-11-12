@@ -34,8 +34,8 @@ public class OrderHistory {
         //TODO: 여기 너무 두꺼워
         validate(values);
         List<Order> orderHistory = new ArrayList<>();
-        for (String value : values.split(",")) {
-            Order order = Order.from(value);
+        for (String value : values.trim().split(",")) {
+            Order order = Order.from(value.trim());
             //TODO: 검증로직 분리
             if (orderHistory.contains(order)) {
                 throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
@@ -46,7 +46,7 @@ public class OrderHistory {
     }
 
     private static void validate(String values) {
-        if (values == null || values.isEmpty()) {
+        if (values == null || values.trim().isEmpty()) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
         if (values.startsWith(",")) {
