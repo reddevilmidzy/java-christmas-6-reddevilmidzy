@@ -1,10 +1,10 @@
 package christmas.view;
 
+import christmas.constant.Rule;
 import christmas.model.Badge;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
-import christmas.service.discount.DiscountService;
-import christmas.service.giveaway.GiveawayService;
+import christmas.service.Promotion;
 
 import java.text.DecimalFormat;
 
@@ -41,35 +41,37 @@ public class OutputViewImpl implements OutputView {
     }
 
     @Override
-    public void printGiveawayMenu(GiveawayService giveawayService) {
+    public void printGiveawayMenu(Promotion promotion) {
         System.out.println("<증정 메뉴>");
-        giveawayService.forEach(giveawayPolicy ->
-                System.out.printf(ORDER_MENU_FORMAT, giveawayPolicy.getMenu().getName(), 1)); //TODO: 이거 그냥 1 주는거 맞을까
-        if (giveawayService.isEmpty()) {
-            System.out.println("없음");
+        if (promotion.hasGiveawayMenu()) {
+            promotion.forEach(giveawayPolicy ->
+                    System.out.printf(ORDER_MENU_FORMAT, giveawayPolicy.getMenu().getName(), Rule.GIVEAWAY_MENU_COUNT));
+            System.out.println();
+            return;
         }
+        System.out.println("없음");
         System.out.println();
     }
 
     @Override
-    public void printBenefitDetails(DiscountService discountService, GiveawayService giveawayService) {
+    public void printBenefitDetails(Promotion promotion) {
         System.out.println("<혜택 내역>");
-        discountService.forEach((discountPolicy, integer) ->
+
+        promotion.forEach((discountPolicy, integer) ->
                 System.out.printf(BENEFIT_FORMAT, discountPolicy.getName(), NUMBER_FORMAT.format(integer)));
-        giveawayService.forEach(giveawayPolicy ->
+        promotion.forEach(giveawayPolicy ->
                 System.out.printf(BENEFIT_FORMAT, giveawayPolicy.getName(),
                         NUMBER_FORMAT.format(-giveawayPolicy.getPrice())));
-        if (discountService.isEmpty() && giveawayService.isEmpty()) {
+        if (!promotion.hasGiveawayMenu() && !promotion.hasDiscount()) {
             System.out.println("없음");
         }
         System.out.println();
     }
 
     @Override
-    public void printTotalBenefit(DiscountService discountService, GiveawayService giveawayService) {
+    public void printTotalBenefit(Promotion promotion) {
         System.out.println("<총혜택 금액>");
-        System.out.printf("%s원%n",
-                NUMBER_FORMAT.format(discountService.getBenefit() - giveawayService.calculateGiveawayBenefit()));
+        System.out.printf("%s원%n", NUMBER_FORMAT.format(promotion.calculateTotalBenefit()));
         System.out.println();
     }
 
@@ -83,7 +85,7 @@ public class OutputViewImpl implements OutputView {
     @Override
     public void printBadge(Badge badge) {
         System.out.println("<12월 이벤트 배지>");
-        System.out.println(badge.getName());
+        System.out.print(badge.getName());
     }
 
     @Override

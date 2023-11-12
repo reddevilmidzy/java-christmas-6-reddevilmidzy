@@ -9,6 +9,7 @@ public class Rule {
     public static final int DAY_DISCOUNT_AMOUNT = 2_023;
     public static final int SPECIAL_DISCOUNT_AMOUNT = 1_000;
     public static final int MIN_GIVEAWAY_EVENT_AMOUNT = 120_000;
+    public static final int GIVEAWAY_MENU_COUNT = 1;
 
 
     private Rule() {

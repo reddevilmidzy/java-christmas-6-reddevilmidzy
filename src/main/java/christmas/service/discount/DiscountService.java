@@ -12,6 +12,7 @@ import java.util.function.BiConsumer;
 //TODO: 서비스라는 이름이 맞을까?
 public class DiscountService {
 
+    //TODO: Map<String, Integer> 이런 식으로 아예 이름 담아둘까?
     private final Map<DiscountPolicy, Integer> discounts;
 
     private DiscountService(Map<DiscountPolicy, Integer> discounts) {

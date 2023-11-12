@@ -3,8 +3,7 @@ package christmas.view;
 import christmas.model.Badge;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
-import christmas.service.discount.DiscountService;
-import christmas.service.giveaway.GiveawayService;
+import christmas.service.Promotion;
 
 public interface OutputView {
     void printWelcomeMessage();
@@ -15,11 +14,11 @@ public interface OutputView {
 
     void printTotalOrderAmount(OrderHistory orderHistory);
 
-    void printGiveawayMenu(GiveawayService giveawayService);
+    void printGiveawayMenu(Promotion promotion);
 
-    void printBenefitDetails(DiscountService discountService, GiveawayService giveawayService);
+    void printBenefitDetails(Promotion promotion);
 
-    void printTotalBenefit(DiscountService discountService, GiveawayService giveawayService);
+    void printTotalBenefit(Promotion promotion);
 
     void printDiscountedAmount(Integer amount);
 
