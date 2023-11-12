@@ -34,12 +34,11 @@ public class ChristmasPromotionController {
         GiveawayService giveawayService = GiveawayService.of(giveawayPolicies, orderHistory);
         List<DiscountPolicy> discountPolicies = getDiscountPolicy();
         DiscountService discountService = DiscountService.of(discountPolicies, date, orderHistory);
-        int discount = getDiscountedAmount(orderHistory, discountService);
-        printResult(date, orderHistory, giveawayService, discountService, discount);
+        printResult(date, orderHistory, giveawayService, discountService);
     }
 
     private void printResult(VisitDate date, OrderHistory orderHistory, GiveawayService giveawayService,
-                             DiscountService discountService, int discount) {
+                             DiscountService discountService) {
         //TODO: 메서드 나누기
         outputView.printPreviewEventBenefits(date);
         outputView.printOrderMenu(orderHistory);
@@ -47,7 +46,7 @@ public class ChristmasPromotionController {
         outputView.printGiveawayMenu(giveawayService);
         outputView.printBenefitDetails(discountService, giveawayService);
         outputView.printTotalBenefit(discountService, giveawayService);
-        outputView.printDiscountedAmount(discount);
+        outputView.printDiscountedAmount(getDiscountedAmount(orderHistory, discountService));
         outputView.printBadge(getBadge(discountService, giveawayService));
     }
 

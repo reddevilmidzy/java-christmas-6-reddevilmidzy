@@ -14,9 +14,17 @@ public class Order {
 
     public static Order from(String source) {
         validate(source);
-        Menu menu = Menu.from(source.substring(0, source.indexOf('-')));
-        Quantity quantity = Quantity.from(source.substring(source.indexOf('-') + 1));
+        Menu menu = Menu.from(getMenu(source));
+        Quantity quantity = Quantity.from(getQuantity(source));
         return new Order(menu, quantity);
+    }
+
+    private static String getQuantity(String source) {
+        return source.substring(source.indexOf('-') + 1);
+    }
+
+    private static String getMenu(String source) {
+        return source.substring(0, source.indexOf('-'));
     }
 
     private static void validate(String source) {
