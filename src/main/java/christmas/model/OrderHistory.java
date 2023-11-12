@@ -16,6 +16,7 @@ public class OrderHistory {
     private void validate(List<Order> target) {
         validateTotalQuantity(target);
         validateOnlyBeverage(target);
+        validateDuplicate(target);
     }
 
     private void validateOnlyBeverage(List<Order> target) {
@@ -30,16 +31,17 @@ public class OrderHistory {
         }
     }
 
+    private void validateDuplicate(List<Order> target) {
+        if (target.stream().distinct().count() != target.size()) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+    }
+
     public static OrderHistory from(String values) {
-        //TODO: 여기 너무 두꺼워
         validate(values);
         List<Order> orderHistory = new ArrayList<>();
         for (String value : values.trim().split(",")) {
             Order order = Order.from(value.trim());
-            //TODO: 검증로직 분리
-            if (orderHistory.contains(order)) {
-                throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-            }
             orderHistory.add(order);
         }
         return new OrderHistory(orderHistory);
