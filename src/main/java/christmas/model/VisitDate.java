@@ -2,12 +2,13 @@ package christmas.model;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 
 import static christmas.model.Quantity.NUMERIC_PATTERN;
 
 public class VisitDate {
 
-    public static final Integer CHRISTMAS_DAY = 25;
+    private static final LocalDate CHRISTMAS = LocalDate.of(2023, 12, 25);
     private final LocalDate date;
 
     private VisitDate(LocalDate date) {
@@ -17,26 +18,26 @@ public class VisitDate {
     public static VisitDate visitOfDecember(String value) {
         validate(value);
         int day = Integer.parseInt(value.trim());
-        LocalDate localDate = LocalDate.of(2023, 12, day);
+        LocalDate localDate = LocalDate.of(2023, Month.DECEMBER, day);
         return new VisitDate(localDate);
     }
 
-    public Integer leftUntilChristmas() {
-        //TODO: 아예 이번년도 크리스마스를 로컬데이트에 저장해서 값 도출
-        return CHRISTMAS_DAY - date.getDayOfMonth();
+    public int leftUntilChristmas() {
+        return CHRISTMAS.compareTo(date);
     }
 
-    public Boolean isWeekend() {
+    public boolean isAfterChristmas() {
+        return date.isAfter(CHRISTMAS);
+    }
+
+    public boolean isWeekend() {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
         return dayOfWeek.equals(DayOfWeek.FRIDAY) || dayOfWeek.equals(DayOfWeek.SATURDAY);
     }
 
-
-    // 아예 이 필드를 LocalDate 로 가져가는 것도 고려해보기
-    public Boolean isHoliday() {
+    public boolean isHoliday() {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
-        int day = date.getDayOfMonth();
-        return dayOfWeek.equals(DayOfWeek.SUNDAY) || day == CHRISTMAS_DAY;
+        return dayOfWeek.equals(DayOfWeek.SUNDAY) || date.isEqual(CHRISTMAS);
     }
 
     private static void validate(String value) {
@@ -61,8 +62,11 @@ public class VisitDate {
         }
     }
 
-    //TODO: 출력때문에 쓰고 있는데 제거 고려
     public int getDay() {
         return date.getDayOfMonth();
+    }
+
+    public int getMonth() {
+        return date.getMonthValue();
     }
 }

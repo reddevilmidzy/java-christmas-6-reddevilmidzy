@@ -10,11 +10,10 @@ public class ChristmasDDayDiscountPolicy implements DiscountPolicy {
 
     @Override
     public int discount(VisitDate visitDate, OrderHistory orderHistory) {
-        int leftDays = visitDate.leftUntilChristmas();
-        if (leftDays < 0) {
+        if (visitDate.isAfterChristmas()) {
             return 0;
         }
-        return Rule.DISCOUNT_STARTING_AMOUNT + ((VisitDate.CHRISTMAS_DAY - leftDays - 1) * Rule.AMOUNT_INCREASED);
+        return Rule.DISCOUNT_MAX_AMOUNT - visitDate.leftUntilChristmas() * Rule.AMOUNT_INCREASED;
     }
 
     @Override
