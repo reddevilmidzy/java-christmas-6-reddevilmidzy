@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Order {
 
+    private static final String SEPARATOR = "-";
     private final Menu menu;
     private final Quantity quantity;
 
@@ -20,15 +21,15 @@ public class Order {
     }
 
     private static String getQuantity(String source) {
-        return source.substring(source.indexOf('-') + 1);
+        return source.substring(source.indexOf(SEPARATOR) + 1);
     }
 
     private static String getMenu(String source) {
-        return source.substring(0, source.indexOf('-'));
+        return source.substring(0, source.indexOf(SEPARATOR));
     }
 
     private static void validate(String source) {
-        if (!source.contains("-")) {
+        if (!source.contains(SEPARATOR)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }

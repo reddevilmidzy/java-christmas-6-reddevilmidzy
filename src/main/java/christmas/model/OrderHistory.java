@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 
 public class OrderHistory {
 
+    private static final String SEPARATOR = ",";
     private final List<Order> orderHistory;
 
     private OrderHistory(List<Order> orderHistory) {
@@ -41,7 +42,7 @@ public class OrderHistory {
 
     public static OrderHistory from(String values) {
         validate(values);
-        List<Order> orderHistory = Arrays.stream(values.trim().split(","))
+        List<Order> orderHistory = Arrays.stream(values.trim().split(SEPARATOR))
                 .map(order -> Order.from(order.trim()))
                 .toList();
         return new OrderHistory(orderHistory);
@@ -51,10 +52,10 @@ public class OrderHistory {
         if (values == null || values.trim().isEmpty()) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
-        if (values.startsWith(",")) {
+        if (values.startsWith(SEPARATOR)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
-        if (values.contains(",,")) {
+        if (values.contains(SEPARATOR.repeat(2))) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
