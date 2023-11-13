@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DiscountAndGiveawayTest {
+class PromotionTest {
 
     List<DiscountPolicy> discountPolicies;
     List<GiveawayPolicy> giveawayPolicies;
