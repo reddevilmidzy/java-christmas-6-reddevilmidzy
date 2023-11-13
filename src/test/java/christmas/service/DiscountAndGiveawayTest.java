@@ -48,7 +48,7 @@ class DiscountAndGiveawayTest {
         DiscountManager discountManager = DiscountManager.of(discountPolicies, visitDate,
                 orderHistory);
         GiveawayManager giveawayManager = GiveawayManager.of(giveawayPolicies, orderHistory);
-        assertThat(discountManager.getBenefit() - giveawayManager.calculateGiveawayBenefit())
+        assertThat(-(discountManager.getBenefit() + giveawayManager.calculateGiveawayBenefit()))
                 .isEqualTo(expected);
     }
 

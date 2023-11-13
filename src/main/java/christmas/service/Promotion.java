@@ -63,15 +63,15 @@ public class Promotion {
     }
 
     public int getDiscountedAmount(OrderHistory orderHistory) {
-        return orderHistory.getTotalAmount() + discountManager.getBenefit();
+        return orderHistory.getTotalAmount() - discountManager.getBenefit();
     }
 
     public int calculateTotalBenefit() {
-        return discountManager.getBenefit() - giveawayManager.calculateGiveawayBenefit();
+        return -(discountManager.getBenefit() + giveawayManager.calculateGiveawayBenefit());
     }
 
     public Badge getBadge() {
-        int amount = -discountManager.getBenefit() + giveawayManager.calculateGiveawayBenefit();
+        int amount = discountManager.getBenefit() + giveawayManager.calculateGiveawayBenefit();
         return Badge.from(amount);
     }
 }

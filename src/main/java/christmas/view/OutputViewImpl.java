@@ -56,7 +56,7 @@ public class OutputViewImpl implements OutputView {
     public void printBenefitDetails(Promotion promotion) {
         System.out.println("<혜택 내역>");
         promotion.forEach((discountPolicyName, discountedValue) ->
-                System.out.printf(BENEFIT_FORMAT, discountPolicyName, NUMBER_FORMAT.format(discountedValue)));
+                System.out.printf(BENEFIT_FORMAT, discountPolicyName, NUMBER_FORMAT.format(-discountedValue)));
         promotion.forEach(giveawayPolicy ->
                 System.out.printf(BENEFIT_FORMAT, giveawayPolicy.getName(),
                         NUMBER_FORMAT.format(-giveawayPolicy.getPrice())));

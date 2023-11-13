@@ -25,7 +25,7 @@ public class DiscountManager {
         for (DiscountPolicy discountPolicy : discountPolicies) {
             int discountValue = discountPolicy.discount(date, orderHistory);
             if (discountValue > 0) {
-                discounts.put(discountPolicy.getName(), -discountValue);
+                discounts.put(discountPolicy.getName(), discountValue);
             }
         }
         return new DiscountManager(discounts);
