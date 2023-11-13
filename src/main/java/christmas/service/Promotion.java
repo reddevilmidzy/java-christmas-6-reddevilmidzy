@@ -58,7 +58,7 @@ public class Promotion {
         return !discountManager.isEmpty();
     }
 
-    public void forEach(BiConsumer<? super DiscountPolicy, ? super Integer> action) {
+    public void forEach(BiConsumer<? super String, ? super Integer> action) {
         discountManager.forEach(action);
     }
 

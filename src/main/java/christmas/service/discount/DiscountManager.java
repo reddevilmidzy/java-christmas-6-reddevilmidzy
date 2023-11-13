@@ -11,28 +11,27 @@ import java.util.function.BiConsumer;
 
 public class DiscountManager {
 
-    //TODO: Map<String, Integer> 이런 식으로 아예 이름 담아둘까?
-    private final Map<DiscountPolicy, Integer> discounts;
+    private final Map<String, Integer> discounts;
 
-    private DiscountManager(Map<DiscountPolicy, Integer> discounts) {
+    private DiscountManager(Map<String, Integer> discounts) {
         this.discounts = discounts;
     }
 
     public static DiscountManager of(List<DiscountPolicy> discountPolicies, VisitDate date, OrderHistory orderHistory) {
-        Map<DiscountPolicy, Integer> discounts = new LinkedHashMap<>();
+        Map<String, Integer> discounts = new LinkedHashMap<>();
         if (orderHistory.getTotalAmount() < Rule.MIN_AMOUNT_CONDITION) {
             return new DiscountManager(discounts);
         }
         for (DiscountPolicy discountPolicy : discountPolicies) {
             int discountValue = discountPolicy.discount(date, orderHistory);
             if (discountValue > 0) {
-                discounts.put(discountPolicy, -discountValue);
+                discounts.put(discountPolicy.getName(), -discountValue);
             }
         }
         return new DiscountManager(discounts);
     }
 
-    public void forEach(BiConsumer<? super DiscountPolicy, ? super Integer> action) {
+    public void forEach(BiConsumer<? super String, ? super Integer> action) {
         discounts.forEach(action);
     }
 
