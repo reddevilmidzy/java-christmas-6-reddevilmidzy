@@ -16,7 +16,7 @@ class VisitDateTest {
 
     @DisplayName("1이상 31이하의 숫자가 아닌 경우 예외를 던진다.")
     @ParameterizedTest(name = "{displayName}: {0}")
-    @ValueSource(strings = {"-100", "0", "32", "1000"})
+    @ValueSource(strings = {"-100", "0", "32", "1000", "98765432109876543210"})
     void createInvalidRange(String value) {
         assertThatThrownBy(() -> VisitDate.visitOfDecember(value))
                 .isInstanceOf(IllegalArgumentException.class)
