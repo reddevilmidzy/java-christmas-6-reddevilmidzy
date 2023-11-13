@@ -4,12 +4,12 @@ import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.discount.ChristmasDDayDiscountPolicy;
 import christmas.service.discount.DiscountPolicy;
-import christmas.service.discount.DiscountService;
+import christmas.service.discount.DiscountManager;
 import christmas.service.discount.SpecialDiscountPolicy;
 import christmas.service.discount.WeekDayDiscountPolicy;
 import christmas.service.discount.WeekendDiscountPolicy;
 import christmas.service.giveaway.GiveawayPolicy;
-import christmas.service.giveaway.GiveawayService;
+import christmas.service.giveaway.GiveawayManager;
 import christmas.service.giveaway.MenuGiveawayPolicy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -45,10 +45,10 @@ class DiscountAndGiveawayTest {
     void createTotalBenefit(Integer date, String menus, Integer expected) {
         VisitDate visitDate = VisitDate.visitOfDecember(String.valueOf(date));
         OrderHistory orderHistory = OrderHistory.from(menus);
-        DiscountService discountService = DiscountService.of(discountPolicies, visitDate,
+        DiscountManager discountManager = DiscountManager.of(discountPolicies, visitDate,
                 orderHistory);
-        GiveawayService giveawayService = GiveawayService.of(giveawayPolicies, orderHistory);
-        assertThat(discountService.getBenefit() - giveawayService.calculateGiveawayBenefit())
+        GiveawayManager giveawayManager = GiveawayManager.of(giveawayPolicies, orderHistory);
+        assertThat(discountManager.getBenefit() - giveawayManager.calculateGiveawayBenefit())
                 .isEqualTo(expected);
     }
 
@@ -65,10 +65,10 @@ class DiscountAndGiveawayTest {
     void createLess10_000Amount(Integer date, String menus) {
         VisitDate visitDate = VisitDate.visitOfDecember(String.valueOf(date));
         OrderHistory orderHistory = OrderHistory.from(menus);
-        DiscountService discountService = DiscountService.of(discountPolicies, visitDate,
+        DiscountManager discountManager = DiscountManager.of(discountPolicies, visitDate,
                 orderHistory);
-        GiveawayService giveawayService = GiveawayService.of(giveawayPolicies, orderHistory);
-        assertThat(discountService.getBenefit() + giveawayService.calculateGiveawayBenefit())
+        GiveawayManager giveawayManager = GiveawayManager.of(giveawayPolicies, orderHistory);
+        assertThat(discountManager.getBenefit() + giveawayManager.calculateGiveawayBenefit())
                 .isEqualTo(0);
     }
 }

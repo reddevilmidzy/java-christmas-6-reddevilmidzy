@@ -5,20 +5,19 @@ import christmas.model.OrderHistory;
 import java.util.List;
 import java.util.function.Consumer;
 
-//TODO: 이것도 discountService 처럼 이름 고민해뵉
-public class GiveawayService {
+public class GiveawayManager {
 
     private final List<GiveawayPolicy> giveaway;
 
-    private GiveawayService(List<GiveawayPolicy> giveaway) {
+    private GiveawayManager(List<GiveawayPolicy> giveaway) {
         this.giveaway = giveaway;
     }
 
-    public static GiveawayService of(List<GiveawayPolicy> giveawayPolicies, OrderHistory orderHistory) {
+    public static GiveawayManager of(List<GiveawayPolicy> giveawayPolicies, OrderHistory orderHistory) {
         List<GiveawayPolicy> giveaway = giveawayPolicies.stream()
                 .filter(giveawayPolicy -> giveawayPolicy.hasGiveaway(orderHistory))
                 .toList();
-        return new GiveawayService(giveaway);
+        return new GiveawayManager(giveaway);
     }
 
     public Integer calculateGiveawayBenefit() {
