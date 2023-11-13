@@ -1,9 +1,9 @@
 package christmas.model;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -15,14 +15,15 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class OrderHistoryTest {
 
-    //TODO: 테스트 빈약함
     @DisplayName("할인 전 총주문 금액 확인")
-    @Test
-    void checkTotalAmount() {
-        String value = "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1";
+    @ParameterizedTest
+    @CsvSource(value = {"티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1|142000", "티본스테이크-1,레드와인-19|1195000",
+            "양송이수프-1,타파스-1,시저샐러드-1,티본스테이크-1,바비큐립-1,해산물파스타-1,크리스마스파스타-1,초코케이크-1,아이스크림-1,제로콜라-1,레드와인-1,샴페인-1|296500"},
+            delimiter = '|')
+    void checkTotalAmount(String value, Integer expected) {
         OrderHistory orderHistory = OrderHistory.from(value);
         assertThat(orderHistory.getTotalAmount())
-                .isEqualTo(142000);
+                .isEqualTo(expected);
     }
 
     @DisplayName("메뉴 사이에 공백 포함시 정상 수행")
