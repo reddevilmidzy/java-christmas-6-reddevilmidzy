@@ -1,5 +1,6 @@
 package christmas.model;
 
+import christmas.constant.Message;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,7 +21,7 @@ class VisitDateTest {
     void createInvalidRange(String value) {
         assertThatThrownBy(() -> VisitDate.visitOfDecember(value))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+                .hasMessage(Message.INVALID_VISIT_DATE.getMessage());
     }
 
     @DisplayName("공백이 있다면 제거후 정상동작한다.")
@@ -39,7 +40,7 @@ class VisitDateTest {
     void createInvalidType(String value) {
         assertThatThrownBy(() -> VisitDate.visitOfDecember(value))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+                .hasMessage(Message.INVALID_VISIT_DATE.getMessage());
     }
 
     @DisplayName("주말(금,토), 평일(일~목)을 확인한다.")

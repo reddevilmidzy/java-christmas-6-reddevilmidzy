@@ -5,6 +5,8 @@ import christmas.model.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
+import static christmas.constant.Message.RETRY_INPUT;
+
 public class InputController {
 
     private final InputView inputView;
@@ -20,7 +22,7 @@ public class InputController {
             try {
                 return readVisitDate();
             } catch (IllegalArgumentException exception) {
-                outputView.printExceptionMessage(exception);
+                outputView.printExceptionMessage(exception.getMessage() + RETRY_INPUT.getMessage());
             }
         }
     }
@@ -35,7 +37,7 @@ public class InputController {
             try {
                 return readOrderHistory();
             } catch (IllegalArgumentException exception) {
-                outputView.printExceptionMessage(exception);
+                outputView.printExceptionMessage(exception.getMessage() + RETRY_INPUT.getMessage());
             }
         }
     }

@@ -1,5 +1,7 @@
 package christmas.model;
 
+import christmas.constant.Message;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
@@ -47,7 +49,7 @@ public class VisitDate {
 
     private static void validateType(String value) {
         if (value == null || !NUMERIC_PATTERN.matcher(value.trim()).matches()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(Message.INVALID_VISIT_DATE.getMessage());
         }
     }
 
@@ -55,10 +57,10 @@ public class VisitDate {
         try {
             int day = Integer.parseInt(value.trim());
             if (day < 1 || 31 < day) {
-                throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+                throw new IllegalArgumentException(Message.INVALID_VISIT_DATE.getMessage());
             }
         } catch (NumberFormatException exception) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(Message.INVALID_VISIT_DATE.getMessage());
         }
     }
 

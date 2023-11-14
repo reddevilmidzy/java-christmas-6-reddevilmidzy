@@ -1,5 +1,6 @@
 package christmas.model;
 
+import christmas.constant.Message;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,7 +26,7 @@ class OrderTest {
     void createInvalidQuantity(String value) {
         assertThatThrownBy(() -> Order.from(value))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다.");
+                .hasMessageContaining(Message.INVALID_ORDER.getMessage());
     }
 
     @DisplayName("메뉴,수량 구분자가 한개가 아니면 예외")
@@ -42,7 +43,7 @@ class OrderTest {
     void createInvalidType(String value) {
         assertThatThrownBy(() -> Order.from(value))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다.");
+                .hasMessageContaining(Message.INVALID_ORDER.getMessage());
     }
 
     @DisplayName("수량이 유효한 범위의 숫자가 아니면 예외")
@@ -50,7 +51,7 @@ class OrderTest {
     void createOverflow() {
         assertThatThrownBy(() -> Order.from(String.valueOf(Long.MAX_VALUE)))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다.");
+                .hasMessageContaining(Message.INVALID_ORDER.getMessage());
     }
 
     @DisplayName("수량 일치/불일치 상관없이 메뉴가 같다면 equal true 반환")

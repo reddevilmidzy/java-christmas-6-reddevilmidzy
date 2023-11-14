@@ -24,5 +24,5 @@ public interface OutputView {
 
     void printBadge(Badge badge);
 
-    void printExceptionMessage(Exception exception);
+    void printExceptionMessage(String message);
 }
