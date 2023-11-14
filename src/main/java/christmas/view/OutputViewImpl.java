@@ -11,9 +11,9 @@ import java.text.DecimalFormat;
 public class OutputViewImpl implements OutputView {
 
     public static final DecimalFormat NUMBER_FORMAT = new DecimalFormat("###,###");
-    public static final String ERROR_PREFIX = "[ERROR] %s";
     public static final String AMOUNT_FORMAT = "%s원%n";
     public static final String BENEFIT_FORMAT = "%s: %s원%n";
+    public static final String ERROR_FORMAT = "[ERROR] %s%n";
     public static final String NO_BENEFIT = "없음";
     public static final String ORDER_MENU_FORMAT = "%s %d개%n";
     public static final String TITLE_FORMAT = "<%s>%n";
@@ -93,6 +93,6 @@ public class OutputViewImpl implements OutputView {
 
     @Override
     public void printExceptionMessage(String message) {
-        System.out.printf(ERROR_PREFIX, message);
+        System.out.printf(ERROR_FORMAT, message);
     }
 }
