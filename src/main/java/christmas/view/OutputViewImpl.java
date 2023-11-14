@@ -47,9 +47,8 @@ public class OutputViewImpl implements OutputView {
     public void printGiveawayMenu(Promotion promotion) {
         System.out.printf(TITLE_FORMAT, "증정 메뉴");
         if (promotion.hasGiveawayMenu()) {
-            promotion.forEach(giveawayPolicy ->
-                    System.out.printf(ORDER_MENU_FORMAT, giveawayPolicy.getMenuName(),
-                            Rule.GIVEAWAY_MENU_COUNT.getValue()));
+            promotion.forEach(giveawayPolicy -> System.out.printf(ORDER_MENU_FORMAT,
+                    giveawayPolicy.getMenuName(), Rule.GIVEAWAY_MENU_COUNT.getValue()));
             System.out.println();
             return;
         }
@@ -60,14 +59,15 @@ public class OutputViewImpl implements OutputView {
     @Override
     public void printBenefitDetails(Promotion promotion) {
         System.out.printf(TITLE_FORMAT, "혜택 내역");
-        promotion.forEach((discountPolicyName, discountedValue) ->
-                System.out.printf(BENEFIT_FORMAT, discountPolicyName, NUMBER_FORMAT.format(-discountedValue)));
-        promotion.forEach(giveawayPolicy ->
-                System.out.printf(BENEFIT_FORMAT, giveawayPolicy.getName(),
-                        NUMBER_FORMAT.format(-giveawayPolicy.getPrice())));
-        if (!promotion.hasGiveawayMenu() && !promotion.hasDiscount()) {
-            System.out.println(NO_BENEFIT);
+        if (promotion.hasGiveawayMenu() || promotion.hasDiscount()) {
+            promotion.forEach((discountPolicyName, discountedValue) -> System.out.printf(BENEFIT_FORMAT,
+                    discountPolicyName, NUMBER_FORMAT.format(-discountedValue)));
+            promotion.forEach(giveawayPolicy -> System.out.printf(BENEFIT_FORMAT,
+                    giveawayPolicy.getName(), NUMBER_FORMAT.format(-giveawayPolicy.getPrice())));
+            System.out.println();
+            return;
         }
+        System.out.println(NO_BENEFIT);
         System.out.println();
     }
 
