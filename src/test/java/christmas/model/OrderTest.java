@@ -52,4 +52,22 @@ class OrderTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다.");
     }
+
+    @DisplayName("수량 일치/불일치 상관없이 메뉴가 같다면 equal true 반환")
+    @ParameterizedTest
+    @ValueSource(strings = {"아이스크림-1", "아이스크림-2", "아이스크림-10"})
+    void createEqualTrue(String value) {
+        Order order1 = Order.from("아이스크림-1");
+        Order order2 = Order.from(value);
+        assertThat(order1.equals(order2)).isTrue();
+    }
+
+    @DisplayName("메뉴 다르면 equal false 반환")
+    @ParameterizedTest
+    @ValueSource(strings = {"초코케이크-1", "크리스마스파스타-2", "제로콜라-10"})
+    void createEqualFalse(String value) {
+        Order order1 = Order.from("아이스크림-1");
+        Order order2 = Order.from(value);
+        assertThat(order1.equals(order2)).isFalse();
+    }
 }
