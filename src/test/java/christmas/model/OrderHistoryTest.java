@@ -31,8 +31,9 @@ class OrderHistoryTest {
     @ValueSource(strings = {"티본스테이크-1 , 바비큐립-1 ", " 티본스테이크-1 ,바비큐립-1", "티본스테이크-1 , 바비큐립-1 "})
     void createWhiteSpace(String value) {
         OrderHistory orderHistory = OrderHistory.from(value);
-        assertThat(orderHistory.getTotalAmount())
-                .isEqualTo(109000);
+        assertThat(orderHistory.toString())
+                .contains(Menu.T_BONE_STEAK.toString())
+                .contains(Menu.BARBECUE_RIBS.toString());
     }
 
     @DisplayName("메뉴 개수가 20개를 초과하면 예외 발생")
