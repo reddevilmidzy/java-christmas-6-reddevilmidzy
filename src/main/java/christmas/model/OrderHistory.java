@@ -23,14 +23,14 @@ public class OrderHistory {
         validateDuplicate(target);
     }
 
-    private void validateOnlyBeverage(List<Order> target) {
-        if (target.stream().allMatch(order -> order.isCategory(Category.BEVERAGE))) {
+    private void validateTotalQuantity(List<Order> target) {
+        if (target.stream().mapToInt(Order::getQuantity).sum() > Rule.MAX_ORDER_QUANTITY.getValue()) {
             throw new IllegalArgumentException(Message.INVALID_ORDER.getMessage());
         }
     }
 
-    private void validateTotalQuantity(List<Order> target) {
-        if (target.stream().mapToInt(Order::getQuantity).sum() > Rule.MAX_ORDER_QUANTITY.getValue()) {
+    private void validateOnlyBeverage(List<Order> target) {
+        if (target.stream().allMatch(order -> order.isCategory(Category.BEVERAGE))) {
             throw new IllegalArgumentException(Message.INVALID_ORDER.getMessage());
         }
     }
@@ -50,15 +50,24 @@ public class OrderHistory {
     }
 
     private static void validate(String values) {
+        validateType(values);
+        validateSeparatorPosition(values);
+        validateDuplicateSeparator(values);
+    }
+
+    private static void validateType(String values) {
         if (values == null || values.trim().isEmpty()) {
             throw new IllegalArgumentException(Message.INVALID_ORDER.getMessage());
         }
-        if (values.startsWith(SEPARATOR)) {
+    }
+
+    private static void validateSeparatorPosition(String values) {
+        if (values.startsWith(SEPARATOR) || values.endsWith(SEPARATOR)) {
             throw new IllegalArgumentException(Message.INVALID_ORDER.getMessage());
         }
-        if (values.endsWith(SEPARATOR)) {
-            throw new IllegalArgumentException(Message.INVALID_ORDER.getMessage());
-        }
+    }
+
+    private static void validateDuplicateSeparator(String values) {
         if (values.contains(SEPARATOR.repeat(2))) {
             throw new IllegalArgumentException(Message.INVALID_ORDER.getMessage());
         }
