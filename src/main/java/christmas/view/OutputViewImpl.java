@@ -12,8 +12,11 @@ public class OutputViewImpl implements OutputView {
 
     public static final DecimalFormat NUMBER_FORMAT = new DecimalFormat("###,###");
     public static final String ERROR_PREFIX = "[ERROR] %s";
-    public static final String ORDER_MENU_FORMAT = "%s %d개%n";
+    public static final String AMOUNT_FORMAT = "%s원%n";
     public static final String BENEFIT_FORMAT = "%s: %s원%n";
+    public static final String NO_BENEFIT = "없음";
+    public static final String ORDER_MENU_FORMAT = "%s %d개%n";
+    public static final String TITLE_FORMAT = "<%s>%n";
 
     @Override
     public void printWelcomeMessage() {
@@ -27,7 +30,7 @@ public class OutputViewImpl implements OutputView {
 
     @Override
     public void printOrderMenu(OrderHistory orderHistory) {
-        System.out.println("<주문 메뉴>");
+        System.out.printf(TITLE_FORMAT, "주문 메뉴");
         orderHistory.forEach(order ->
                 System.out.printf(ORDER_MENU_FORMAT, order.getMenuName(), order.getQuantity()));
         System.out.println();
@@ -35,14 +38,14 @@ public class OutputViewImpl implements OutputView {
 
     @Override
     public void printTotalOrderAmount(OrderHistory orderHistory) {
-        System.out.println("<할인 전 총주문 금액>");
-        System.out.printf("%s원%n", NUMBER_FORMAT.format(orderHistory.getTotalAmount()));
+        System.out.printf(TITLE_FORMAT, "할인 전 총주문 금액");
+        System.out.printf(AMOUNT_FORMAT, NUMBER_FORMAT.format(orderHistory.getTotalAmount()));
         System.out.println();
     }
 
     @Override
     public void printGiveawayMenu(Promotion promotion) {
-        System.out.println("<증정 메뉴>");
+        System.out.printf(TITLE_FORMAT, "증정 메뉴");
         if (promotion.hasGiveawayMenu()) {
             promotion.forEach(giveawayPolicy ->
                     System.out.printf(ORDER_MENU_FORMAT, giveawayPolicy.getMenu().getName(),
@@ -50,41 +53,41 @@ public class OutputViewImpl implements OutputView {
             System.out.println();
             return;
         }
-        System.out.println("없음");
+        System.out.println(NO_BENEFIT);
         System.out.println();
     }
 
     @Override
     public void printBenefitDetails(Promotion promotion) {
-        System.out.println("<혜택 내역>");
+        System.out.printf(TITLE_FORMAT, "혜택 내역");
         promotion.forEach((discountPolicyName, discountedValue) ->
                 System.out.printf(BENEFIT_FORMAT, discountPolicyName, NUMBER_FORMAT.format(-discountedValue)));
         promotion.forEach(giveawayPolicy ->
                 System.out.printf(BENEFIT_FORMAT, giveawayPolicy.getName(),
                         NUMBER_FORMAT.format(-giveawayPolicy.getPrice())));
         if (!promotion.hasGiveawayMenu() && !promotion.hasDiscount()) {
-            System.out.println("없음");
+            System.out.println(NO_BENEFIT);
         }
         System.out.println();
     }
 
     @Override
     public void printTotalBenefit(Promotion promotion) {
-        System.out.println("<총혜택 금액>");
-        System.out.printf("%s원%n", NUMBER_FORMAT.format(promotion.calculateTotalBenefit()));
+        System.out.printf(TITLE_FORMAT, "총혜택 금액");
+        System.out.printf(AMOUNT_FORMAT, NUMBER_FORMAT.format(promotion.calculateTotalBenefit()));
         System.out.println();
     }
 
     @Override
     public void printDiscountedAmount(Integer amount) {
-        System.out.println("<할인 후 예상 결제 금액>");
-        System.out.printf("%s원%n", NUMBER_FORMAT.format(amount));
+        System.out.printf(TITLE_FORMAT, "할인 후 예상 결제 금액");
+        System.out.printf(AMOUNT_FORMAT, NUMBER_FORMAT.format(amount));
         System.out.println();
     }
 
     @Override
     public void printBadge(Badge badge) {
-        System.out.println("<12월 이벤트 배지>");
+        System.out.printf(TITLE_FORMAT, "12월 이벤트 배지");
         System.out.print(badge.getName());
     }
 
