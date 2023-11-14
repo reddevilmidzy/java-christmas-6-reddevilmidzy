@@ -5,7 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
@@ -86,8 +86,8 @@ class OrderHistoryTest {
 
     @DisplayName("잘못된 형식의 구분자 입력시 예외 발생")
     @ParameterizedTest(name = "{displayName}: {0}")
-    @ValueSource(strings = {",,", ",해산물파스타-1", "시저샐러드-1,,레드와인-1", "아이스크림-1제로콜라-1"})
-    @NullSource
+    @ValueSource(strings = {",,", ",해산물파스타-1", "시저샐러드-1,,레드와인-1", "아이스크림-1제로콜라-1", "아이스크림-1,"})
+    @NullAndEmptySource
     void createInvalidSeparator(String value) {
         assertThatThrownBy(() ->
                 OrderHistory.from(value))

@@ -55,6 +55,9 @@ public class OrderHistory {
         if (values.startsWith(SEPARATOR)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
+        if (values.endsWith(SEPARATOR)) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
         if (values.contains(SEPARATOR.repeat(2))) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
