@@ -72,49 +72,31 @@ class PromotionTest {
                 .isEqualTo(0);
     }
 
-    //TODO: 로직은 중복된다. 파라미터를 메서드로 뺴서 넣기 이름은 어떤식으로 넣을 수 있을까
-    @DisplayName("오직 크리스마스 디데이 할인 적용/미적용 확인")
-    @ParameterizedTest(name = "{displayName}: {0}")
-    @CsvSource(value = {"1|시저샐러드-1,양송이수프-2|19000", "11|해산물파스타-2,제로콜라-2|74000", "23|초코케이크-5|71800"}, delimiter = '|')
-    void createChristmasDDay(String date, String values, Integer expected) {
+    @DisplayName("여러 할인이 동시에 적용되어 총혜택 금액과 할인 후 에상 결제 금액 확인")
+    @ParameterizedTest
+    @MethodSource("promotionParametersProvider")
+    void createPromotion(String date, String values, Integer expectedTotalBenefit, Integer expectedDiscountedPayment) {
         VisitDate visitDate = VisitDate.visitOfDecember(date);
         OrderHistory orderHistory = OrderHistory.from(values);
         Promotion promotion = Promotion.of(visitDate, orderHistory);
-        //TODO: 생성할 때 orderHistory 줬는데 다시 요청하는거 괜춘?
-        assertThat(promotion.getDiscountedAmount(orderHistory))
-                .isEqualTo(expected);
+
+        assertThat(promotion.calculateTotalBenefit()).isEqualTo(expectedTotalBenefit);
+        assertThat(promotion.getDiscountedAmount(orderHistory)).isEqualTo(expectedDiscountedPayment);
     }
 
-    @DisplayName("오직 평일 할인 적용/미적용 확인")
-    @ParameterizedTest(name = "{displayName}: {0}")
-    @CsvSource(value = {"26|아이스크림-10|29770", "28|초코케이크-1|12977", "28|티본스테이크-1|55000"}, delimiter = '|')
-    void createWeekday(String date, String values, Integer expected) {
-        VisitDate visitDate = VisitDate.visitOfDecember(date);
-        OrderHistory orderHistory = OrderHistory.from(values);
-        Promotion promotion = Promotion.of(visitDate, orderHistory);
-        assertThat(promotion.getDiscountedAmount(orderHistory))
-                .isEqualTo(expected);
-    }
-
-    @DisplayName("오직 주말 할인 적용/미적용 확인")
-    @ParameterizedTest(name = "{displayName}: {0}")
-    @CsvSource(value = {"29|크리스마스파스타-4|91908", "30|바비큐립-1,제로콜라-2|57977"}, delimiter = '|')
-    void createWeekend(String date, String values, Integer expected) {
-        VisitDate visitDate = VisitDate.visitOfDecember(date);
-        OrderHistory orderHistory = OrderHistory.from(values);
-        Promotion promotion = Promotion.of(visitDate, orderHistory);
-        assertThat(promotion.getDiscountedAmount(orderHistory))
-                .isEqualTo(expected);
-    }
-
-    @DisplayName("오직 특별 할인 적용 확인")
-    @ParameterizedTest(name = "{displayName}: {0}")
-    @CsvSource(value = {"31|티본스테이크-1|54000", "31|시저샐러드-2,양송이수프-1,제로콜라-1|24000"}, delimiter = '|')
-    void createSpecial(String date, String values, Integer expected) {
-        VisitDate visitDate = VisitDate.visitOfDecember(date);
-        OrderHistory orderHistory = OrderHistory.from(values);
-        Promotion promotion = Promotion.of(visitDate, orderHistory);
-        assertThat(promotion.getDiscountedAmount(orderHistory))
-                .isEqualTo(expected);
+    static Stream<Arguments> promotionParametersProvider() {
+        return Stream.of(
+                Arguments.of("1", "시저샐러드-1,양송이수프-2", -1000, 19000),
+                Arguments.of("2", "양송이수프-3,티본스테이크-3,아이스크림-3,제로콜라-10", -32169, 220831),
+                Arguments.of("3", "타파스-1,해산물파스타-1,초코케이크-4,아이스크림-4,샴페인-10", -43384, 352116),
+                Arguments.of("8", "티본스테이크-5,바비큐립-5,해산물파스타-5,크리스마스파스타-5", -67160, 802840),
+                Arguments.of("11", "해산물파스타-2,제로콜라-2", -2000, 74000),
+                Arguments.of("23", "초코케이크-5", -3200, 71800),
+                Arguments.of("26", "아이스크림-10", -20230, 29770),
+                Arguments.of("28", "티본스테이크-1", 0, 55000),
+                Arguments.of("29", "크리스마스파스타-4", -8092, 91908),
+                Arguments.of("30", "바비큐립-1,제로콜라-2", -2023, 57977),
+                Arguments.of("31", "시저샐러드-2,양송이수프-1,제로콜라-1", -1000, 24000)
+        );
     }
 }
