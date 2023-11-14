@@ -25,6 +25,6 @@ public class MenuGiveawayPolicy implements GiveawayPolicy {
 
     @Override
     public boolean hasGiveaway(OrderHistory orderHistory) {
-        return orderHistory.getTotalAmount() >= Rule.MIN_GIVEAWAY_EVENT_AMOUNT;
+        return orderHistory.getTotalAmount() >= Rule.MIN_GIVEAWAY_EVENT_AMOUNT.getValue();
     }
 }

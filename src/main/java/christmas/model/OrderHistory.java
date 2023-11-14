@@ -29,7 +29,7 @@ public class OrderHistory {
     }
 
     private void validateTotalQuantity(List<Order> target) {
-        if (target.stream().mapToInt(Order::getQuantity).sum() > Rule.MAX_ORDER_COUNT) {
+        if (target.stream().mapToInt(Order::getQuantity).sum() > Rule.MAX_ORDER_COUNT.getValue()) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }

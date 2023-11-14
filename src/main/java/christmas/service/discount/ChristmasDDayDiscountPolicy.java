@@ -13,7 +13,7 @@ public class ChristmasDDayDiscountPolicy implements DiscountPolicy {
         if (visitDate.isAfterChristmas()) {
             return 0;
         }
-        return Rule.DISCOUNT_MAX_AMOUNT - visitDate.leftUntilChristmas() * Rule.AMOUNT_INCREASED;
+        return Rule.DISCOUNT_MAX_AMOUNT.getValue() - visitDate.leftUntilChristmas() * Rule.AMOUNT_INCREASED.getValue();
     }
 
     @Override

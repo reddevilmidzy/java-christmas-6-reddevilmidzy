@@ -1,18 +1,23 @@
 package christmas.constant;
 
-public class Rule {
+public enum Rule {
+    MIN_AMOUNT_CONDITION(10_000),
+    MAX_ORDER_COUNT(20),
+    DISCOUNT_MAX_AMOUNT(3_400),
+    AMOUNT_INCREASED(100),
+    DAY_DISCOUNT_AMOUNT(2_023),
+    SPECIAL_DISCOUNT_AMOUNT(1_000),
+    MIN_GIVEAWAY_EVENT_AMOUNT(120_000),
+    GIVEAWAY_MENU_COUNT(1),
+    ;
 
-    public static final int MIN_AMOUNT_CONDITION = 10_000;
-    public static final int MAX_ORDER_COUNT = 20;
-    public static final int DISCOUNT_MAX_AMOUNT = 3_400;
-    public static final int AMOUNT_INCREASED = 100;
-    public static final int DAY_DISCOUNT_AMOUNT = 2_023;
-    public static final int SPECIAL_DISCOUNT_AMOUNT = 1_000;
-    public static final int MIN_GIVEAWAY_EVENT_AMOUNT = 120_000;
-    public static final int GIVEAWAY_MENU_COUNT = 1;
+    private final int value;
 
+    Rule(int value) {
+        this.value = value;
+    }
 
-    private Rule() {
-        throw new IllegalArgumentException();
+    public int getValue() {
+        return value;
     }
 }

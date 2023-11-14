@@ -11,7 +11,7 @@ public class SpecialDiscountPolicy implements DiscountPolicy {
     @Override
     public int discount(VisitDate visitDate, OrderHistory orderHistory) {
         if (visitDate.isHoliday()) {
-            return Rule.SPECIAL_DISCOUNT_AMOUNT;
+            return Rule.SPECIAL_DISCOUNT_AMOUNT.getValue();
         }
         return 0;
     }

@@ -44,7 +44,8 @@ public class OutputViewImpl implements OutputView {
         System.out.println("<증정 메뉴>");
         if (promotion.hasGiveawayMenu()) {
             promotion.forEach(giveawayPolicy ->
-                    System.out.printf(ORDER_MENU_FORMAT, giveawayPolicy.getMenu().getName(), Rule.GIVEAWAY_MENU_COUNT));
+                    System.out.printf(ORDER_MENU_FORMAT, giveawayPolicy.getMenu().getName(),
+                            Rule.GIVEAWAY_MENU_COUNT.getValue()));
             System.out.println();
             return;
         }

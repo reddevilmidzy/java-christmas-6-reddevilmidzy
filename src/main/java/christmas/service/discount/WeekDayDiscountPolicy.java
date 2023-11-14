@@ -14,7 +14,7 @@ public class WeekDayDiscountPolicy implements DiscountPolicy {
         if (visitDate.isWeekend()) {
             return 0;
         }
-        return orderHistory.countCategory(Category.DESSERT) * Rule.DAY_DISCOUNT_AMOUNT;
+        return orderHistory.countCategory(Category.DESSERT) * Rule.DAY_DISCOUNT_AMOUNT.getValue();
     }
 
     @Override

@@ -12,7 +12,7 @@ public class WeekendDiscountPolicy implements DiscountPolicy {
     @Override
     public int discount(VisitDate visitDate, OrderHistory orderHistory) {
         if (visitDate.isWeekend()) {
-            return orderHistory.countCategory(Category.MAIN_DISH) * Rule.DAY_DISCOUNT_AMOUNT;
+            return orderHistory.countCategory(Category.MAIN_DISH) * Rule.DAY_DISCOUNT_AMOUNT.getValue();
         }
         return 0;
     }

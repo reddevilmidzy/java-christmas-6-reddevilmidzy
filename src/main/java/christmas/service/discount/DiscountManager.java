@@ -19,7 +19,7 @@ public class DiscountManager {
 
     public static DiscountManager of(List<DiscountPolicy> discountPolicies, VisitDate date, OrderHistory orderHistory) {
         Map<String, Integer> discounts = new LinkedHashMap<>();
-        if (orderHistory.getTotalAmount() < Rule.MIN_AMOUNT_CONDITION) {
+        if (orderHistory.getTotalAmount() < Rule.MIN_AMOUNT_CONDITION.getValue()) {
             return new DiscountManager(discounts);
         }
         for (DiscountPolicy discountPolicy : discountPolicies) {
