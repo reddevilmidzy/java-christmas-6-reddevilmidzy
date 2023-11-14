@@ -2,7 +2,7 @@ package christmas.constant;
 
 public enum Rule {
     MIN_AMOUNT_CONDITION(10_000),
-    MAX_ORDER_COUNT(20),
+    MAX_ORDER_QUANTITY(20),
     DISCOUNT_MAX_AMOUNT(3_400),
     AMOUNT_INCREASED(100),
     DAY_DISCOUNT_AMOUNT(2_023),
