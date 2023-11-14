@@ -11,8 +11,6 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
-//TODO: 파리미터 중복 제거
 class DiscountPolicyTest {
 
     @DisplayName("크리스마스 디데이 할인 확인")
