@@ -14,8 +14,8 @@ public class MenuGiveawayPolicy implements GiveawayPolicy {
     }
 
     @Override
-    public Menu getMenu() {
-        return Menu.CHAMPAGNE;
+    public String getMenuName() {
+        return Menu.CHAMPAGNE.getName();
     }
 
     @Override
