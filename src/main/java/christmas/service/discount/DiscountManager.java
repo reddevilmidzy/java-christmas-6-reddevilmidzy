@@ -3,7 +3,6 @@ package christmas.service.discount;
 import christmas.constant.Rule;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

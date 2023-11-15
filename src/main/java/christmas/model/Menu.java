@@ -1,7 +1,6 @@
 package christmas.model;
 
 import christmas.constant.Message;
-
 import java.util.Arrays;
 
 public enum Menu {

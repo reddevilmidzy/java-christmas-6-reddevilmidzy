@@ -1,5 +1,10 @@
 package christmas.view;
 
+import static christmas.constant.Format.BENEFIT;
+import static christmas.constant.Format.ERROR;
+import static christmas.constant.Format.ORDER_MENU;
+import static christmas.constant.Format.TITLE;
+
 import christmas.constant.Format;
 import christmas.model.Amount;
 import christmas.model.Badge;
@@ -7,13 +12,7 @@ import christmas.model.Benefit;
 import christmas.model.GiveawayMenu;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
-
 import java.text.DecimalFormat;
-
-import static christmas.constant.Format.BENEFIT;
-import static christmas.constant.Format.ERROR;
-import static christmas.constant.Format.ORDER_MENU;
-import static christmas.constant.Format.TITLE;
 
 public class OutputViewImpl implements OutputView {
 

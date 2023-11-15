@@ -64,5 +64,4 @@ class OutputViewImplTest {
                 String.format("<할인 후 예상 결제 금액>%n135,754원"),
                 String.format("<12월 이벤트 배지>%n산타"));
     }
-
 }

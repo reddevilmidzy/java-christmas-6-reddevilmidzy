@@ -1,7 +1,6 @@
 package christmas.service.giveaway;
 
 import christmas.model.OrderHistory;
-
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -28,10 +27,6 @@ public class GiveawayManager {
 
     private int getPrice(GiveawayPolicy giveawayPolicy) {
         return giveawayPolicy.getPrice();
-    }
-
-    public boolean isEmpty() {
-        return giveaway.isEmpty();
     }
 
     public void forEach(Consumer<? super GiveawayPolicy> action) {

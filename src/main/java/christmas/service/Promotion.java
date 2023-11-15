@@ -16,7 +16,6 @@ import christmas.service.discount.WeekendDiscountPolicy;
 import christmas.service.giveaway.GiveawayManager;
 import christmas.service.giveaway.GiveawayPolicy;
 import christmas.service.giveaway.MenuGiveawayPolicy;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -38,19 +37,6 @@ public class Promotion {
         return new Promotion(discountManager, giveawayManager);
     }
 
-    public Benefit getBenefit() {
-        Map<String, Integer> result = new LinkedHashMap<>();
-        discountManager.forEach(result::put);
-        giveawayManager.forEach(giveawayPolicy -> result.put(giveawayPolicy.getName(), giveawayPolicy.getPrice()));
-        return new Benefit(result);
-    }
-
-    public GiveawayMenu getGiveawayMenu() {
-        List<Menu> result = new ArrayList<>();
-        giveawayManager.forEach(giveawayPolicy -> result.add(giveawayPolicy.getMenu()));
-        return new GiveawayMenu(result);
-    }
-
     private static List<DiscountPolicy> getDiscountPolicy() {
         return List.of(
                 new ChristmasDDayDiscountPolicy(),
@@ -62,6 +48,19 @@ public class Promotion {
 
     private static List<GiveawayPolicy> getGiveawayPolicy() {
         return List.of(new MenuGiveawayPolicy());
+    }
+
+    public Benefit getBenefit() {
+        Map<String, Integer> result = new LinkedHashMap<>();
+        discountManager.forEach(result::put);
+        giveawayManager.forEach(giveawayPolicy -> result.put(giveawayPolicy.getName(), giveawayPolicy.getPrice()));
+        return new Benefit(result);
+    }
+
+    public GiveawayMenu getGiveawayMenu() {
+        List<Menu> result = new ArrayList<>();
+        giveawayManager.forEach(giveawayPolicy -> result.add(giveawayPolicy.getMenu()));
+        return new GiveawayMenu(result);
     }
 
     public Amount getDiscountedAmount(OrderHistory orderHistory) {
