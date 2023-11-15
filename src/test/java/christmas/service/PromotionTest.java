@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.model.Benefit;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.discount.ChristmasDDayDiscountPolicy;
@@ -79,8 +80,8 @@ class PromotionTest {
         VisitDate visitDate = VisitDate.visitOfDecember(date);
         OrderHistory orderHistory = OrderHistory.from(values);
         Promotion promotion = Promotion.of(visitDate, orderHistory);
-
-        assertThat(promotion.calculateTotalBenefit()).isEqualTo(expectedTotalBenefit);
+        Benefit benefit = promotion.getBenefit();
+        assertThat(benefit.getTotalBenefit()).isEqualTo(expectedTotalBenefit);
         assertThat(promotion.getDiscountedAmount(orderHistory)).isEqualTo(expectedDiscountedPayment);
     }
 

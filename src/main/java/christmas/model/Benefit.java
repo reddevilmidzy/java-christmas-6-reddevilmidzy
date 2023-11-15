@@ -18,6 +18,12 @@ public class Benefit {
         return benefit.isEmpty();
     }
 
+    public int getTotalBenefit() {
+        return -benefit.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
     @Override
     public String toString() {
         return benefit.toString();

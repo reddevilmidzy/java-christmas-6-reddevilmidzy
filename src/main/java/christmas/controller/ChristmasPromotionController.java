@@ -32,7 +32,7 @@ public class ChristmasPromotionController {
     private void printEventDetails(OrderHistory orderHistory, Promotion promotion, Benefit benefit) {
         outputView.printGiveawayMenu(promotion);
         outputView.printBenefitDetails(benefit);
-        outputView.printTotalBenefit(promotion);
+        outputView.printTotalBenefit(benefit);
         outputView.printDiscountedAmount(promotion.getDiscountedAmount(orderHistory));
     }
 

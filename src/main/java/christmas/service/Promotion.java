@@ -67,10 +67,6 @@ public class Promotion {
         return orderHistory.getTotalAmount() - discountManager.getBenefit();
     }
 
-    public int calculateTotalBenefit() {
-        return -(discountManager.getBenefit() + giveawayManager.calculateGiveawayBenefit());
-    }
-
     public Badge getBadge() {
         int amount = discountManager.getBenefit() + giveawayManager.calculateGiveawayBenefit();
         return Badge.from(amount);

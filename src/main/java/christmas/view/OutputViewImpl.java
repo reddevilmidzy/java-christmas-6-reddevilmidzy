@@ -71,11 +71,10 @@ public class OutputViewImpl implements OutputView {
         printLineSeparator();
     }
 
-
     @Override
-    public void printTotalBenefit(Promotion promotion) {
+    public void printTotalBenefit(Benefit benefit) {
         System.out.println(formatted(TITLE, "총혜택 금액"));
-        System.out.println(formatted(promotion.calculateTotalBenefit()));
+        System.out.println(formatted(benefit.getTotalBenefit()));
         printLineSeparator();
     }
 

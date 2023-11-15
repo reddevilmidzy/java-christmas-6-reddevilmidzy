@@ -19,7 +19,7 @@ public interface OutputView {
 
     void printBenefitDetails(Benefit benefit);
 
-    void printTotalBenefit(Promotion promotion);
+    void printTotalBenefit(Benefit benefit);
 
     void printDiscountedAmount(Integer amount);
 
