@@ -22,12 +22,20 @@ public class ChristmasPromotionController {
         Promotion promotion = Promotion.of(date, orderHistory);
 
         outputView.printPreviewEventBenefits(date);
-        outputView.printOrderMenu(orderHistory);
-        outputView.printTotalOrderAmount(orderHistory);
+        printOrderHistoryAndAmount(orderHistory);
+        printEventDetails(orderHistory, promotion);
+        outputView.printBadge(promotion.getBadge());
+    }
+
+    private void printEventDetails(OrderHistory orderHistory, Promotion promotion) {
         outputView.printGiveawayMenu(promotion);
         outputView.printBenefitDetails(promotion);
         outputView.printTotalBenefit(promotion);
         outputView.printDiscountedAmount(promotion.getDiscountedAmount(orderHistory));
-        outputView.printBadge(promotion.getBadge());
+    }
+
+    private void printOrderHistoryAndAmount(OrderHistory orderHistory) {
+        outputView.printOrderMenu(orderHistory);
+        outputView.printTotalOrderAmount(orderHistory);
     }
 }
