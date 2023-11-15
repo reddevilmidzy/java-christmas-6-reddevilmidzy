@@ -1,6 +1,7 @@
 package christmas.service;
 
 import christmas.model.Badge;
+import christmas.model.Benefit;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.discount.ChristmasDDayDiscountPolicy;
@@ -13,8 +14,9 @@ import christmas.service.giveaway.GiveawayManager;
 import christmas.service.giveaway.GiveawayPolicy;
 import christmas.service.giveaway.MenuGiveawayPolicy;
 
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.function.BiConsumer;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class Promotion {
@@ -31,6 +33,13 @@ public class Promotion {
         DiscountManager discountManager = DiscountManager.of(getDiscountPolicy(), visitDate, orderHistory);
         GiveawayManager giveawayManager = GiveawayManager.of(getGiveawayPolicy(), orderHistory);
         return new Promotion(discountManager, giveawayManager);
+    }
+
+    public Benefit getBenefit() {
+        Map<String, Integer> result = new LinkedHashMap<>();
+        discountManager.forEach(result::put);
+        giveawayManager.forEach(giveawayPolicy -> result.put(giveawayPolicy.getName(), giveawayPolicy.getPrice()));
+        return new Benefit(result);
     }
 
     private static List<DiscountPolicy> getDiscountPolicy() {
@@ -52,14 +61,6 @@ public class Promotion {
 
     public boolean hasGiveawayMenu() {
         return !giveawayManager.isEmpty();
-    }
-
-    public boolean hasDiscount() {
-        return !discountManager.isEmpty();
-    }
-
-    public void forEach(BiConsumer<? super String, ? super Integer> action) {
-        discountManager.forEach(action);
     }
 
     public int getDiscountedAmount(OrderHistory orderHistory) {

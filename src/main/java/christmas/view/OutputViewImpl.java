@@ -3,6 +3,7 @@ package christmas.view;
 import christmas.constant.Format;
 import christmas.constant.Rule;
 import christmas.model.Badge;
+import christmas.model.Benefit;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.Promotion;
@@ -59,19 +60,17 @@ public class OutputViewImpl implements OutputView {
     }
 
     @Override
-    public void printBenefitDetails(Promotion promotion) {
+    public void printBenefitDetails(Benefit benefit) {
         System.out.println(formatted(TITLE, "혜택 내역"));
-        if (promotion.hasGiveawayMenu() || promotion.hasDiscount()) {
-            promotion.forEach((discountPolicyName, discountedValue) ->
-                    System.out.println(formatted(BENEFIT, discountPolicyName, -discountedValue)));
-            promotion.forEach(giveawayPolicy ->
-                    System.out.println(formatted(BENEFIT, giveawayPolicy.getName(), -giveawayPolicy.getPrice())));
+        if (benefit.isEmpty()) {
+            System.out.println(NO_BENEFIT);
             printLineSeparator();
             return;
         }
-        System.out.println(NO_BENEFIT);
+        benefit.forEach((name, value) -> System.out.println(formatted(BENEFIT, name, -value)));
         printLineSeparator();
     }
+
 
     @Override
     public void printTotalBenefit(Promotion promotion) {

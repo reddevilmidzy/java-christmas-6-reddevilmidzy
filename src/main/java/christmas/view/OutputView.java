@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.model.Badge;
+import christmas.model.Benefit;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.Promotion;
@@ -16,7 +17,7 @@ public interface OutputView {
 
     void printGiveawayMenu(Promotion promotion);
 
-    void printBenefitDetails(Promotion promotion);
+    void printBenefitDetails(Benefit benefit);
 
     void printTotalBenefit(Promotion promotion);
 
