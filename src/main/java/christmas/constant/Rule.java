@@ -8,7 +8,6 @@ public enum Rule {
     DAY_DISCOUNT_AMOUNT(2_023),
     SPECIAL_DISCOUNT_AMOUNT(1_000),
     MIN_GIVEAWAY_EVENT_AMOUNT(120_000),
-    GIVEAWAY_MENU_COUNT(1),
     ;
 
     private final int value;

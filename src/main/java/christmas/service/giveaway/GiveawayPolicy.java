@@ -1,5 +1,6 @@
 package christmas.service.giveaway;
 
+import christmas.model.Menu;
 import christmas.model.OrderHistory;
 
 public interface GiveawayPolicy {
@@ -7,7 +8,7 @@ public interface GiveawayPolicy {
 
     String getName();
 
-    String getMenuName();
+    Menu getMenu();
 
     int getPrice();
 }

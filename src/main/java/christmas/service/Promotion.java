@@ -2,6 +2,8 @@ package christmas.service;
 
 import christmas.model.Badge;
 import christmas.model.Benefit;
+import christmas.model.GiveawayMenu;
+import christmas.model.Menu;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.discount.ChristmasDDayDiscountPolicy;
@@ -14,10 +16,10 @@ import christmas.service.giveaway.GiveawayManager;
 import christmas.service.giveaway.GiveawayPolicy;
 import christmas.service.giveaway.MenuGiveawayPolicy;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class Promotion {
 
@@ -42,6 +44,12 @@ public class Promotion {
         return new Benefit(result);
     }
 
+    public GiveawayMenu getGiveawayMenu() {
+        List<Menu> result = new ArrayList<>();
+        giveawayManager.forEach(giveawayPolicy -> result.add(giveawayPolicy.getMenu()));
+        return new GiveawayMenu(result);
+    }
+
     private static List<DiscountPolicy> getDiscountPolicy() {
         return List.of(
                 new ChristmasDDayDiscountPolicy(),
@@ -53,14 +61,6 @@ public class Promotion {
 
     private static List<GiveawayPolicy> getGiveawayPolicy() {
         return List.of(new MenuGiveawayPolicy());
-    }
-
-    public void forEach(Consumer<? super GiveawayPolicy> action) {
-        giveawayManager.forEach(action);
-    }
-
-    public boolean hasGiveawayMenu() {
-        return !giveawayManager.isEmpty();
     }
 
     public int getDiscountedAmount(OrderHistory orderHistory) {

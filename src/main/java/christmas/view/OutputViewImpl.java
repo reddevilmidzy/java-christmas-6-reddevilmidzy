@@ -1,12 +1,11 @@
 package christmas.view;
 
 import christmas.constant.Format;
-import christmas.constant.Rule;
 import christmas.model.Badge;
 import christmas.model.Benefit;
+import christmas.model.GiveawayMenu;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
-import christmas.service.Promotion;
 
 import java.text.DecimalFormat;
 
@@ -47,16 +46,16 @@ public class OutputViewImpl implements OutputView {
     }
 
     @Override
-    public void printGiveawayMenu(Promotion promotion) {
+    public void printGiveawayMenu(GiveawayMenu giveawayMenu) {
         System.out.println(formatted(TITLE, "증정 메뉴"));
-        if (promotion.hasGiveawayMenu()) {
-            promotion.forEach(giveawayPolicy -> System.out.println(formatted(ORDER_MENU,
-                    giveawayPolicy.getMenuName(), Rule.GIVEAWAY_MENU_COUNT.getValue())));
+        if (giveawayMenu.isEmpty()) {
+            System.out.println(NO_BENEFIT);
             printLineSeparator();
-            return;
         }
-        System.out.println(NO_BENEFIT);
+        giveawayMenu.forEach(menu ->
+                System.out.println(formatted(ORDER_MENU, menu.getName(), giveawayMenu.DEFAULT_MENU_COUNT)));
         printLineSeparator();
+
     }
 
     @Override

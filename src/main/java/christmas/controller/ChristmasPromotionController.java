@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.model.Benefit;
+import christmas.model.GiveawayMenu;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.Promotion;
@@ -25,15 +26,13 @@ public class ChristmasPromotionController {
         Benefit benefit = promotion.getBenefit();
         outputView.printPreviewEventBenefits(date);
         printOrderHistoryAndAmount(orderHistory);
-        printEventDetails(orderHistory, promotion, benefit);
-        outputView.printBadge(promotion.getBadge());
-    }
 
-    private void printEventDetails(OrderHistory orderHistory, Promotion promotion, Benefit benefit) {
-        outputView.printGiveawayMenu(promotion);
+        GiveawayMenu giveawayMenu = promotion.getGiveawayMenu();
+        outputView.printGiveawayMenu(giveawayMenu);
         outputView.printBenefitDetails(benefit);
         outputView.printTotalBenefit(benefit);
         outputView.printDiscountedAmount(promotion.getDiscountedAmount(orderHistory));
+        outputView.printBadge(promotion.getBadge());
     }
 
     private void printOrderHistoryAndAmount(OrderHistory orderHistory) {
