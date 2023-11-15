@@ -39,7 +39,7 @@ public class DiscountManager {
         return discounts.isEmpty();
     }
 
-    public Integer getBenefit() {
+    public int getBenefit() {
         return discounts.values()
                 .stream()
                 .mapToInt(Integer::intValue)

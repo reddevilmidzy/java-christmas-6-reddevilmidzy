@@ -73,13 +73,13 @@ public class OrderHistory {
         }
     }
 
-    public Integer getTotalAmount() {
+    public int getTotalAmount() {
         return orderHistory.stream()
                 .mapToInt(Order::calculatePrice)
                 .sum();
     }
 
-    public Integer countCategory(Category category) {
+    public int countCategory(Category category) {
         return orderHistory.stream()
                 .filter(order -> order.isCategory(category))
                 .mapToInt(Order::getQuantity)

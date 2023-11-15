@@ -48,7 +48,7 @@ public class Order {
         return menu.getPrice() * quantity.getQuantity();
     }
 
-    public Boolean isCategory(Category category) {
+    public boolean isCategory(Category category) {
         return menu.isCategory(category);
     }
 

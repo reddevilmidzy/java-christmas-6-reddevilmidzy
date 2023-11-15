@@ -20,7 +20,7 @@ public class GiveawayManager {
         return new GiveawayManager(giveaway);
     }
 
-    public Integer calculateGiveawayBenefit() {
+    public int calculateGiveawayBenefit() {
         return giveaway.stream()
                 .mapToInt(this::getPrice)
                 .sum();

@@ -21,9 +21,9 @@ public enum Menu {
 
     private final String name;
     private final Category category;
-    private final Integer price;
+    private final int price;
 
-    Menu(String name, Category category, Integer price) {
+    Menu(String name, Category category, int price) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -36,7 +36,7 @@ public enum Menu {
                 .orElseThrow(() -> new IllegalArgumentException(Message.INVALID_ORDER.getMessage()));
     }
 
-    public Boolean isCategory(Category category) {
+    public boolean isCategory(Category category) {
         return this.category.equals(category);
     }
 
@@ -44,7 +44,7 @@ public enum Menu {
         return name;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
     }
 }
