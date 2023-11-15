@@ -55,7 +55,6 @@ public class OutputViewImpl implements OutputView {
         giveawayMenu.forEach(menu ->
                 System.out.println(formatted(ORDER_MENU, menu.getName(), giveawayMenu.DEFAULT_MENU_COUNT)));
         printLineSeparator();
-
     }
 
     @Override

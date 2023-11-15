@@ -1,7 +1,6 @@
 package christmas.controller;
 
 import christmas.model.Benefit;
-import christmas.model.GiveawayMenu;
 import christmas.model.OrderHistory;
 import christmas.model.VisitDate;
 import christmas.service.Promotion;
@@ -21,15 +20,20 @@ public class ChristmasPromotionController {
         outputView.printWelcomeMessage();
         VisitDate date = inputController.getVisitDate();
         OrderHistory orderHistory = inputController.getOrderHistory();
-        Promotion promotion = Promotion.of(date, orderHistory);
-
         outputView.printPreviewEventBenefits(date);
         printOrderHistoryAndAmount(orderHistory);
+        printEventResult(date, orderHistory);
+    }
 
-        GiveawayMenu giveawayMenu = promotion.getGiveawayMenu();
-        outputView.printGiveawayMenu(giveawayMenu);
-        Benefit benefit = promotion.getBenefit();
-        printBenefit(benefit);
+    private void printOrderHistoryAndAmount(OrderHistory orderHistory) {
+        outputView.printOrderMenu(orderHistory);
+        outputView.printTotalOrderAmount(orderHistory);
+    }
+
+    private void printEventResult(VisitDate date, OrderHistory orderHistory) {
+        Promotion promotion = Promotion.of(date, orderHistory);
+        outputView.printGiveawayMenu(promotion.getGiveawayMenu());
+        printBenefit(promotion.getBenefit());
         outputView.printDiscountedAmount(promotion.getDiscountedAmount(orderHistory));
         outputView.printBadge(promotion.getBadge());
     }
@@ -37,10 +41,5 @@ public class ChristmasPromotionController {
     private void printBenefit(Benefit benefit) {
         outputView.printBenefitDetails(benefit);
         outputView.printTotalBenefit(benefit);
-    }
-
-    private void printOrderHistoryAndAmount(OrderHistory orderHistory) {
-        outputView.printOrderMenu(orderHistory);
-        outputView.printTotalOrderAmount(orderHistory);
     }
 }

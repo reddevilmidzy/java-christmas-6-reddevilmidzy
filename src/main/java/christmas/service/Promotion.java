@@ -64,7 +64,8 @@ public class Promotion {
     }
 
     public Amount getDiscountedAmount(OrderHistory orderHistory) {
-        return new Amount(orderHistory.getTotalAmount() - discountManager.getBenefit());
+        int value = orderHistory.getTotalAmount() - discountManager.getBenefit();
+        return new Amount(value);
     }
 
     public Badge getBadge() {
