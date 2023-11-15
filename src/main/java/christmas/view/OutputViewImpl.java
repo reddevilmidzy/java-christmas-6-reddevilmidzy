@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.constant.Format;
 import christmas.constant.Rule;
 import christmas.model.Badge;
 import christmas.model.OrderHistory;
@@ -8,15 +9,15 @@ import christmas.service.Promotion;
 
 import java.text.DecimalFormat;
 
+import static christmas.constant.Format.BENEFIT;
+import static christmas.constant.Format.ERROR;
+import static christmas.constant.Format.ORDER_MENU;
+import static christmas.constant.Format.TITLE;
+
 public class OutputViewImpl implements OutputView {
 
     public static final DecimalFormat NUMBER_FORMAT = new DecimalFormat("###,###");
-    public static final String AMOUNT_FORMAT = "%s원%n";
-    public static final String BENEFIT_FORMAT = "%s: %s원%n";
-    public static final String ERROR_FORMAT = "[ERROR] %s%n";
     public static final String NO_BENEFIT = "없음";
-    public static final String ORDER_MENU_FORMAT = "%s %d개%n";
-    public static final String TITLE_FORMAT = "<%s>%n";
 
     @Override
     public void printWelcomeMessage() {
@@ -25,74 +26,94 @@ public class OutputViewImpl implements OutputView {
 
     @Override
     public void printPreviewEventBenefits(VisitDate date) {
-        System.out.printf("%s월 %s일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%n%n", date.getMonth(), date.getDay());
+        System.out.printf("%s월 %s일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%n", date.getMonth(), date.getDay());
+        printLineSeparator();
     }
 
     @Override
     public void printOrderMenu(OrderHistory orderHistory) {
-        System.out.printf(TITLE_FORMAT, "주문 메뉴");
+        System.out.println(formatted(TITLE, "주문 메뉴"));
         orderHistory.forEach(order ->
-                System.out.printf(ORDER_MENU_FORMAT, order.getMenuName(), order.getQuantity()));
-        System.out.println();
+                System.out.println(formatted(ORDER_MENU, order.getMenuName(), order.getQuantity())));
+        printLineSeparator();
     }
 
     @Override
     public void printTotalOrderAmount(OrderHistory orderHistory) {
-        System.out.printf(TITLE_FORMAT, "할인 전 총주문 금액");
-        System.out.printf(AMOUNT_FORMAT, NUMBER_FORMAT.format(orderHistory.getTotalAmount()));
-        System.out.println();
+        System.out.println(formatted(TITLE, "할인 전 총주문 금액"));
+        System.out.println(formatted(orderHistory.getTotalAmount()));
+        printLineSeparator();
     }
 
     @Override
     public void printGiveawayMenu(Promotion promotion) {
-        System.out.printf(TITLE_FORMAT, "증정 메뉴");
+        System.out.println(formatted(TITLE, "증정 메뉴"));
         if (promotion.hasGiveawayMenu()) {
-            promotion.forEach(giveawayPolicy -> System.out.printf(ORDER_MENU_FORMAT,
-                    giveawayPolicy.getMenuName(), Rule.GIVEAWAY_MENU_COUNT.getValue()));
-            System.out.println();
+            promotion.forEach(giveawayPolicy -> System.out.println(formatted(ORDER_MENU,
+                    giveawayPolicy.getMenuName(), Rule.GIVEAWAY_MENU_COUNT.getValue())));
+            printLineSeparator();
             return;
         }
         System.out.println(NO_BENEFIT);
-        System.out.println();
+        printLineSeparator();
     }
 
     @Override
     public void printBenefitDetails(Promotion promotion) {
-        System.out.printf(TITLE_FORMAT, "혜택 내역");
+        System.out.println(formatted(TITLE, "혜택 내역"));
         if (promotion.hasGiveawayMenu() || promotion.hasDiscount()) {
-            promotion.forEach((discountPolicyName, discountedValue) -> System.out.printf(BENEFIT_FORMAT,
-                    discountPolicyName, NUMBER_FORMAT.format(-discountedValue)));
-            promotion.forEach(giveawayPolicy -> System.out.printf(BENEFIT_FORMAT,
-                    giveawayPolicy.getName(), NUMBER_FORMAT.format(-giveawayPolicy.getPrice())));
-            System.out.println();
+            promotion.forEach((discountPolicyName, discountedValue) ->
+                    System.out.println(formatted(BENEFIT, discountPolicyName, -discountedValue)));
+            promotion.forEach(giveawayPolicy ->
+                    System.out.println(formatted(BENEFIT, giveawayPolicy.getName(), -giveawayPolicy.getPrice())));
+            printLineSeparator();
             return;
         }
         System.out.println(NO_BENEFIT);
-        System.out.println();
+        printLineSeparator();
     }
 
     @Override
     public void printTotalBenefit(Promotion promotion) {
-        System.out.printf(TITLE_FORMAT, "총혜택 금액");
-        System.out.printf(AMOUNT_FORMAT, NUMBER_FORMAT.format(promotion.calculateTotalBenefit()));
-        System.out.println();
+        System.out.println(formatted(TITLE, "총혜택 금액"));
+        System.out.println(formatted(promotion.calculateTotalBenefit()));
+        printLineSeparator();
     }
 
     @Override
     public void printDiscountedAmount(Integer amount) {
-        System.out.printf(TITLE_FORMAT, "할인 후 예상 결제 금액");
-        System.out.printf(AMOUNT_FORMAT, NUMBER_FORMAT.format(amount));
-        System.out.println();
+        System.out.println(formatted(TITLE, "할인 후 예상 결제 금액"));
+        System.out.println(formatted(amount));
+        printLineSeparator();
     }
 
     @Override
     public void printBadge(Badge badge) {
-        System.out.printf(TITLE_FORMAT, "12월 이벤트 배지");
+        System.out.println(formatted(TITLE, "12월 이벤트 배지"));
         System.out.print(badge.getName());
     }
 
     @Override
     public void printExceptionMessage(String message) {
-        System.out.printf(ERROR_FORMAT, message);
+        System.out.println(formatted(ERROR, message));
+        printLineSeparator();
+    }
+
+    private void printLineSeparator() {
+        System.out.print(System.lineSeparator());
+    }
+
+    private String formatted(Format formatting, String value) {
+        return String.format(formatting.toString(), value);
+    }
+
+    private String formatted(Integer value) {
+        String number = NUMBER_FORMAT.format(value);
+        return String.format(Format.AMOUNT.toString(), number);
+    }
+
+    private String formatted(Format formatting, String key, Integer value) {
+        String number = NUMBER_FORMAT.format(value);
+        return String.format(formatting.toString(), key, number);
     }
 }
