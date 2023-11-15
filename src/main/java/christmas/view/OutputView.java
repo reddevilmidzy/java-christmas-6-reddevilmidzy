@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.model.Amount;
 import christmas.model.Badge;
 import christmas.model.Benefit;
 import christmas.model.GiveawayMenu;
@@ -21,7 +22,7 @@ public interface OutputView {
 
     void printTotalBenefit(Benefit benefit);
 
-    void printDiscountedAmount(Integer amount);
+    void printDiscountedAmount(Amount amount);
 
     void printBadge(Badge badge);
 

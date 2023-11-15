@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.constant.Format;
+import christmas.model.Amount;
 import christmas.model.Badge;
 import christmas.model.Benefit;
 import christmas.model.GiveawayMenu;
@@ -78,9 +79,9 @@ public class OutputViewImpl implements OutputView {
     }
 
     @Override
-    public void printDiscountedAmount(Integer amount) {
+    public void printDiscountedAmount(Amount amount) {
         System.out.println(formatted(TITLE, "할인 후 예상 결제 금액"));
-        System.out.println(formatted(amount));
+        System.out.println(formatted(amount.value()));
         printLineSeparator();
     }
 

@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.model.Amount;
 import christmas.model.Badge;
 import christmas.model.Benefit;
 import christmas.model.GiveawayMenu;
@@ -63,8 +64,8 @@ public class Promotion {
         return List.of(new MenuGiveawayPolicy());
     }
 
-    public int getDiscountedAmount(OrderHistory orderHistory) {
-        return orderHistory.getTotalAmount() - discountManager.getBenefit();
+    public Amount getDiscountedAmount(OrderHistory orderHistory) {
+        return new Amount(orderHistory.getTotalAmount() - discountManager.getBenefit());
     }
 
     public Badge getBadge() {

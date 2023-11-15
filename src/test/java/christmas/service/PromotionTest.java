@@ -82,7 +82,7 @@ class PromotionTest {
         Promotion promotion = Promotion.of(visitDate, orderHistory);
         Benefit benefit = promotion.getBenefit();
         assertThat(benefit.getTotalBenefit()).isEqualTo(expectedTotalBenefit);
-        assertThat(promotion.getDiscountedAmount(orderHistory)).isEqualTo(expectedDiscountedPayment);
+        assertThat(promotion.getDiscountedAmount(orderHistory).value()).isEqualTo(expectedDiscountedPayment);
     }
 
     static Stream<Arguments> promotionParametersProvider() {
