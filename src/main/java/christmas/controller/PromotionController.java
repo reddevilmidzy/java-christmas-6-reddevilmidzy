@@ -34,7 +34,8 @@ public class PromotionController {
         EventRepository eventRepository = createRepository();
         Promotion promotion = Promotion.of(eventRepository, visitDate, orders);
         outputView.printGiveawayMenus(promotion.getGiveawayMenus());
-        outputView.printBenefit(promotion.calculateBenefit());
+        outputView.printBenefit(promotion.calculateBenefitDetail());
+        outputView.printTotalBenefitAmount(promotion.calculateTotalBenefit());
     }
 
     private EventRepository createRepository() {

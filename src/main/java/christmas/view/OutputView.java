@@ -62,6 +62,13 @@ public class OutputView {
         for (Event event : benefit.keySet()) {
             System.out.printf("%s: %s%n", event.getName(), minus(formatted(benefit.get(event))));
         }
+        System.out.println();
+    }
+
+    public void printTotalBenefitAmount(int amount) {
+        System.out.println("<총혜택 금액>");
+        System.out.printf("%s원%n", minus(formatted(amount)));
+        System.out.println();
     }
 
     private String minus(String value) {

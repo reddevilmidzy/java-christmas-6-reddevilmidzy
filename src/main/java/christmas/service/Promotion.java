@@ -7,7 +7,6 @@ import christmas.model.VisitDate;
 import christmas.repository.EventRepository;
 import christmas.service.discount.DiscountPolicy;
 import christmas.service.giveaway.GiveawayPolicy;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,7 @@ public class Promotion {
 
     private static Map<DiscountPolicy, Integer> applyDiscount(List<DiscountPolicy> repository, VisitDate visitDate,
                                                               Orders orders) {
-        Map<DiscountPolicy, Integer> result = new HashMap<>();
+        Map<DiscountPolicy, Integer> result = new LinkedHashMap<>();
         for (DiscountPolicy discountPolicy : repository) {
             int discount = discountPolicy.discount(visitDate, orders);
             if (discount > 0) {
@@ -41,7 +40,7 @@ public class Promotion {
     }
 
     private static Map<GiveawayPolicy, Menu> applyGiveaway(List<GiveawayPolicy> repository, Orders orders) {
-        Map<GiveawayPolicy, Menu> result = new HashMap<>();
+        Map<GiveawayPolicy, Menu> result = new LinkedHashMap<>();
         for (GiveawayPolicy giveawayPolicy : repository) {
             if (giveawayPolicy.hasGiveaway(orders)) {
                 result.put(giveawayPolicy, giveawayPolicy.getMenu());
@@ -56,13 +55,24 @@ public class Promotion {
                 .toList();
     }
 
-    public Map<Event, Integer> calculateBenefit() {
+    public Map<Event, Integer> calculateBenefitDetail() {
         Map<Event, Integer> result = new LinkedHashMap<>();
         for (DiscountPolicy discountPolicy : discountPolicies.keySet()) {
             result.put(discountPolicy, discountPolicies.get(discountPolicy));
         }
         for (GiveawayPolicy giveawayPolicy : giveawayPolicies.keySet()) {
             result.put(giveawayPolicy, giveawayPolicies.get(giveawayPolicy).getPrice());
+        }
+        return result;
+    }
+
+    public int calculateTotalBenefit() {
+        int result = 0;
+        for (Integer value : discountPolicies.values()) {
+            result += value;
+        }
+        for (Menu value : giveawayPolicies.values()) {
+            result += value.getPrice();
         }
         return result;
     }
