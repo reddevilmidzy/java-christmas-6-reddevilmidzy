@@ -34,13 +34,14 @@ public class PromotionController {
         EventRepository eventRepository = createRepository();
         Promotion promotion = Promotion.of(eventRepository, visitDate, orders);
         outputView.printGiveawayMenus(promotion.getGiveawayMenus());
+        outputView.printBenefit(promotion.calculateBenefit());
     }
 
     private EventRepository createRepository() {
-        List<DiscountPolicy> discountPolicies = List.of(new WeekdayDiscount(),
-                new SpecialDiscount(),
+        List<DiscountPolicy> discountPolicies = List.of(new ChristmasDDayDiscount(),
                 new WeekendDiscount(),
-                new ChristmasDDayDiscount());
+                new WeekdayDiscount(),
+                new SpecialDiscount());
         List<GiveawayPolicy> giveawayPolicies = List.of(new MenuGiveawayPolicy());
         return new EventRepository(discountPolicies, giveawayPolicies);
     }

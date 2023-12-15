@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.model.Event;
 import christmas.model.Menu;
 import christmas.model.Orders;
 import christmas.model.VisitDate;
@@ -7,6 +8,7 @@ import christmas.repository.EventRepository;
 import christmas.service.discount.DiscountPolicy;
 import christmas.service.giveaway.GiveawayPolicy;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,5 +54,16 @@ public class Promotion {
         return giveawayPolicies.values().stream()
                 .map(Menu::getName)
                 .toList();
+    }
+
+    public Map<Event, Integer> calculateBenefit() {
+        Map<Event, Integer> result = new LinkedHashMap<>();
+        for (DiscountPolicy discountPolicy : discountPolicies.keySet()) {
+            result.put(discountPolicy, discountPolicies.get(discountPolicy));
+        }
+        for (GiveawayPolicy giveawayPolicy : giveawayPolicies.keySet()) {
+            result.put(giveawayPolicy, giveawayPolicies.get(giveawayPolicy).getPrice());
+        }
+        return result;
     }
 }

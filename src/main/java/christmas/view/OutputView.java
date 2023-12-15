@@ -1,10 +1,12 @@
 package christmas.view;
 
+import christmas.model.Event;
 import christmas.model.Menu;
 import christmas.model.Orders;
 import christmas.model.VisitDate;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
 
@@ -47,6 +49,23 @@ public class OutputView {
         for (String menu : menus) {
             System.out.printf("%s %d개%n", menu, Menu.getDefaultQuantity());
         }
+        System.out.println();
+    }
+
+    public void printBenefit(Map<Event, Integer> benefit) {
+        System.out.println("<혜택 내역>");
+        if (benefit.isEmpty()) {
+            System.out.println("없음");
+            System.out.println();
+            return;
+        }
+        for (Event event : benefit.keySet()) {
+            System.out.printf("%s: %s%n", event.getName(), minus(formatted(benefit.get(event))));
+        }
+    }
+
+    private String minus(String value) {
+        return "-" + value;
     }
 
     private String formatted(Integer value) {
