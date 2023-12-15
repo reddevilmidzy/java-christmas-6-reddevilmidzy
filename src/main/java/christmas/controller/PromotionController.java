@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.model.Badge;
 import christmas.model.Orders;
 import christmas.model.VisitDate;
 import christmas.repository.EventRepository;
@@ -37,6 +38,7 @@ public class PromotionController {
         outputView.printBenefit(promotion.calculateBenefitDetail());
         outputView.printTotalBenefitAmount(promotion.calculateTotalBenefit());
         outputView.printPaymentAmount(orders.calculateTotalAmount() - promotion.calculatePaymentAmount());
+        outputView.printBadge(Badge.from(-promotion.calculateTotalBenefit()));
     }
 
     private EventRepository createRepository() {

@@ -84,7 +84,7 @@ public class Promotion {
                 .sum();
     }
 
-    private int calculateGiveawayMenusPrice() {
+    public int calculateGiveawayMenusPrice() {
         return giveawayPolicies.values().stream()
                 .map(Menu::getPrice)
                 .mapToInt(Integer::intValue)

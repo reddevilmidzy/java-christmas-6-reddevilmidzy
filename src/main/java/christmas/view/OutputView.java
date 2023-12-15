@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.model.Badge;
 import christmas.model.Event;
 import christmas.model.Menu;
 import christmas.model.Orders;
@@ -76,6 +77,11 @@ public class OutputView {
         System.out.println("<할인 후 예상 결제 금액>");
         System.out.printf("%s원%n", formatted(amount));
         System.out.println();
+    }
+
+    public void printBadge(Badge badge) {
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(badge.getName());
     }
 
     private String minus(String value) {
