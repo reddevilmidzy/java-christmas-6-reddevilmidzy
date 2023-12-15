@@ -55,4 +55,12 @@ public class VisitDate {
     public boolean isHoliday() {
         return visit.getDayOfWeek().equals(DayOfWeek.SUNDAY) || visit.isEqual(CHRISTMAS);
     }
+
+    public int getMonth() {
+        return visit.getMonthValue();
+    }
+
+    public int getDay() {
+        return visit.getDayOfMonth();
+    }
 }

@@ -18,6 +18,7 @@ public class PromotionController {
         outputView.printStartMessage();
         VisitDate visitDate = inputController.getVisitDate();
         Orders orders = inputController.getOrders();
-
+        outputView.printEventPreviewMessage(visitDate);
+        outputView.printOrders(orders);
     }
 }

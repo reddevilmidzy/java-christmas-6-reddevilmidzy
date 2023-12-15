@@ -3,6 +3,7 @@ package christmas.model;
 import christmas.constant.ErrorMessage;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Orders {
 
@@ -37,5 +38,9 @@ public class Orders {
                 .filter(order -> order.isCategory(category))
                 .mapToInt(Order::getQuantity)
                 .sum();
+    }
+
+    public void forEach(Consumer<? super Order> action) {
+        orders.forEach(action);
     }
 }
