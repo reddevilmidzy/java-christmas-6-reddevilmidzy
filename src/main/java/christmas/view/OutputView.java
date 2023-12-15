@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.constant.ErrorMessage;
 import christmas.model.Badge;
 import christmas.model.Event;
 import christmas.model.Menu;
@@ -19,7 +20,7 @@ public class OutputView {
     }
 
     public void printErrorMessage(Throwable throwable) {
-        System.out.printf(ERROR_FORM, throwable.getMessage());
+        System.out.printf(ERROR_FORM, throwable.getMessage() + " " + ErrorMessage.RETRY_INPUT.getMessage());
         System.out.println();
     }
 
