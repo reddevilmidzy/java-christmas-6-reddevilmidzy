@@ -1,5 +1,6 @@
 package christmas.model;
 
+import christmas.constant.ErrorMessage;
 import java.time.LocalDate;
 
 public class VisitDate {
@@ -24,7 +25,7 @@ public class VisitDate {
     private static void validateRange(String value) {
         int target = Integer.parseInt(value);
         if (target < 0 || target > 31) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DATE.getMessage());
         }
     }
 
@@ -32,7 +33,7 @@ public class VisitDate {
         try {
             Integer.parseInt(value);
         } catch (NumberFormatException exception) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DATE.getMessage());
         }
     }
 }

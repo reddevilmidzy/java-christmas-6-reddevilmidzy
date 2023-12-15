@@ -1,5 +1,6 @@
 package christmas.model;
 
+import christmas.constant.ErrorMessage;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,13 +22,13 @@ public class Orders {
 
     private static void validate(String value) {
         if (value.trim().isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
         if (value.startsWith(",") || value.endsWith(",")) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
         if (value.contains(",,")) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 }
