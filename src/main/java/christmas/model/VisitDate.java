@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 public class VisitDate {
 
+    private static final LocalDate CHRISTMAS = LocalDate.of(2023, 12, 25);
     private final LocalDate visit;
 
     private VisitDate(LocalDate visit) {
@@ -24,7 +25,7 @@ public class VisitDate {
 
     private static void validateRange(String value) {
         int target = Integer.parseInt(value);
-        if (target < 0 || target > 31) {
+        if (target < 1 || target > 31) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_DATE.getMessage());
         }
     }
@@ -35,5 +36,13 @@ public class VisitDate {
         } catch (NumberFormatException exception) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_DATE.getMessage());
         }
+    }
+
+    public int leftUntilChristmas() {
+        return CHRISTMAS.compareTo(visit);
+    }
+
+    public boolean isAfterChristmas() {
+        return visit.isAfter(CHRISTMAS);
     }
 }
