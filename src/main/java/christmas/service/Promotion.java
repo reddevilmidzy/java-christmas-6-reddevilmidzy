@@ -74,6 +74,20 @@ public class Promotion {
         for (Menu value : giveawayPolicies.values()) {
             result += value.getPrice();
         }
-        return result;
+        return -result;
+    }
+
+    public int calculatePaymentAmount() {
+
+        return discountPolicies.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    private int calculateGiveawayMenusPrice() {
+        return giveawayPolicies.values().stream()
+                .map(Menu::getPrice)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 }

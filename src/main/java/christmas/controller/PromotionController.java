@@ -36,6 +36,7 @@ public class PromotionController {
         outputView.printGiveawayMenus(promotion.getGiveawayMenus());
         outputView.printBenefit(promotion.calculateBenefitDetail());
         outputView.printTotalBenefitAmount(promotion.calculateTotalBenefit());
+        outputView.printPaymentAmount(orders.calculateTotalAmount() - promotion.calculatePaymentAmount());
     }
 
     private EventRepository createRepository() {

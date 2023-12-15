@@ -44,6 +44,7 @@ public class OutputView {
         System.out.println("<증정 메뉴>");
         if (menus.isEmpty()) {
             System.out.println("없음");
+            System.out.println();
             return;
         }
         for (String menu : menus) {
@@ -67,7 +68,13 @@ public class OutputView {
 
     public void printTotalBenefitAmount(int amount) {
         System.out.println("<총혜택 금액>");
-        System.out.printf("%s원%n", minus(formatted(amount)));
+        System.out.printf("%s원%n", formatted(amount));
+        System.out.println();
+    }
+
+    public void printPaymentAmount(int amount) {
+        System.out.println("<할인 후 예상 결제 금액>");
+        System.out.printf("%s원%n", formatted(amount));
         System.out.println();
     }
 
