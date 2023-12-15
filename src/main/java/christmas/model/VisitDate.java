@@ -51,4 +51,8 @@ public class VisitDate {
         DayOfWeek dayOfWeek = visit.getDayOfWeek();
         return dayOfWeek.equals(DayOfWeek.FRIDAY) || dayOfWeek.equals(DayOfWeek.SATURDAY);
     }
+
+    public boolean isHoliday() {
+        return visit.getDayOfWeek().equals(DayOfWeek.SUNDAY) || visit.isEqual(CHRISTMAS);
+    }
 }
