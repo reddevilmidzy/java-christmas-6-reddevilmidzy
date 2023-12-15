@@ -1,6 +1,7 @@
 package christmas.model;
 
 import christmas.constant.ErrorMessage;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class VisitDate {
@@ -44,5 +45,10 @@ public class VisitDate {
 
     public boolean isAfterChristmas() {
         return visit.isAfter(CHRISTMAS);
+    }
+
+    public boolean isWeekend() {
+        DayOfWeek dayOfWeek = visit.getDayOfWeek();
+        return dayOfWeek.equals(DayOfWeek.FRIDAY) || dayOfWeek.equals(DayOfWeek.SATURDAY);
     }
 }

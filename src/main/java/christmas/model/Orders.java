@@ -31,4 +31,11 @@ public class Orders {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
+
+    public int countCategory(Category category) {
+        return orders.stream()
+                .filter(order -> order.isCategory(category))
+                .mapToInt(Order::getQuantity)
+                .sum();
+    }
 }

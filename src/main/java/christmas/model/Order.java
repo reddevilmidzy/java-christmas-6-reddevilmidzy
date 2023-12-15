@@ -53,4 +53,12 @@ public class Order {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
+
+    public boolean isCategory(Category category) {
+        return menu.getCategory().equals(category);
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }
