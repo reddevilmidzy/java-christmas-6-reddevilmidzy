@@ -46,4 +46,8 @@ public enum Menu {
     public int getPrice() {
         return price;
     }
+
+    public static int getDefaultQuantity() {
+        return 1;
+    }
 }

@@ -1,8 +1,10 @@
 package christmas.view;
 
+import christmas.model.Menu;
 import christmas.model.Orders;
 import christmas.model.VisitDate;
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class OutputView {
 
@@ -35,6 +37,17 @@ public class OutputView {
         System.out.println();
     }
 
+
+    public void printGiveawayMenus(List<String> menus) {
+        System.out.println("<증정 메뉴>");
+        if (menus.isEmpty()) {
+            System.out.println("없음");
+            return;
+        }
+        for (String menu : menus) {
+            System.out.printf("%s %d개%n", menu, Menu.getDefaultQuantity());
+        }
+    }
 
     private String formatted(Integer value) {
         return NUMBER_FORMAT.format(value);
