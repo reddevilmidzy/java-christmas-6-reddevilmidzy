@@ -1,8 +1,11 @@
 package christmas.controller;
 
+import christmas.model.Order;
+import christmas.model.Orders;
 import christmas.model.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import java.util.List;
 
 public class InputController {
 
@@ -28,5 +31,20 @@ public class InputController {
     private VisitDate readVisitDate() {
         String value = inputView.readVisitDate();
         return VisitDate.from(value);
+    }
+
+    public Orders getOrders() {
+        while (true) {
+            try {
+                return readOrders();
+            } catch (IllegalArgumentException exception) {
+                outputView.printErrorMessage(exception);
+            }
+        }
+    }
+
+    private Orders readOrders() {
+        String value = inputView.readOrders();
+        return Orders.from(value);
     }
 }

@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.model.Orders;
 import christmas.model.VisitDate;
 import christmas.view.OutputView;
 
@@ -16,7 +17,7 @@ public class PromotionController {
     public void run() {
         outputView.printStartMessage();
         VisitDate visitDate = inputController.getVisitDate();
-
+        Orders orders = inputController.getOrders();
 
     }
 }
