@@ -43,4 +43,11 @@ public class Orders {
     public void forEach(Consumer<? super Order> action) {
         orders.forEach(action);
     }
+
+    public int calculateTotalAmount() {
+        return orders.stream()
+                .map(Order::amount)
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
 }

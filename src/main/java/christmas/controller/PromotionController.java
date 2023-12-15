@@ -20,5 +20,7 @@ public class PromotionController {
         Orders orders = inputController.getOrders();
         outputView.printEventPreviewMessage(visitDate);
         outputView.printOrders(orders);
+        outputView.printTotalOrderAmountBeforeDiscount(orders);
+
     }
 }

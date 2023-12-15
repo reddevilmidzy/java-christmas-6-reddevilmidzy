@@ -62,6 +62,10 @@ public class Order {
         return quantity;
     }
 
+    public int amount() {
+        return menu.getPrice() * quantity;
+    }
+
     @Override
     public String toString() {
         return menu.getName() + " " + quantity + "개";
